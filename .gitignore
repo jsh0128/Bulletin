@@ -2,8 +2,6 @@
 
 # dependencies
 front-end/node_modules
-/.pnp
-.pnp.js
 
 backend/.idea/
 backend/.vscode/
@@ -11,6 +9,8 @@ backend/node_modules/
 backend/build/
 backend/temp/
 
+
+backend/.env
 # testing
 /coverage
 

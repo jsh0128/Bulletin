@@ -1,18 +1,31 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from "typeorm";
 
-@Entity()
+@Entity("user")
 export class User {
+  @PrimaryColumn()
+  email: string;
+  // !이면 null 불가
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Column({
+    length: 255,
+  })
+  name!: string;
+  // 이름
 
-    @Column()
-    firstName: string;
+  @Column({
+    length: 255,
+  })
+  password!: string;
+  // 비밀번호
 
-    @Column()
-    lastName: string;
+  @Column({
+    length: 200,
+    nullable: true,
+  })
+  profile_img: string;
+  // 프로필 사진
 
-    @Column()
-    age: number;
-
+  @Column({ default: false })
+  is_admin: boolean;
+  // 어드민인지 확인
 }
