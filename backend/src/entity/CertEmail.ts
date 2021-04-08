@@ -7,4 +7,10 @@ export default class EmailCode {
 
   @Column()
   email: string;
+
+  @Column()
+  certCode: string;
+
+  @Column({ default: false })
+  cert: boolean;
 }
