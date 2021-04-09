@@ -25,9 +25,7 @@ export const createToken = (
     }
   );
 };
-export const decodeToken = (token) => {
-  return jwt.decode(token);
-};
+
 export const verifyToken = (token) => {
   // 토큰 유효성 검사
   return jwt.verify(token, JWT_SECRET_KEY);

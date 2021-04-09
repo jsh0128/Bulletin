@@ -1,10 +1,8 @@
 import { Request, Response } from "express";
 import { getRepository, Repository } from "typeorm";
-import { User } from "../../../../entity/User";
+import User from "../../../../entity/User";
 import { handleResponse } from "../../../../lib/handleResponse";
 import { createToken } from "../../../../lib/jwtToken";
-
-const { GMAIL_ID, GMAIL_PW } = process.env;
 
 export default async (request: Request, response: Response) => {
   try {

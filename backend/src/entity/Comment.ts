@@ -8,7 +8,7 @@ import {
   BaseEntity,
 } from "typeorm";
 import { Post } from "./Post";
-import { User } from "./User";
+import User from "./User";
 
 @Entity("comment")
 export class Comment {

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { User } from "../../../../entity/User";
+import User from "../../../../entity/User";
 import { getRepository, Repository } from "typeorm";
 import CertEmail from "../../../../entity/CertEmail";
 import { handleResponse } from "../../../../lib/handleResponse";

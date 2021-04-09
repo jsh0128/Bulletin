@@ -9,7 +9,7 @@ import {
   RelationId,
 } from "typeorm";
 import { Category } from "./Category";
-import { User } from "./User";
+import User from "./User";
 
 @Entity("post")
 export class Post {
@@ -39,8 +39,10 @@ export class Post {
   // user 연결
 
   @Column({ nullable: false })
+  fk_user_name: string;
+  // user이름 저장
+  @Column({ nullable: false })
   fk_user_email: string;
-  // userIdx를 저장
 
   @ManyToOne(() => Category, { onDelete: "CASCADE" })
   @JoinColumn({ name: "fk_category_idx" })
