@@ -7,17 +7,17 @@ export const createToken = (
   email: string,
   name: string,
   profile: string,
-  isAdmin: boolean
+  is_admin: boolean
 ) => {
   // 토큰 만들기
-  console.log(email, name, profile, isAdmin, JWT_SECRET_KEY);
+  console.log(email, name, profile, is_admin, JWT_SECRET_KEY);
 
   return jwt.sign(
     {
       email,
       name,
       profile,
-      isAdmin,
+      is_admin,
     },
     JWT_SECRET_KEY,
     {

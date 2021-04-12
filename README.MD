@@ -1,6 +1,6 @@
-# stack
-
-### 개인 프로젝트
+# STACK
 
 backend - typeorm, express, mysql
 forntend - react, redux, styled component
+
+# 개인프로젝트

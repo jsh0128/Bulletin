@@ -14,7 +14,7 @@ export default async (request: Request, response: Response) => {
     const { email } = request.body;
 
     const overEmail = await emailCertRepository.findOne({
-      where: { email },
+      where: { email: email },
     });
     // 중복되는 메일 있는지 확인
 

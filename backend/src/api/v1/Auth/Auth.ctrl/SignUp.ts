@@ -11,7 +11,9 @@ export default async (request: Request, response: Response) => {
     const userRepository: Repository<User> = getRepository(User);
     const emailRepository: Repository<CertEmail> = getRepository(CertEmail);
 
-    const checkEmail = await userRepository.findOne(email);
+    const checkEmail = await userRepository.findOne({
+      where: { email: email },
+    });
 
     if (checkEmail) {
       console.log("중복된 회원");

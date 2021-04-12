@@ -18,7 +18,7 @@ export default async (request: Request, response: Response) => {
     }
 
     const userInfo = await userRepository.findOne({
-      where: { email, password },
+      where: { email: email, password: password },
     });
     if (!userInfo) {
       handleResponse(

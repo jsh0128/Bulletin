@@ -44,12 +44,7 @@ export class Post {
   @Column({ nullable: false })
   fk_user_email: string;
 
-  @ManyToOne(() => Category, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "fk_category_idx" })
-  category: Category;
-  // category 연결
-
-  @Column({ nullable: false })
-  fk_category_idx: number;
+  @Column({ nullable: true })
+  fk_category_name: string;
   // categroyIdx를 저장
 }

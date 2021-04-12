@@ -9,21 +9,27 @@ import AuthRequest from "../../../../types/AuthRequest";
 export default async (request: AuthRequest, response: Response) => {
   try {
     const { title, content, category_idx } = request.body;
-    console.log(request.user.name);
     const user: User = request.user;
 
     const postRepository: Repository<Post> = getRepository(Post);
     const cateogoryRepository: Repository<Category> = getRepository(Category);
 
-    const categoryIdx = await cateogoryRepository.findOne(category_idx);
-    if (!categoryIdx) {
-      console.log("존재하지 않는 카테고리");
-      return handleResponse(response, 404, "존재하지 않는 카테고리");
+    let category;
+
+    if (category_idx) {
+      category = await cateogoryRepository.findOne({
+        where: { idx: category_idx },
+      });
+      if (!category && category_idx) {
+        console.log("존재하지 않는 카테고리");
+        return handleResponse(response, 405, "존재하지 않는 카테고리");
+      }
     }
+
     const post = new Post();
     post.title = title;
     post.content = content;
-    post.fk_category_idx = categoryIdx.idx;
+    post.fk_category_name = category ? category.category : null;
     post.fk_user_name = user.name;
     post.fk_user_email = user.email;
     post.created_at = new Date();
