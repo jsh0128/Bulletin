@@ -18,7 +18,6 @@ export default async (request: AuthRequest, response: Response) => {
       PostCategory
     );
 
-    const postCategory: PostCategory = new PostCategory();
     let category;
     let categoryArray = [];
     //
@@ -48,7 +47,6 @@ export default async (request: AuthRequest, response: Response) => {
     post.title = title;
     post.content = content;
     post.introduction = introduction;
-    // post.fk_category_idx = category ? category.category : null;
     post.fk_user_name = user.name;
     post.fk_user_email = user.email;
     post.created_at = new Date();
@@ -58,6 +56,7 @@ export default async (request: AuthRequest, response: Response) => {
     console.log(post.idx);
 
     for (let i in categoryArray) {
+      const postCategory: PostCategory = new PostCategory();
       postCategory.category_idx = categoryArray[i];
       postCategory.post_idx = post.idx;
       await postCategoryRepository.save(postCategory);

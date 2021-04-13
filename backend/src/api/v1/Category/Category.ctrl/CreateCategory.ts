@@ -7,7 +7,7 @@ export default async (request: Request, response: Response) => {
   try {
     const categoryRepository: Repository<Category> = getRepository(Category);
 
-    const findCategory = categoryRepository.findOne({
+    const findCategory = await categoryRepository.findOne({
       where: { category: request.body.category },
     });
 
