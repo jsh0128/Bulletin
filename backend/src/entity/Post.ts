@@ -17,9 +17,17 @@ export class Post {
   idx: number;
   // 게시글 번호
 
-  @Column()
+  @Column({ length: 100 })
   title!: string;
   // 제목
+
+  @Column({ type: "text" })
+  introduction!: string;
+  // 글 소개
+
+  @Column({ type: "text", nullable: true })
+  preview_image: string;
+  // 썸네일
 
   @Column({ type: "text" })
   content!: string;
@@ -43,8 +51,4 @@ export class Post {
   // user이름 저장
   @Column({ nullable: false })
   fk_user_email: string;
-
-  @Column({ nullable: true })
-  fk_category_name: string;
-  // categroyIdx를 저장
 }
