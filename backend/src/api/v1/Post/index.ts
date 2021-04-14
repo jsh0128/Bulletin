@@ -1,7 +1,7 @@
 import Router from "express";
 import CreatePost from "./Post.ctrl/CreatePost";
 import { validateAdmin } from "../../../lib/middleware/AuthTypeCheck";
-import DeletePost from "./Post.ctrl/DeletePost";
+import DeletePost from "./Post.ctrl/GetPost";
 import ModifyPost from "./Post.ctrl/ModifyPost";
 import DetailJoin from "./Post.ctrl/DetailJoin";
 

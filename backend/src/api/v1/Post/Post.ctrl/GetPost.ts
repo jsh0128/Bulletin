@@ -47,10 +47,12 @@ export default async (request: Request, response: Response) => {
       const posts: Post[] = await postRepository.find({
         select: [
           "idx",
+          "title",
           "content",
           "introduction",
           "created_at",
           "fk_user_name",
+          "fk_user_email",
           "preview_image",
           "created_at",
         ],
@@ -64,19 +66,33 @@ export default async (request: Request, response: Response) => {
         order: { idx: "DESC" },
       });
 
+      const data = [];
+
       for (let i in posts) {
-        postCategories.forEach(async (items) => {
-          if (items.post_idx === posts[i].idx) {
-            // 글 번호가 같을때 실행
-            categories.push(
-              await CategoryRepository.findOne({
-                where: { idx: items.category_idx },
-              })
-            );
+        categories = [];
+        for (let j in postCategories) {
+          if (postCategories[j].post_idx === posts[i].idx) {
+            // postCategory의 post_idx랑 post의 idx랑 같을때
+            const categoryName = await CategoryRepository.findOne({
+              where: { idx: postCategories[j].category_idx },
+            });
+            categories.push(categoryName.category);
           }
+        }
+        data.push({
+          idx: posts[i].idx,
+          title: posts[i].title,
+          content: posts[i].content,
+          created_at: posts[i].created_at,
+          introduction: posts[i].introduction,
+          preview_image: posts[i].preview_image,
+          user_email: posts[i].fk_user_email,
+          user_name: posts[i].fk_user_name,
+          category: categories,
         });
       }
-      handleResponse(response, 200, "글 조회 성공", posts);
+
+      handleResponse(response, 200, "글 조회 성공", data);
     }
   } catch (err) {
     console.log(err);

@@ -20,13 +20,9 @@ export default async (request: AuthRequest, response: Response) => {
 
     let category;
     let categoryArray = [];
-    //
-
-    /*category를 받은뒤에 category가 있는지 먼저 검사
-    있으면 category idx를 저장 그리고 post를 만들고 
-     post를 만들고 그 post idx를 category idx에 넘겨*/
 
     if (categories) {
+      // 카테고리가 있는건지 검사
       for (let i in categories) {
         category = await cateogoryRepository.findOne({
           where: { category: categories[i] },
@@ -51,16 +47,14 @@ export default async (request: AuthRequest, response: Response) => {
     post.fk_user_email = user.email;
     post.created_at = new Date();
 
-    await postRepository.save(post);
-
-    console.log(post.idx);
-
     for (let i in categoryArray) {
       const postCategory: PostCategory = new PostCategory();
       postCategory.category_idx = categoryArray[i];
       postCategory.post_idx = post.idx;
       await postCategoryRepository.save(postCategory);
     }
+
+    await postRepository.save(post);
 
     console.log("글 생성 성공");
     handleResponse(response, 200, "글 생성 성공");

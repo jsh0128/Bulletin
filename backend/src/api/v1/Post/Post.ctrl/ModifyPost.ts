@@ -28,8 +28,10 @@ export default async (request: Request, response: Response) => {
       where: { post_idx: post_idx },
     });
 
-    for (let i in post_idx) {
-    }
+    postCategory.forEach((item) => {
+      
+    })
+
 
     let category;
     if (category_idx) {
