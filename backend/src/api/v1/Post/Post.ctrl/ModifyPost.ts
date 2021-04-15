@@ -7,7 +7,7 @@ import { handleResponse } from "../../../../lib/handleResponse";
 
 export default async (request: Request, response: Response) => {
   try {
-    const { title, content, post_idx, category_idx } = request.body;
+    const { title, content, post_idx, categories } = request.body;
 
     const postRepository: Repository<Post> = getRepository(Post);
     const categoryRepository: Repository<Category> = getRepository(Category);
@@ -28,20 +28,18 @@ export default async (request: Request, response: Response) => {
       where: { post_idx: post_idx },
     });
 
-    postCategory.forEach((item) => {
-      
-    })
+    postCategory.forEach((item) => {});
 
-
-    let category;
-    if (category_idx) {
-      category = await categoryRepository.findOne({
-        where: { idx: category_idx },
+    let category = [];
+    for (let i in categories) {
+      let findCategory = await categoryRepository.findOne({
+        where: { category: categories[i] },
       });
       if (!category) {
         console.log("존재하지 않는 카테고리");
         return handleResponse(response, 405, "존재하지 않는 카테고리");
       }
+      category.push(findCategory);
     }
     // category는 존재하는 카테고리인지 확인
 

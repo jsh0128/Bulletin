@@ -5,11 +5,11 @@ import { handleResponse } from "../../../../lib/handleResponse";
 
 export default async (request: Request, response: Response) => {
   try {
-    const { category_idx } = request.body;
+    const { category_name } = request.body;
     const categoryRepository: Repository<Category> = getRepository(Category);
 
     const findCategory = await categoryRepository.findOne({
-      where: { idx: category_idx },
+      where: { category: category_name },
     });
 
     if (!findCategory) {

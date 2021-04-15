@@ -8,7 +8,6 @@ import {
   BaseEntity,
   RelationId,
 } from "typeorm";
-import { Category } from "./Category";
 import User from "./User";
 
 @Entity("post")
@@ -46,9 +45,6 @@ export class Post {
   user: User;
   // user 연결
 
-  @Column({ nullable: false })
-  fk_user_name: string;
-  // user이름 저장
-  @Column({ nullable: false })
+  @Column()
   fk_user_email: string;
 }

@@ -5,11 +5,11 @@ import { handleResponse } from "../../../../lib/handleResponse";
 
 export default async (request: Request, response: Response) => {
   try {
-    const { category_idx, change_name } = request.body;
+    const { category_name, change_name } = request.body;
     const categoryRepository: Repository<Category> = getRepository(Category);
 
     const category = await categoryRepository.findOne({
-      where: { idx: category_idx },
+      where: { category: category_name },
     });
     if (!category) {
       console.log("존재하지 않는 카테고리입니다.");

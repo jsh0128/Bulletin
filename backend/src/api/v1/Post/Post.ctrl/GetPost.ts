@@ -3,6 +3,7 @@ import { getRepository, Repository } from "typeorm";
 import { Category } from "../../../../entity/Category";
 import { Post } from "../../../../entity/Post";
 import { PostCategory } from "../../../../entity/PostCategory";
+import User from "../../../../entity/User";
 import { handleResponse } from "../../../../lib/handleResponse";
 
 export default async (request: Request, response: Response) => {
@@ -13,12 +14,14 @@ export default async (request: Request, response: Response) => {
       PostCategory
     );
     const CategoryRepository: Repository<Category> = getRepository(Category);
+    const UserRepository: Repository<User> = getRepository(User);
 
     let categories = [];
 
     if (idx) {
       // 상세 조회
       const findPost = await postRepository.findOne({
+        // 존재하는 글인지 확인
         where: { idx: idx },
       });
       if (!findPost) {
@@ -26,18 +29,31 @@ export default async (request: Request, response: Response) => {
         handleResponse(response, 404, "존재하지 않는 글입니다");
         return;
       }
+
       const findCategoryIdx = await postCategoryRepository.find({
-        where: { post_idx: findPost.idx },
+        where: { fk_post_idx: findPost.idx },
       });
 
       for (let i in findCategoryIdx) {
         const categoryName = await CategoryRepository.findOne({
-          where: { idx: findCategoryIdx[i].category_idx },
+          where: { idx: findCategoryIdx[i].fk_category_idx },
         });
         categories.push(categoryName.category);
       }
 
-      const data = { findPost, categories };
+      const userFind = await UserRepository.findOne({
+        where: { email: findPost.fk_user_email },
+      });
+
+      if (!userFind) {
+        console.log("존재하지 않는 유저입니다");
+        handleResponse(response, 404, "존재하지 않는 유저입니다");
+        return;
+      }
+
+      const userName = userFind.name;
+
+      const data = { findPost, categories, userName };
 
       console.log("글 조회 성공");
       handleResponse(response, 200, "글 조회 성공", data);
@@ -51,7 +67,6 @@ export default async (request: Request, response: Response) => {
           "content",
           "introduction",
           "created_at",
-          "fk_user_name",
           "fk_user_email",
           "preview_image",
           "created_at",
@@ -62,7 +77,7 @@ export default async (request: Request, response: Response) => {
       });
 
       const postCategories = await postCategoryRepository.find({
-        select: ["idx", "post_idx", "category_idx"],
+        select: ["idx", "fk_post_idx", "fk_category_idx"],
         order: { idx: "DESC" },
       });
 
@@ -70,11 +85,16 @@ export default async (request: Request, response: Response) => {
 
       for (let i in posts) {
         categories = [];
+
+        const userName = await UserRepository.findOne({
+          email: posts[i].fk_user_email,
+        });
+
         for (let j in postCategories) {
-          if (postCategories[j].post_idx === posts[i].idx) {
+          if (postCategories[j].fk_post_idx === posts[i].idx) {
             // postCategory의 post_idx랑 post의 idx랑 같을때
             const categoryName = await CategoryRepository.findOne({
-              where: { idx: postCategories[j].category_idx },
+              where: { idx: postCategories[j].fk_category_idx },
             });
             categories.push(categoryName.category);
           }
@@ -87,8 +107,8 @@ export default async (request: Request, response: Response) => {
           introduction: posts[i].introduction,
           preview_image: posts[i].preview_image,
           user_email: posts[i].fk_user_email,
-          user_name: posts[i].fk_user_name,
           category: categories,
+          user_name: userName.name,
         });
       }
 

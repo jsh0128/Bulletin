@@ -43,8 +43,8 @@ export default async (request: Request, response: Response) => {
     return response
       .status(200)
       .json({ status: 200, message: "회원가입에 성공하였습니다" });
-  } catch {
-    console.log("회원가입 서버 에러");
+  } catch (err) {
+    console.log(err);
     return response
       .status(500)
       .json({ status: 500, message: "회원가입 서버 에러" });

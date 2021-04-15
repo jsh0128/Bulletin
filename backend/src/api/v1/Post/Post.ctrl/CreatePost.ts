@@ -9,7 +9,13 @@ import AuthRequest from "../../../../types/AuthRequest";
 
 export default async (request: AuthRequest, response: Response) => {
   try {
-    const { title, content, introduction, categories } = request.body;
+    const {
+      title,
+      content,
+      introduction,
+      categories,
+      preview_img,
+    } = request.body;
     const user: User = request.user;
 
     const postRepository: Repository<Post> = getRepository(Post);
@@ -43,18 +49,17 @@ export default async (request: AuthRequest, response: Response) => {
     post.title = title;
     post.content = content;
     post.introduction = introduction;
-    post.fk_user_name = user.name;
     post.fk_user_email = user.email;
+    post.preview_image = preview_img;
     post.created_at = new Date();
 
+    await postRepository.save(post);
     for (let i in categoryArray) {
       const postCategory: PostCategory = new PostCategory();
-      postCategory.category_idx = categoryArray[i];
-      postCategory.post_idx = post.idx;
+      postCategory.fk_category_idx = categoryArray[i];
+      postCategory.fk_post_idx = post.idx;
       await postCategoryRepository.save(postCategory);
     }
-
-    await postRepository.save(post);
 
     console.log("글 생성 성공");
     handleResponse(response, 200, "글 생성 성공");

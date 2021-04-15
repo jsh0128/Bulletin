@@ -46,8 +46,6 @@ export default async (request: Request, response: Response) => {
 
     // 새로운 메일 전송시 그전 코드로 인증 불가
 
-    console.log("중복되는 이메일 " + overEmail);
-
     if (overEmail) {
       overEmail.certCode = authNum;
 
@@ -74,8 +72,8 @@ export default async (request: Request, response: Response) => {
         return;
       }
     });
-  } catch {
-    console.log("서버 오류입니다.");
+  } catch (err) {
+    console.log(err);
     handleResponse(response, 500, "서버 오류입니다.");
     return;
   }

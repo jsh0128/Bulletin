@@ -9,6 +9,7 @@ backend/node_modules/
 backend/build/
 backend/temp/
 
+my-app
 
 backend/.env
 # testing

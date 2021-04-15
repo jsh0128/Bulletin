@@ -5,7 +5,6 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
-  BaseEntity,
 } from "typeorm";
 import { Post } from "./Post";
 import User from "./User";
@@ -25,7 +24,7 @@ export class Comment {
   @JoinColumn({ name: "fk_post_idx" })
   post: Post;
 
-  @Column({ nullable: false })
+  @Column()
   fk_post_idx: number;
 
   @ManyToOne(() => User, { onDelete: "CASCADE" })
@@ -33,6 +32,6 @@ export class Comment {
   user: User;
   // user 연결
 
-  @Column({ nullable: false })
+  @Column()
   fk_user_email: string;
 }

@@ -1,13 +1,29 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { Category } from "./Category";
+import { Post } from "./Post";
 
 @Entity("post_category")
 export class PostCategory {
   @PrimaryGeneratedColumn()
   idx: number;
 
-  @Column()
-  post_idx: number;
+  @ManyToOne(() => Post, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "fk_post_idx" })
+  post: Post;
+
+  @Column({ nullable: false })
+  fk_post_idx: number;
+
+  @ManyToOne(() => Category, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "fk_category_idx" })
+  category: Category;
 
   @Column()
-  category_idx: number;
+  fk_category_idx: number;
 }
