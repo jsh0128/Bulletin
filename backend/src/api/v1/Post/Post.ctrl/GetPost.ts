@@ -113,6 +113,7 @@ export default async (request: Request, response: Response) => {
       }
 
       handleResponse(response, 200, "글 조회 성공", data);
+      return;
     }
   } catch (err) {
     console.log(err);

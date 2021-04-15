@@ -19,7 +19,10 @@ export default async (request: Request, response: Response) => {
 
     category.category = change_name;
 
-    categoryRepository.save(category);
+    await categoryRepository.save(category);
+    console.log("수정 성공");
+    handleResponse(response, 200, "수정 성공");
+    return;
   } catch (err) {
     console.log(err);
     handleResponse(response, 500, "서버 에러");

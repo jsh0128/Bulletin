@@ -40,13 +40,11 @@ export default async (request: Request, response: Response) => {
 
     await userRepository.save(user);
     console.log("회원가입에 성공하였습니다");
-    return response
-      .status(200)
-      .json({ status: 200, message: "회원가입에 성공하였습니다" });
+    handleResponse(response, 200, "회원가입에 성공하였습니다");
+    return;
   } catch (err) {
     console.log(err);
-    return response
-      .status(500)
-      .json({ status: 500, message: "회원가입 서버 에러" });
+    handleResponse(response, 500, "서버 오류");
+    return;
   }
 };

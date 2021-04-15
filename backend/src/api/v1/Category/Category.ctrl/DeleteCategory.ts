@@ -18,7 +18,7 @@ export default async (request: Request, response: Response) => {
       return;
     }
 
-    categoryRepository.delete(findCategory);
+    await categoryRepository.delete(findCategory);
     console.log("카테고리를 정상적으로 삭제하였습니다.");
     handleResponse(response, 200, "카테고리를 정상적으로 삭제하였습니다");
     return;

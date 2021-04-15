@@ -25,10 +25,8 @@ export default async (request: Request, response: Response) => {
     }
 
     const postCategory = await postCategoryRepository.find({
-      where: { post_idx: post_idx },
+      where: { fk_post_idx: post_idx },
     });
-
-    postCategory.forEach((item) => {});
 
     let category = [];
     for (let i in categories) {
@@ -48,7 +46,8 @@ export default async (request: Request, response: Response) => {
 
     await postRepository.save(checkPost);
     console.log("글 수정 성공");
-    return handleResponse(response, 200, "글 수정 성공");
+    handleResponse(response, 200, "글 수정 성공");
+    return;
   } catch (err) {
     console.log(err);
     handleResponse(response, 500, "서버 에러");

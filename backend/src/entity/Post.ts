@@ -5,8 +5,6 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
-  BaseEntity,
-  RelationId,
 } from "typeorm";
 import User from "./User";
 
