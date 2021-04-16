@@ -14,6 +14,12 @@ export default async (request: AuthRequest, response: Response) => {
       where: { idx: coment_idx },
     });
 
+    if (!coment_idx) {
+      console.log("coment idx가 없습니다.");
+      handleResponse(response, 405, "coment idx가 없습니다.");
+      return;
+    }
+
     if (findComent.fk_user_email !== user.email) {
       console.log("삭제 불가");
       handleResponse(response, 403, "삭제 불가");

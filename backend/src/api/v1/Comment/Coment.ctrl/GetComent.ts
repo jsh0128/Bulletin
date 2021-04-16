@@ -10,9 +10,15 @@ export default async (request: Request, response: Response) => {
     const comentRepository: Repository<Coment> = getRepository(Coment);
     const userRepository: Repository<User> = getRepository(User);
 
+    if (!postIdx) {
+      console.log("post idx가 없습니다.");
+      handleResponse(response, 404, "post idx가 없습니다.");
+      return;
+    }
+
     const findComent = await comentRepository.find({
       where: { fk_post_idx: postIdx },
-      select: ["content", "created_at"],
+      select: ["content", "created_at", "fk_user_email"],
       order: { created_at: "DESC" },
     });
 
