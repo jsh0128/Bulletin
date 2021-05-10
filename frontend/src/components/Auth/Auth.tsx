@@ -1,21 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import "./Auth.scss";
 
 interface AuthProps {}
 
 const Auth = ({}: AuthProps) => {
-  return (
-    <>
-      <div></div>
-    </>
-  );
+  return <AuthStyle></AuthStyle>;
 };
 
 const AuthStyle = styled.div`
   display: flex;
   align-items: center;
-  width: 1400px;
+  justify-content: center;
 `;
 
 export default Auth;

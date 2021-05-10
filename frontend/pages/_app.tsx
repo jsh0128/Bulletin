@@ -1,11 +1,16 @@
+import DefaultTemplate from "components/common/DefaultTemplate";
 import { AppProps } from "next/app";
-import { GlobalStyled } from "../styles/globals";
+import { GlobalStyled, MaxWidth } from "styles/globals";
 
 function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Component {...pageProps} />
-      <GlobalStyled />
+      <DefaultTemplate>
+        <MaxWidth>
+          <Component {...pageProps} />
+        </MaxWidth>
+        <GlobalStyled />
+      </DefaultTemplate>
     </>
   );
 }

@@ -1,9 +1,7 @@
 import React from "react";
 import "./Write.scss";
 
-interface WriteProps {
-
-}
+interface WriteProps {}
 
 const Write = ({}: WriteProps) => {
   return (
