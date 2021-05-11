@@ -3,16 +3,70 @@ import styled from "styled-components";
 interface MainProps {}
 
 const Main = ({}: MainProps) => {
-  const a = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  const data = [
+    {
+      img: "",
+      title: "가나다",
+      introduction:
+        "테스트입니다. 테스트입니다. 테스트입니다. 테스트입니다. 테스트입니다. 테스트입니다. 테스트입니다. 테스트입니다. ",
+      writer: "나다",
+      created_at: "2013-01-05",
+    },
+    {
+      img: "",
+      title: "가나다",
+      introduction: "ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄻㄹ",
+      writer: "나다",
+      created_at: "2013-01-05",
+    },
+    {
+      img: "",
+      title: "가나다",
+      introduction: "ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄻㄹ",
+      writer: "나다",
+      created_at: "2013-01-05",
+    },
+    {
+      img: "",
+      title: "가나다",
+      introduction: "ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄻㄹ",
+      writer: "나다",
+      created_at: "2013-01-05",
+    },
+    {
+      img: "",
+      title: "가나다",
+      introduction: "ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄻㄹ",
+      writer: "나다",
+      created_at: "2013-01-05",
+    },
+    {
+      img: "",
+      title: "가나다",
+      introduction: "ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄻㄹ",
+      writer: "나다",
+      created_at: "2013-01-05",
+    },
+    {
+      img: "",
+      title: "가나다",
+      introduction: "ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄻㄹ",
+      writer: "나다",
+      created_at: "2013-01-05",
+    },
+    {
+      img: "",
+      title: "가나다",
+      introduction: "ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄻㄹ",
+      writer: "나다",
+      created_at: "2013-01-05",
+    },
+  ];
   return (
     <MainArea>
       <ItemsStyled>
-        {a.map(() => (
-          <MainItem
-            title="테스트"
-            introduction="이거는 테스트이거는 테스트이거는 테스트이거는 테스트이거는 테스트이거는 테스트이거는 테스트이거는 테스트"
-            writer="123123"
-          />
+        {data.map((item, key) => (
+          <MainItem key={key} data={item} />
         ))}
       </ItemsStyled>
     </MainArea>
@@ -28,7 +82,6 @@ const ItemsStyled = styled.div`
   display: flex;
   width: 70%;
   flex-wrap: wrap;
-  justify-content: space-between;
 `;
 
 export default Main;

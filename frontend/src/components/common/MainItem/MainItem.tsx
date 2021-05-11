@@ -1,14 +1,17 @@
-import React from "react";
 import styled from "styled-components";
+import Clock from "../../../assets/img/clock.svg";
 
 interface MainItemProps {
-  img?: string;
-  title: string;
-  introduction: string;
-  writer: string;
+  data: {
+    img: string;
+    title: string;
+    introduction: string;
+    writer: string;
+    created_at: string;
+  };
 }
 
-const MainItem = ({ img, title, introduction, writer }: MainItemProps) => {
+const MainItem = ({ data }: MainItemProps) => {
   return (
     <MainItemStyle>
       <ImgContainer>
@@ -19,16 +22,34 @@ const MainItem = ({ img, title, introduction, writer }: MainItemProps) => {
         </ImgRatio>
       </ImgContainer>
       <ContentDiv>
-        <TitleStyle>{title}</TitleStyle>
-        <Intro>{introduction}</Intro>
-        <Span>{writer}</Span>
+        <TitleStyle>{data.title}</TitleStyle>
+        <Intro>{data.introduction}</Intro>
+        <Bottom>
+          <Span>{data.writer}</Span>
+          <CreateTimeStyle>
+            <Clock />
+            <Span>{data.created_at}</Span>
+          </CreateTimeStyle>
+        </Bottom>
       </ContentDiv>
     </MainItemStyle>
   );
 };
 
+const CreateTimeStyle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & svg {
+    margin-right: 0.5rem;
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+`;
+
 const MainItemStyle = styled.div`
-  width: 32%;
+  margin-left: 1rem;
+  width: 31%;
   display: flex;
   margin-top: 1rem;
   flex-direction: column;
@@ -45,11 +66,18 @@ const ContentDiv = styled.div`
 
 const TitleStyle = styled.span`
   font-size: 1.3rem;
-  font-weight: bold;
+  font-weight: 550;
+  display: inline-block;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const Intro = styled.span`
-  font-size: 1.1rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  font-weight: 200;
   white-space: normal;
   line-height: 1.2;
   height: 2.4em;
@@ -62,7 +90,8 @@ const Intro = styled.span`
 `;
 
 const Span = styled.span`
-  font-size: 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 200;
 `;
 
 const ImgContainer = styled.div`
@@ -94,6 +123,13 @@ const Img = styled.img`
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+`;
+
+const Bottom = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export default MainItem;
