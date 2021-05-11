@@ -41,21 +41,28 @@ const CreateTimeStyle = styled.div`
   align-items: center;
   justify-content: center;
   & svg {
-    margin-right: 0.5rem;
-    width: 1.1rem;
-    height: 1.1rem;
+    margin-right: 0.3rem;
+    width: 1rem;
+    height: 1rem;
   }
 `;
 
 const MainItemStyle = styled.div`
   margin-left: 1rem;
-  width: 31%;
+  width: 31.3%;
   display: flex;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
   flex-direction: column;
   background-color: whitesmoke;
   padding-bottom: 5px;
   border-radius: 1rem;
+  @media screen and (max-width: 1200px) {
+    width: calc(50% - 2rem);
+  }
+  @media screen and (max-width: 765px) {
+    width: 100%;
+    margin-left: 0;
+  }
 `;
 
 const ContentDiv = styled.div`
@@ -130,6 +137,7 @@ const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 0.5rem;
 `;
 
 export default MainItem;

@@ -5,13 +5,16 @@ export const GlobalStyled = createGlobalStyle`
     margin : 0;
     padding : 0;
   }
-  body{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+`;
+
+export const Center = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const MaxWidth = styled.div`
-  width: 1400px;
+  max-width: 1200px;
+  width: 100%;
 `;
