@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Clock from "../../../assets/img/clock.svg";
+import { AiOutlineClockCircle } from "react-icons/ai";
 
 interface MainItemProps {
   data: {
@@ -27,7 +27,7 @@ const MainItem = ({ data }: MainItemProps) => {
         <Bottom>
           <Span>{data.writer}</Span>
           <CreateTimeStyle>
-            <Clock />
+            <AiOutlineClockCircle />
             <Span>{data.created_at}</Span>
           </CreateTimeStyle>
         </Bottom>

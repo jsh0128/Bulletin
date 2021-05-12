@@ -37,7 +37,7 @@ export default async (request: Request, response: Response) => {
         userInfo.is_admin
       );
       const sendUserInfo = {
-        eamil: userInfo.email,
+        email: userInfo.email,
         name: userInfo.name,
         profile_Img: userInfo.profile_img,
       };

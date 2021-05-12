@@ -1,12 +1,22 @@
 import Header from "components/common/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "store/actions";
 
 const HeaderContainer = () => {
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [checkPassword, setCheckPassword] = useState<string>("");
 
-  const Login = () => {};
+  const dispatch = useDispatch();
+
+  const onClickLogin = () => {
+    console.log("1234234");
+    dispatch(login());
+  };
+
+  useEffect(() => {}, []);
+
   return (
     <Header
       id={id}
@@ -15,6 +25,7 @@ const HeaderContainer = () => {
       setPassword={setPassword}
       checkPassword={checkPassword}
       setCheckPassword={setCheckPassword}
+      onClickLogin={onClickLogin}
     />
   );
 };

@@ -7,6 +7,7 @@ interface HeaderProps {
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   checkPassword: string;
   setCheckPassword: React.Dispatch<React.SetStateAction<string>>;
+  onClickLogin: () => void;
 }
 
 const Header = ({
@@ -16,12 +17,13 @@ const Header = ({
   setPassword,
   checkPassword,
   setCheckPassword,
+  onClickLogin,
 }: HeaderProps) => {
   return (
     <HeaderArea>
       <HeaderStyle>
         <LogoStyle>가나다라마바사</LogoStyle>
-        <Login>로그인</Login>
+        <Login onClick={onClickLogin}>로그인</Login>
       </HeaderStyle>
     </HeaderArea>
   );
