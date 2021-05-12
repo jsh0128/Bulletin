@@ -5,7 +5,7 @@ import { LOGIN, loginSuccess, loginFail } from "../actions";
 function* tryLogin(action) {
   try {
     const data = yield call(AuthApi.login, "junghunsung01@gmail.com", "1234");
-    yield put(loginSuccess(data.token));
+    yield put(loginSuccess(data.data.token));
   } catch (err) {
     yield put(loginFail(err.response));
   }

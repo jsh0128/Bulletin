@@ -9,11 +9,10 @@ export const login = () => {
 };
 
 export const loginSuccess = (token) => {
-  console.log(token);
   return {
     type: LOGIN_SUCCESS,
     loginCheck: true,
-    token,
+    token: token,
   };
 };
 
@@ -21,6 +20,6 @@ export const loginFail = (err) => {
   return {
     type: LOGIN_FAIL,
     loginCheck: false,
-    err,
+    err: err,
   };
 };

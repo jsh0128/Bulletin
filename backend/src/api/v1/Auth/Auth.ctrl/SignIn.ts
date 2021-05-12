@@ -41,7 +41,6 @@ export default async (request: Request, response: Response) => {
         name: userInfo.name,
         profile_Img: userInfo.profile_img,
       };
-      console.log(token, userInfo);
       console.log("로그인 성공하셨습니다");
       handleResponse(response, 200, "로그인 성공하셨습니다", {
         token,
