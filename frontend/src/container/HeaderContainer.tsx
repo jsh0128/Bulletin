@@ -15,9 +15,6 @@ const HeaderContainer = () => {
 
   const onClickLogin = async () => {
     dispatch(login(id, password));
-    setTimeout(() => {
-      console.log(result.LoginReducer);
-    }, 1500);
   };
 
   const onClickRegister = () => {
