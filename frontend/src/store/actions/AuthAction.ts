@@ -11,10 +11,11 @@ export const login = (email: string, password: string) => {
   };
 };
 
-export const loginSuccess = (token) => {
+export const loginSuccess = (token, status) => {
+  console.log(status);
   return {
     type: LOGIN_SUCCESS,
-    loginCheck: true,
+    status: status,
     token: token,
   };
 };
@@ -23,7 +24,7 @@ export const loginFail = (err) => {
   return {
     type: LOGIN_FAIL,
     loginCheck: false,
-    err: err,
+    status: err,
   };
 };
 

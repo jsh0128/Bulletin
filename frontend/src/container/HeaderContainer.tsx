@@ -1,6 +1,6 @@
 import Header from "components/common/Header";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login, register } from "store/actions/AuthAction";
 
 const HeaderContainer = () => {
@@ -10,10 +10,14 @@ const HeaderContainer = () => {
   const [modal, setModal] = useState<boolean>(false);
   const [selectedAuth, setSelectedAuth] = useState<boolean>(false);
 
+  const result: any = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  const onClickLogin = () => {
+  const onClickLogin = async () => {
     dispatch(login(id, password));
+    setTimeout(() => {
+      console.log(result.LoginReducer);
+    }, 1500);
   };
 
   const onClickRegister = () => {

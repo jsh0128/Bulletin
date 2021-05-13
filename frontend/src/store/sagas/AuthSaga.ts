@@ -11,7 +11,7 @@ import { REGISTER, registerSuccess } from "store/actions/AuthAction";
 function* tryLogin(action) {
   try {
     const data = yield call(AuthApi.login, action.email, action.password);
-    yield put(loginSuccess(data.data.token));
+    yield put(loginSuccess(data.data.token, data.status));
   } catch (err) {
     yield put(loginFail(err.response.status));
   }

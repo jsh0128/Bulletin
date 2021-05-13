@@ -14,7 +14,8 @@ export const LoginReducer = (state = initialState, action) => {
     case LOGIN:
       return { ...state };
     case LOGIN_SUCCESS:
-      return { ...state, res: action.res };
+      console.log("AuthReducer");
+      return { ...state, token: action.token, status: action.status };
     case LOGIN_FAIL:
       return { ...state, err: action.err };
     default:
@@ -27,7 +28,7 @@ export const RegisterReducer = (state = initialState, action) => {
     case REGISTER:
       return { ...state };
     case REGISTER_SUCCESS:
-      return { ...state, token: action.token };
+      return { ...state, res: action.res };
     case REGISTER_FAIL:
       return { ...state, err: action.err };
     default:
