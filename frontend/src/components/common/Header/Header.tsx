@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import AuthModal from "./AuthModal";
 
 interface HeaderProps {
   id: string;
@@ -8,6 +9,11 @@ interface HeaderProps {
   checkPassword: string;
   setCheckPassword: React.Dispatch<React.SetStateAction<string>>;
   onClickLogin: () => void;
+  onClickRegister: () => void;
+  modal: boolean;
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedAuth: boolean;
+  setSelectedAuth: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Header = ({
@@ -18,13 +24,49 @@ const Header = ({
   checkPassword,
   setCheckPassword,
   onClickLogin,
+  onClickRegister,
+  modal,
+  setModal,
+  selectedAuth,
+  setSelectedAuth,
 }: HeaderProps) => {
   return (
     <HeaderArea>
       <HeaderStyle>
         <LogoStyle>가나다라마바사</LogoStyle>
-        <Login onClick={onClickLogin}>로그인</Login>
+        <div>
+          <AuthSpan
+            onClick={() => {
+              setModal(true);
+              setSelectedAuth(false);
+            }}
+          >
+            로그인
+          </AuthSpan>
+          <AuthSpan
+            onClick={() => {
+              setModal(true);
+              setSelectedAuth(true);
+            }}
+          >
+            회원가입
+          </AuthSpan>
+        </div>
       </HeaderStyle>
+      {modal && (
+        <AuthModal
+          id={id}
+          setId={setId}
+          password={password}
+          setPassword={setPassword}
+          checkPassword={checkPassword}
+          setCheckPassword={setCheckPassword}
+          setModal={setModal}
+          selectedAuth={selectedAuth}
+          setSelectedAuth={setSelectedAuth}
+          onClickLogin={onClickLogin}
+        />
+      )}
     </HeaderArea>
   );
 };
@@ -39,7 +81,8 @@ const HeaderArea = styled.div`
 `;
 
 const HeaderStyle = styled.div`
-  width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -50,6 +93,8 @@ const LogoStyle = styled.span`
   font-weight: bold;
 `;
 
-const Login = styled.span``;
+const AuthSpan = styled.span`
+  margin-right: 0.5rem;
+`;
 
 export default Header;

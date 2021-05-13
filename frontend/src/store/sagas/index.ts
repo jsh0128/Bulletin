@@ -1,6 +1,7 @@
 import { spawn } from "redux-saga/effects";
-import LoginSaga from "./LoginSaga";
+import { handleLogin, handleRegister } from "./AuthSaga";
 
 export default function* rootSaga() {
-  yield spawn(LoginSaga);
+  yield spawn(handleLogin);
+  yield spawn(handleRegister);
 }

@@ -11,14 +11,19 @@ const AuthApi = {
     return data;
   },
 
-  register: async (name: string, email: string, pw: string, birth: string) => {
+  register: async (
+    name: string,
+    email: string,
+    pw: string,
+    profileImg?: string
+  ) => {
     const body = {
-      birth,
       name,
       email,
-      pw,
+      password: pw,
+      profileImg,
     };
-    const { data } = await axios.post("/auth/signup", body);
+    const { data } = await axios.post(`${SERVER}/auth/signup`, body);
 
     return data;
   },
