@@ -21,7 +21,7 @@ export const registerAsync = createAsyncAction(
   REGISTER_SUCCESS,
   REGISTER_FAILURE
 )<
-  { email: string; password: string; name: string; profileImg?: string },
+  { name: string; email: string; pw: string; profileImg?: string },
   { res: string },
   AxiosResponse<Response>
 >();

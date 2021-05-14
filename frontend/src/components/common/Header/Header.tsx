@@ -47,6 +47,7 @@ const Header = ({
           </AuthSpan>
           <AuthSpan
             onClick={() => {
+              onClickRegister();
               setModal(true);
               setSelectedAuth(true);
             }}

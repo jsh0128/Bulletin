@@ -1,11 +1,7 @@
+import { LoginPayload, RegisterPayload } from "assets/types/AuthPayLoadTypes";
 import axios, { AxiosResponse } from "axios";
 import { ILoginResponse } from "lib/api/Responses";
 import { SERVER } from "../../config/config.json";
-
-export type LoginPayload = {
-  email: string;
-  pw: string;
-};
 
 const AuthApi = {
   login: async ({ email, pw }: LoginPayload) => {
@@ -20,16 +16,11 @@ const AuthApi = {
     return { token: data.data.token };
   },
 
-  register: async (
-    name: string,
-    email: string,
-    pw: string,
-    profileImg?: string
-  ) => {
+  register: async ({ name, email, password, profileImg }: RegisterPayload) => {
     const body = {
       name,
       email,
-      password: pw,
+      password: password,
       profileImg,
     };
     const { data } = await axios.post(`${SERVER}/auth/signup`, body);

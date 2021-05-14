@@ -10,21 +10,7 @@ import createAsyncSaga from "lib/createAsyncSaga";
 
 export const loginSaga = createAsyncSaga(loginAsync, AuthApi.login);
 
-function* registerSaga(action) {
-  try {
-    const data = yield call(
-      AuthApi.register,
-      action.email,
-      action.password,
-      action.name,
-      action.profileImg
-    );
-    console.log(data);
-    yield put(registerAsync.success(data));
-  } catch (err) {
-    yield put(registerAsync.failure(err));
-  }
-}
+export const registerSaga = createAsyncSaga(registerAsync, AuthApi.register);
 
 export function* authSaga() {
   yield takeEvery(LOGIN, loginSaga);
