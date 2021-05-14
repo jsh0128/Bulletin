@@ -1,27 +1,48 @@
+import { AxiosResponse } from "axios";
+import { Response } from "lib/api/Responses";
+import { HYDRATE } from "next-redux-wrapper";
+import { ActionType, createReducer } from "typesafe-actions";
 import {
   LOGIN,
   LOGIN_SUCCESS,
-  LOGIN_FAIL,
+  LOGIN_FAILURE,
   REGISTER,
-  REGISTER_FAIL,
+  REGISTER_FAILURE,
   REGISTER_SUCCESS,
-} from "../actions/AuthAction";
+} from "../actions/UserAction";
 
-const initialState = { data: {} };
+export interface IAuthState {
+  error: AxiosResponse<Response> | null;
+  data: {
+    token: string;
+  };
+}
 
-export const LoginReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case LOGIN:
-      return { ...state };
-    case LOGIN_SUCCESS:
-      console.log("AuthReducer");
-      return { ...state, token: action.token, status: action.status };
-    case LOGIN_FAIL:
-      return { ...state, err: action.err };
-    default:
-      return state;
-  }
+const initialState: IAuthState = {
+  error: null,
+  data: {
+    token: "",
+  },
 };
+
+export const LoginReducer = createReducer<IAuthState>(initialState, {
+  [LOGIN]: (state, action) => ({
+    ...state,
+    error: null,
+  }),
+  [LOGIN_SUCCESS]: (state, action) => ({
+    ...state,
+    error: null,
+    data: {
+      ...state.data,
+      token: action.payload.token,
+    },
+  }),
+  [LOGIN_FAILURE]: (state, action) => ({
+    ...state,
+    error: action.payload,
+  }),
+});
 
 export const RegisterReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -29,7 +50,7 @@ export const RegisterReducer = (state = initialState, action) => {
       return { ...state };
     case REGISTER_SUCCESS:
       return { ...state, res: action.res };
-    case REGISTER_FAIL:
+    case REGISTER_FAILURE:
       return { ...state, err: action.err };
     default:
       return state;

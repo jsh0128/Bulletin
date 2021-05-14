@@ -1,7 +1,8 @@
 import Header from "components/common/Header";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { login, register } from "store/actions/AuthAction";
+import { useCallback, useEffect, useState } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { loginAsync, registerAsync } from "store/actions/UserAction";
+import { RootState } from "store/reducers";
 
 const HeaderContainer = () => {
   const [id, setId] = useState<string>("");
@@ -9,17 +10,49 @@ const HeaderContainer = () => {
   const [checkPassword, setCheckPassword] = useState<string>("");
   const [modal, setModal] = useState<boolean>(false);
   const [selectedAuth, setSelectedAuth] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const result: any = useSelector((state) => state);
+  const { data, error } = useSelector((state: RootState) => state.LoginReducer);
   const dispatch = useDispatch();
 
   const onClickLogin = async () => {
-    dispatch(login(id, password));
+    dispatch(loginAsync.request({ email: id, pw: password }));
+    setLoading(false);
+  };
+
+  const Login = useCallback(() => {
+    setLoading(true);
+    if (data.token && !error) {
+      localStorage.setItem("access_token", data.token);
+      setModal(false);
+    } else if (error) {
+      ErrorHandler(error);
+    }
+  }, [data, error]);
+
+  const ErrorHandler = (error) => {
+    console.log(error.response.status);
+    switch (error.response.status) {
+      case 400:
+        return;
+      case 401:
+        console.log("id 또는 비밀번호가 틀렸습니다.");
+        return;
+      case 404:
+        console.log("user를 찾을 수 없습니다");
+        return;
+      default:
+        console.log("서버 오류입니다");
+    }
   };
 
   const onClickRegister = () => {
-    dispatch(register("jj030128@naver.com", "1234", "정성훈"));
+    dispatch(registerAsync.request("jj030128@naver.com", "1234", "정성훈"));
   };
+
+  useEffect(() => {
+    Login();
+  }, [data, error]);
 
   useEffect(() => {
     modal === true
@@ -45,7 +78,8 @@ const HeaderContainer = () => {
       setModal={setModal}
       selectedAuth={selectedAuth}
       setSelectedAuth={setSelectedAuth}
+      loading={loading}
     />
   );
 };
-export default HeaderContainer;
+export default connect((state) => state)(HeaderContainer);

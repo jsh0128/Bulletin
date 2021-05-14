@@ -14,6 +14,7 @@ interface HeaderProps {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   selectedAuth: boolean;
   setSelectedAuth: React.Dispatch<React.SetStateAction<boolean>>;
+  loading: boolean;
 }
 
 const Header = ({
@@ -29,6 +30,7 @@ const Header = ({
   setModal,
   selectedAuth,
   setSelectedAuth,
+  loading,
 }: HeaderProps) => {
   return (
     <HeaderArea>
@@ -65,6 +67,7 @@ const Header = ({
           selectedAuth={selectedAuth}
           setSelectedAuth={setSelectedAuth}
           onClickLogin={onClickLogin}
+          loading={loading}
         />
       )}
     </HeaderArea>

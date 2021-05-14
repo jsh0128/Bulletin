@@ -1,26 +1,16 @@
 import AuthApi from "assets/api/AuthApi";
 import { call, put, takeEvery } from "redux-saga/effects";
 import {
+  REGISTER,
   LOGIN,
-  loginSuccess,
-  loginFail,
-  registerFail,
-} from "../actions/AuthAction";
-import { REGISTER, registerSuccess } from "store/actions/AuthAction";
+  registerAsync,
+  loginAsync,
+} from "../actions/UserAction";
+import createAsyncSaga from "lib/createAsyncSaga";
 
-function* tryLogin(action) {
-  try {
-    const data = yield call(AuthApi.login, action.email, action.password);
-    yield put(loginSuccess(data.data.token, data.status));
-  } catch (err) {
-    yield put(loginFail(err.response.status));
-  }
-}
-export function* handleLogin() {
-  yield takeEvery(LOGIN, tryLogin);
-}
+export const loginSaga = createAsyncSaga(loginAsync, AuthApi.login);
 
-function* tryRegister(action) {
+function* registerSaga(action) {
   try {
     const data = yield call(
       AuthApi.register,
@@ -29,11 +19,14 @@ function* tryRegister(action) {
       action.name,
       action.profileImg
     );
-    yield put(registerSuccess(data));
+    console.log(data);
+    yield put(registerAsync.success(data));
   } catch (err) {
-    yield put(registerFail(err));
+    yield put(registerAsync.failure(err));
   }
 }
-export function* handleRegister() {
-  yield takeEvery(REGISTER, tryRegister);
+
+export function* authSaga() {
+  yield takeEvery(LOGIN, loginSaga);
+  yield takeEvery(REGISTER, registerSaga);
 }

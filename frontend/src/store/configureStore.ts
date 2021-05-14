@@ -5,12 +5,18 @@ import rootReducer from "./reducers";
 import rootSaga from "./sagas";
 
 import { composeWithDevTools } from "redux-devtools-extension";
+import { createWrapper } from "next-redux-wrapper";
 
-const sagaMiddleware = createSagaMiddleware();
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
-);
-sagaMiddleware.run(rootSaga);
+export const configureStore = () => {
+  const sagaMiddleware = createSagaMiddleware();
+  const middleware = [sagaMiddleware];
+  const enhancer = composeWithDevTools(applyMiddleware(...middleware));
+  const store: any = createStore(rootReducer, enhancer);
+  sagaMiddleware.run(rootSaga);
 
-export default store;
+  return store;
+};
+
+const wrapper = createWrapper(configureStore);
+
+export default wrapper;

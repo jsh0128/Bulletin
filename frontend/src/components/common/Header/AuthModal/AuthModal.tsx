@@ -12,6 +12,7 @@ interface AuthModalProps {
   selectedAuth: boolean;
   setSelectedAuth: React.Dispatch<React.SetStateAction<boolean>>;
   onClickLogin: () => void;
+  loading: boolean;
 }
 
 const AuthModal = ({
@@ -25,33 +26,39 @@ const AuthModal = ({
   selectedAuth,
   setSelectedAuth,
   onClickLogin,
+  loading,
 }: AuthModalProps) => {
   return (
     <>
       <AuthArea onClick={() => setModal((prev) => !prev)}></AuthArea>
       <AuthModalArea>
         <Img />
-        <RightArea>
-          <AuthType>LOGIN</AuthType>
-          <Inputs>
-            <CustomInput
-              placeholder="ID"
-              onChange={(e) => setId(e.target.value)}
-              value={id}
-            />
-            <CustomInput
-              placeholder="PASSWORD"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Inputs>
-          <Inputs>
-            <CustomBtn onClick={onClickLogin}>LOGIN</CustomBtn>
-            <CustomSpan>회원가입 아직 안함?</CustomSpan>
-          </Inputs>
-        </RightArea>
+        {loading ? (
+          <RightArea>
+            <AuthType>LOGIN</AuthType>
+            <Inputs>
+              <CustomInput
+                placeholder="ID"
+                onChange={(e) => setId(e.target.value)}
+                value={id}
+              />
+              <CustomInput
+                placeholder="PASSWORD"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Inputs>
+            <Inputs>
+              <CustomBtn onClick={onClickLogin}>LOGIN</CustomBtn>
+              <CustomSpan>회원가입 아직 안함?</CustomSpan>
+            </Inputs>
+          </RightArea>
+        ) : (
+          <></>
+        )}
       </AuthModalArea>
+      <></>
     </>
   );
 };
