@@ -27,5 +27,16 @@ const AuthApi = {
 
     return data;
   },
+  certEmail: async ({ name, email, password, profileImg }: RegisterPayload) => {
+    const body = {
+      name,
+      email,
+      password: password,
+      profileImg,
+    };
+    const { data } = await axios.post(`${SERVER}/auth/signup`, body);
+
+    return data;
+  },
 };
 export default AuthApi;

@@ -4,6 +4,8 @@ import AuthModal from "./AuthModal";
 interface HeaderProps {
   id: string;
   setId: React.Dispatch<React.SetStateAction<string>>;
+  name: string;
+  setName: React.Dispatch<React.SetStateAction<string>>;
   password: string;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   checkPassword: string;
@@ -20,6 +22,8 @@ interface HeaderProps {
 const Header = ({
   id,
   setId,
+  name,
+  setName,
   password,
   setPassword,
   checkPassword,
@@ -47,7 +51,6 @@ const Header = ({
           </AuthSpan>
           <AuthSpan
             onClick={() => {
-              onClickRegister();
               setModal(true);
               setSelectedAuth(true);
             }}
@@ -60,6 +63,8 @@ const Header = ({
         <AuthModal
           id={id}
           setId={setId}
+          name={name}
+          setName={setName}
           password={password}
           setPassword={setPassword}
           checkPassword={checkPassword}
@@ -68,6 +73,7 @@ const Header = ({
           selectedAuth={selectedAuth}
           setSelectedAuth={setSelectedAuth}
           onClickLogin={onClickLogin}
+          onClickRegister={onClickRegister}
           loading={loading}
         />
       )}

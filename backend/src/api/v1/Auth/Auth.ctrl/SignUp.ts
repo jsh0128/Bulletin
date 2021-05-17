@@ -6,10 +6,24 @@ import { handleResponse } from "../../../../lib/handleResponse";
 
 export default async (request: Request, response: Response) => {
   try {
-    const { email, name, password, profileImg } = request.body;
+    const { email, name, password, profileImg, certCode } = request.body;
 
     const userRepository: Repository<User> = getRepository(User);
     const emailRepository: Repository<CertEmail> = getRepository(CertEmail);
+
+    const checkCertEmail = await emailRepository.findOne({
+      where: {
+        email: email,
+        certCode: certCode,
+      },
+    });
+
+    if (!checkCertEmail) {
+      console.log("이메일 인증이 되지 않았습니다.");
+      return response
+        .status(400)
+        .json({ status: 400, message: "메일 인증 실패" });
+    }
 
     const checkEmail = await userRepository.findOne({
       where: { email: email },

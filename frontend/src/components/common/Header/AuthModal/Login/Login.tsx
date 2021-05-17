@@ -1,4 +1,12 @@
-import styled from "styled-components";
+import {
+  Img,
+  Forms,
+  Inputs,
+  AuthType,
+  CustomInput,
+  CustomSpan,
+  CustomBtn,
+} from "../AuthStyle";
 
 interface LoginProps {
   id: string;
@@ -24,22 +32,22 @@ const Login = ({
       <Img />
       {loading ? (
         <Forms>
-          <AuthType>LOGIN</AuthType>
+          <AuthType>로그인</AuthType>
           <Inputs>
             <CustomInput
-              placeholder="ID"
+              placeholder="이메일"
               onChange={(e) => setId(e.target.value)}
               value={id}
             />
             <CustomInput
-              placeholder="PASSWORD"
+              placeholder="비밀번호"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </Inputs>
           <Inputs>
-            <CustomBtn onClick={onClickLogin}>LOGIN</CustomBtn>
+            <CustomBtn onClick={onClickLogin}>로그인</CustomBtn>
             <CustomSpan onClick={() => setSelectedAuth(true)}>
               회원가입 아직 안함?
             </CustomSpan>
@@ -52,76 +60,3 @@ const Login = ({
   );
 };
 export default Login;
-
-const Img = styled.div`
-  height: 100%;
-  width: 50%;
-  background-color: black;
-`;
-
-const Forms = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 100%;
-  width: 50%;
-`;
-
-const Inputs = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-`;
-
-const AuthType = styled.h1`
-  font-size: 2.5rem;
-  margin-top: 0.5rem;
-`;
-
-const CustomInput = styled.input`
-  width: 65%;
-  padding-left: 1rem;
-  margin-top: 1rem;
-  height: 3rem;
-  border: none;
-  border-radius: 4px;
-  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.425);
-  ::placeholder {
-    color: gray;
-  }
-  :focus {
-    outline: none;
-  }
-`;
-
-const CustomSpan = styled.span`
-  margin-top: 1rem;
-  transition: 0.3s;
-  cursor: pointer;
-  color: rgba(0, 0, 0, 0.75);
-  font-weight: bold;
-  :hover {
-    color: black;
-  }
-`;
-
-const CustomBtn = styled.button`
-  margin-top: 1rem;
-  transition: 0.3s;
-  font-size: 1rem;
-  padding: 0.5rem 2rem;
-  color: gray;
-  background-color: white;
-  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.425);
-  border: none;
-  border-radius: 10px;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.75);
-    color: white;
-  }
-  &:focus {
-    outline: none;
-  }
-`;

@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 
-@Entity("eamil_code")
+@Entity("email_code")
 export default class EmailCode {
   @PrimaryGeneratedColumn()
   idx: number;
@@ -16,7 +16,4 @@ export default class EmailCode {
 
   @Column()
   certCode: string;
-
-  @Column({ default: false })
-  cert: boolean;
 }

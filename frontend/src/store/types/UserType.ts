@@ -1,13 +1,13 @@
-import { AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 
 export interface ILoginState {
-  error: AxiosResponse<Response> | null;
+  loginErr: AxiosError | null;
   data: {
     token: string;
   };
 }
 
 export interface IRegisterState {
-  error: AxiosResponse<Response> | null;
+  registerErr: AxiosError | null;
   res: number | null;
 }

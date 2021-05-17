@@ -6,6 +6,8 @@ import Login from "./Login";
 interface AuthModalProps {
   id: string;
   setId: React.Dispatch<React.SetStateAction<string>>;
+  name: string;
+  setName: React.Dispatch<React.SetStateAction<string>>;
   password: string;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   checkPassword: string;
@@ -14,12 +16,15 @@ interface AuthModalProps {
   selectedAuth: boolean;
   setSelectedAuth: React.Dispatch<React.SetStateAction<boolean>>;
   onClickLogin: () => void;
+  onClickRegister: () => void;
   loading: boolean;
 }
 
 const AuthModal = ({
   id,
   setId,
+  name,
+  setName,
   password,
   setPassword,
   checkPassword,
@@ -28,13 +33,27 @@ const AuthModal = ({
   selectedAuth,
   setSelectedAuth,
   onClickLogin,
+  onClickRegister,
   loading,
 }: AuthModalProps) => {
   return (
     <>
       <AuthArea onClick={() => setModal((prev) => !prev)}></AuthArea>
       <AuthModalArea>
-        {selectedAuth && <Register />}
+        {selectedAuth && (
+          <Register
+            id={id}
+            setId={setId}
+            name={name}
+            setName={setName}
+            password={password}
+            setPassword={setPassword}
+            checkPassword={checkPassword}
+            setCheckPassword={setCheckPassword}
+            setSelectedAuth={setSelectedAuth}
+            onClickRegister={onClickRegister}
+          />
+        )}
         {selectedAuth === false && (
           <Login
             id={id}
@@ -74,8 +93,8 @@ const AuthModalArea = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 50rem;
-  height: 30rem;
+  width: 55rem;
+  height: 35rem;
   border-radius: 1rem;
   background-color: white;
 `;

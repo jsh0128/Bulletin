@@ -20,12 +20,6 @@ export default async (request: Request, response: Response) => {
     // 메일 인증 했는지 안했는지 검사
     if (checkEmail) {
       // 메일인증 성공한 후
-      checkEmail.cert = true;
-      console.log(checkEmail);
-
-      await CertEmailRepository.save(checkEmail);
-
-      console.log("메일 인증 성공");
       handleResponse(response, 200, "메일 인증 성공");
       return;
     } else {

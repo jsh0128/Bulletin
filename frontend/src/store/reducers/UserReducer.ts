@@ -13,7 +13,7 @@ import {
 } from "../actions/UserAction";
 
 const loginInitialState: ILoginState = {
-  error: null,
+  loginErr: null,
   data: {
     token: "",
   },
@@ -22,11 +22,11 @@ const loginInitialState: ILoginState = {
 export const LoginReducer = createReducer<ILoginState>(loginInitialState, {
   [LOGIN]: (state, action) => ({
     ...state,
-    error: null,
+    loginErr: null,
   }),
   [LOGIN_SUCCESS]: (state, action) => ({
     ...state,
-    error: null,
+    loginErr: null,
     data: {
       ...state.data,
       token: action.payload.token,
@@ -34,41 +34,32 @@ export const LoginReducer = createReducer<ILoginState>(loginInitialState, {
   }),
   [LOGIN_FAILURE]: (state, action) => ({
     ...state,
-    error: action.payload,
+    loginErr: action.payload,
   }),
 });
 
 const registerInitialState: IRegisterState = {
-  error: null,
+  registerErr: null,
   res: 0,
 };
 
 export const RegisterReducer = createReducer<IRegisterState>(
   registerInitialState,
   {
-    [REGISTER]: (state, action) => ({ ...state, error: null, res: null }),
+    [REGISTER]: (state, action) => ({
+      ...state,
+      registerErr: null,
+      res: null,
+    }),
     [REGISTER_SUCCESS]: (state, action) => ({
       ...state,
       res: action.payload.status,
-      error: null,
+      registerErr: null,
     }),
     [REGISTER_FAILURE]: (state, action) => ({
       ...state,
       res: null,
-      error: action.payload,
+      registerErr: action.payload,
     }),
   }
 );
-
-export const a = (state = registerInitialState, action) => {
-  switch (action.type) {
-    case REGISTER:
-      return { ...state };
-    case REGISTER_SUCCESS:
-      return { ...state, res: action.res };
-    case REGISTER_FAILURE:
-      return { ...state, err: action.err };
-    default:
-      return state;
-  }
-};
