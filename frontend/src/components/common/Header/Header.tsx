@@ -17,6 +17,9 @@ interface HeaderProps {
   selectedAuth: boolean;
   setSelectedAuth: React.Dispatch<React.SetStateAction<boolean>>;
   loading: boolean;
+  mailAuthCode: string;
+  setMailAuthCode: React.Dispatch<React.SetStateAction<string>>;
+  onClickMailCodeSend: () => void;
 }
 
 const Header = ({
@@ -35,6 +38,9 @@ const Header = ({
   selectedAuth,
   setSelectedAuth,
   loading,
+  mailAuthCode,
+  setMailAuthCode,
+  onClickMailCodeSend,
 }: HeaderProps) => {
   return (
     <HeaderArea>
@@ -75,6 +81,9 @@ const Header = ({
           onClickLogin={onClickLogin}
           onClickRegister={onClickRegister}
           loading={loading}
+          mailAuthCode={mailAuthCode}
+          setMailAuthCode={setMailAuthCode}
+          onClickMailCodeSend={onClickMailCodeSend}
         />
       )}
     </HeaderArea>

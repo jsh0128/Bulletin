@@ -21,7 +21,22 @@ export const registerAsync = createAsyncAction(
   REGISTER_SUCCESS,
   REGISTER_FAILURE
 )<
-  { name: string; email: string; pw: string; profileImg?: string },
+  {
+    email: string;
+    password: string;
+    name: string;
+    profileImg?: string;
+    authCode: number;
+  },
   { res: string },
   AxiosResponse<Response>
 >();
+
+export const MAILAUTH = "user/MAILAUTH";
+export const MAILAUTH_SUCCESS = "user/MAILAUTH_SUCCESS";
+export const MAILAUTH_FAILURE = "user/MAILAUTH_FAILURE";
+export const mailAuthAsync = createAsyncAction(
+  MAILAUTH,
+  MAILAUTH_SUCCESS,
+  MAILAUTH_FAILURE
+)<{ email: string }, { res: string }, AxiosResponse<Response>>();

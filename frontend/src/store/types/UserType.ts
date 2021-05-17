@@ -9,5 +9,10 @@ export interface ILoginState {
 
 export interface IRegisterState {
   registerErr: AxiosError | null;
-  res: number | null;
+  registerRes: number | null;
+}
+
+export interface IAuthEmail {
+  mailSendErr: AxiosError | null;
+  mailRes: number | null;
 }

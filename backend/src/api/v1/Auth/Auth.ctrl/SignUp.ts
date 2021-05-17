@@ -18,6 +18,8 @@ export default async (request: Request, response: Response) => {
       },
     });
 
+    console.log(certCode, email);
+
     if (!checkCertEmail) {
       console.log("이메일 인증이 되지 않았습니다.");
       return response
@@ -34,16 +36,6 @@ export default async (request: Request, response: Response) => {
       return response
         .status(409)
         .json({ status: 409, message: "중복되는 이메일이 있습니다" });
-    }
-
-    const certEmail = await emailRepository.findOne({
-      where: { email: email, cert: true },
-    });
-
-    if (!certEmail) {
-      console.log("이메일 인증 안함");
-      handleResponse(response, 403, "이메일 인증을 해주세요");
-      return;
     }
 
     const user: User = new User();

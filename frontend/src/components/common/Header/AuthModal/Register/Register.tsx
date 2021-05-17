@@ -21,6 +21,9 @@ interface RegisterProps {
   setCheckPassword: React.Dispatch<React.SetStateAction<string>>;
   setSelectedAuth: React.Dispatch<React.SetStateAction<boolean>>;
   onClickRegister: () => void;
+  mailAuthCode: string;
+  setMailAuthCode: React.Dispatch<React.SetStateAction<string>>;
+  onClickMailCodeSend: () => void;
 }
 
 const Register = ({
@@ -34,6 +37,9 @@ const Register = ({
   setCheckPassword,
   setSelectedAuth,
   onClickRegister,
+  mailAuthCode,
+  setMailAuthCode,
+  onClickMailCodeSend,
 }: RegisterProps) => {
   return (
     <>
@@ -48,8 +54,13 @@ const Register = ({
               onChange={(e) => setId(e.target.value)}
               style={{ width: "72%", margin: "0" }}
             />
-            <EmailCertBtn onClick={onClickRegister}>인증</EmailCertBtn>
+            <EmailCertBtn onClick={onClickMailCodeSend}>인증</EmailCertBtn>
           </EmailForm>
+          <CustomInput
+            placeholder="인증 번호"
+            value={mailAuthCode}
+            onChange={(e) => setMailAuthCode(e.target.value)}
+          />
           <CustomInput
             placeholder="이름"
             value={name}

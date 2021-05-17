@@ -18,6 +18,9 @@ interface AuthModalProps {
   onClickLogin: () => void;
   onClickRegister: () => void;
   loading: boolean;
+  mailAuthCode: string;
+  setMailAuthCode: React.Dispatch<React.SetStateAction<string>>;
+  onClickMailCodeSend: () => void;
 }
 
 const AuthModal = ({
@@ -35,6 +38,9 @@ const AuthModal = ({
   onClickLogin,
   onClickRegister,
   loading,
+  mailAuthCode,
+  setMailAuthCode,
+  onClickMailCodeSend,
 }: AuthModalProps) => {
   return (
     <>
@@ -52,6 +58,9 @@ const AuthModal = ({
             setCheckPassword={setCheckPassword}
             setSelectedAuth={setSelectedAuth}
             onClickRegister={onClickRegister}
+            mailAuthCode={mailAuthCode}
+            setMailAuthCode={setMailAuthCode}
+            onClickMailCodeSend={onClickMailCodeSend}
           />
         )}
         {selectedAuth === false && (

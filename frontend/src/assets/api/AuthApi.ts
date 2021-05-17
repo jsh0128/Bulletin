@@ -1,4 +1,8 @@
-import { LoginPayload, RegisterPayload } from "assets/types/AuthPayLoadTypes";
+import {
+  certMailPayload,
+  LoginPayload,
+  RegisterPayload,
+} from "assets/types/AuthPayLoadTypes";
 import axios, { AxiosResponse } from "axios";
 import { ILoginResponse } from "lib/api/Responses";
 import { SERVER } from "../../config/config.json";
@@ -16,25 +20,29 @@ const AuthApi = {
     return { token: data.data.token };
   },
 
-  register: async ({ name, email, password, profileImg }: RegisterPayload) => {
+  register: async ({
+    name,
+    email,
+    password,
+    profileImg,
+    authCode,
+  }: RegisterPayload) => {
     const body = {
       name,
       email,
       password: password,
       profileImg,
+      certCode: authCode,
     };
     const { data } = await axios.post(`${SERVER}/auth/signup`, body);
 
     return data;
   },
-  certEmail: async ({ name, email, password, profileImg }: RegisterPayload) => {
+  certMail: async ({ email }: certMailPayload) => {
     const body = {
-      name,
       email,
-      password: password,
-      profileImg,
     };
-    const { data } = await axios.post(`${SERVER}/auth/signup`, body);
+    const { data } = await axios.post(`${SERVER}/auth/emailcode`, body);
 
     return data;
   },

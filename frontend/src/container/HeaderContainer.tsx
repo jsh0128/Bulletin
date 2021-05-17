@@ -1,7 +1,11 @@
 import Header from "components/common/Header";
 import { useCallback, useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { loginAsync, registerAsync } from "store/actions/UserAction";
+import {
+  loginAsync,
+  mailAuthAsync,
+  registerAsync,
+} from "store/actions/UserAction";
 import { RootState } from "store/reducers";
 
 const HeaderContainer = () => {
@@ -12,13 +16,18 @@ const HeaderContainer = () => {
   const [selectedAuth, setSelectedAuth] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [name, setName] = useState<string>("");
+  const [mailAuthCode, setMailAuthCode] = useState<string>("");
 
   const { data, loginErr } = useSelector(
     (state: RootState) => state.LoginReducer
   );
 
-  const { res, registerErr } = useSelector(
+  const { registerRes, registerErr } = useSelector(
     (state: RootState) => state.RegisterReducer
+  );
+
+  const { mailSendErr, mailRes } = useSelector(
+    (state: RootState) => state.MailAuthReducer
   );
 
   const dispatch = useDispatch();
@@ -43,7 +52,6 @@ const HeaderContainer = () => {
   }, [data, loginErr]);
 
   const ErrorHandler = (error) => {
-    console.log(error.response.status);
     switch (error.response.status) {
       case 400:
         return;
@@ -64,8 +72,23 @@ const HeaderContainer = () => {
     } else if (password !== checkPassword) {
       console.log("비밀번호가 일치하지 않습니다.");
     } else {
-      dispatch(registerAsync.request(id, password, name));
+      dispatch(
+        registerAsync.request({
+          email: id,
+          password: password,
+          name: name,
+          authCode: Number(mailAuthCode),
+        })
+      );
     }
+  };
+
+  const onClickMailCodeSend = () => {
+    dispatch(
+      mailAuthAsync.request({
+        email: id,
+      })
+    );
   };
 
   useEffect(() => {
@@ -73,9 +96,9 @@ const HeaderContainer = () => {
   }, [data, loginErr]);
 
   useEffect(() => {
-    console.log(res);
+    console.log(registerRes);
     console.log(registerErr?.response.status);
-  }, [res, registerErr]);
+  }, [registerRes, registerErr]);
 
   useEffect(() => {
     setId("");
@@ -85,6 +108,14 @@ const HeaderContainer = () => {
       ? (document.body.style.overflow = "hidden")
       : (document.body.style.overflow = "unset");
   }, [modal]);
+
+  useEffect(() => {
+    if (mailRes === 200) {
+      console.log("메일 보내기 성공");
+    } else {
+      console.log("서버 에러");
+    }
+  }, [mailSendErr, mailRes]);
 
   useEffect(() => {
     setModal(false);
@@ -107,6 +138,9 @@ const HeaderContainer = () => {
       selectedAuth={selectedAuth}
       setSelectedAuth={setSelectedAuth}
       loading={loading}
+      mailAuthCode={mailAuthCode}
+      setMailAuthCode={setMailAuthCode}
+      onClickMailCodeSend={onClickMailCodeSend}
     />
   );
 };
