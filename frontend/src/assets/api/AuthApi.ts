@@ -46,5 +46,21 @@ const AuthApi = {
 
     return data;
   },
+  getInfo: async ({}) => {
+    let config = {};
+    if (localStorage.getItem("access_token")) {
+      config = {
+        headers: {
+          token: `${localStorage.getItem("access_token")}`,
+        },
+      };
+    }
+    console.log(config);
+
+    const { data } = await axios.get(`${SERVER}/auth/getInfo`, config);
+    console.log(data);
+
+    return data;
+  },
 };
 export default AuthApi;

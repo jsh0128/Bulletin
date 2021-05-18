@@ -41,9 +41,10 @@ export const validateUser = async (
   }
 };
 export const validateAuth = async (request: Request) => {
-  const requestToken = request.headers["token"];
+  const access_token = request.headers["token"];
+  console.log(access_token);
   try {
-    const decodeToken: any = await verifyToken(requestToken);
+    const decodeToken: any = await verifyToken(access_token);
 
     const userRepository: Repository<User> = getRepository(User);
     const user: User = await userRepository.findOne({

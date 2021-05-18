@@ -9,6 +9,6 @@ const router = Router();
 router.use("/auth", Auth);
 router.use("/post", Post);
 router.use("/category", Category);
-router.use("/coment", Comment);
+router.use("/comment", Comment);
 
 export default router;

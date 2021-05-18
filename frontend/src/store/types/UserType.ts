@@ -16,3 +16,13 @@ export interface IAuthEmail {
   mailSendErr: AxiosError | null;
   mailRes: number | null;
 }
+
+export interface IUserInfo {
+  userData: {
+    name: string;
+    email: string;
+    profileImg: string | null;
+  } | null;
+  loginCheck: boolean;
+  userError: AxiosError | null;
+}

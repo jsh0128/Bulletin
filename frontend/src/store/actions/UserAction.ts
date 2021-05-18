@@ -32,11 +32,21 @@ export const registerAsync = createAsyncAction(
   AxiosResponse<Response>
 >();
 
-export const MAILAUTH = "user/MAILAUTH";
-export const MAILAUTH_SUCCESS = "user/MAILAUTH_SUCCESS";
-export const MAILAUTH_FAILURE = "user/MAILAUTH_FAILURE";
+export const MAIL_AUTH = "user/MAIL_AUTH";
+export const MAIL_AUTH_SUCCESS = "user/MAIL_AUTH_SUCCESS";
+export const MAIL_AUTH_FAILURE = "user/MAIL_AUTH_FAILURE";
 export const mailAuthAsync = createAsyncAction(
-  MAILAUTH,
-  MAILAUTH_SUCCESS,
-  MAILAUTH_FAILURE
+  MAIL_AUTH,
+  MAIL_AUTH_SUCCESS,
+  MAIL_AUTH_FAILURE
 )<{ email: string }, { res: string }, AxiosResponse<Response>>();
+
+export const USER_INFO = "user/USER_INFO";
+export const USER_INFO_SUCCESS = "user/USER_INFO_SUCCESS";
+export const USER_INFO_FAILURE = "user/USER_INFO_FAILURE";
+
+export const getInfoAsync = createAsyncAction(
+  USER_INFO,
+  USER_INFO_SUCCESS,
+  USER_INFO_FAILURE
+)<{}, { res: string }, AxiosResponse<Response>>();

@@ -20,6 +20,7 @@ interface HeaderProps {
   mailAuthCode: string;
   setMailAuthCode: React.Dispatch<React.SetStateAction<string>>;
   onClickMailCodeSend: () => void;
+  loginCheck: boolean;
 }
 
 const Header = ({

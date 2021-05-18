@@ -1,7 +1,12 @@
 import { AxiosResponse } from "axios";
 import { Response } from "lib/api/Responses";
 import { HYDRATE } from "next-redux-wrapper";
-import { IAuthEmail, ILoginState, IRegisterState } from "store/types/UserType";
+import {
+  IAuthEmail,
+  ILoginState,
+  IRegisterState,
+  IUserInfo,
+} from "store/types/UserType";
 import { ActionType, createReducer } from "typesafe-actions";
 import {
   LOGIN,
@@ -10,9 +15,12 @@ import {
   REGISTER,
   REGISTER_FAILURE,
   REGISTER_SUCCESS,
-  MAILAUTH,
-  MAILAUTH_SUCCESS,
-  MAILAUTH_FAILURE,
+  MAIL_AUTH,
+  MAIL_AUTH_SUCCESS,
+  MAIL_AUTH_FAILURE,
+  USER_INFO,
+  USER_INFO_SUCCESS,
+  USER_INFO_FAILURE,
 } from "../actions/UserAction";
 
 const loginInitialState: ILoginState = {
@@ -73,19 +81,46 @@ const mailAuthInitialState: IAuthEmail = {
 };
 
 export const MailAuthReducer = createReducer<IAuthEmail>(mailAuthInitialState, {
-  [MAILAUTH]: (state, action) => ({
+  [MAIL_AUTH]: (state, action) => ({
     ...state,
     mailRes: null,
     registerErr: null,
   }),
-  [MAILAUTH_SUCCESS]: (state, action) => ({
+  [MAIL_AUTH_SUCCESS]: (state, action) => ({
     ...state,
     mailRes: action.payload.status,
     registerErr: null,
   }),
-  [MAILAUTH_FAILURE]: (state, action) => ({
+  [MAIL_AUTH_FAILURE]: (state, action) => ({
     ...state,
     mailRes: null,
     registerErr: action.payload,
+  }),
+});
+
+const userInfoInitialState: IUserInfo = {
+  userData: null,
+  loginCheck: false,
+  userError: null,
+};
+
+export const GetInfoReducer = createReducer<IUserInfo>(userInfoInitialState, {
+  [USER_INFO]: (state, action) => ({
+    ...state,
+  }),
+  [USER_INFO_SUCCESS]: (state, action) => ({
+    ...state,
+    userData: {
+      name: action.payload.data.name,
+      email: action.payload.data.email,
+      profileImg: action.payload.data.profile,
+    },
+    loginCheck: true,
+    userError: null,
+  }),
+  [USER_INFO_FAILURE]: (state, action) => ({
+    ...state,
+    userData: null,
+    userError: action.payload,
   }),
 });

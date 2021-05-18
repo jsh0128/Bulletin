@@ -6,7 +6,9 @@ import {
   registerAsync,
   loginAsync,
   mailAuthAsync,
-  MAILAUTH,
+  MAIL_AUTH,
+  getInfoAsync,
+  USER_INFO,
 } from "../actions/UserAction";
 import createAsyncSaga from "lib/createAsyncSaga";
 
@@ -16,8 +18,11 @@ export const registerSaga = createAsyncSaga(registerAsync, AuthApi.register);
 
 export const mailAuthSaga = createAsyncSaga(mailAuthAsync, AuthApi.certMail);
 
+export const userInfoSaga = createAsyncSaga(getInfoAsync, AuthApi.getInfo);
+
 export function* authSaga() {
   yield takeEvery(LOGIN, loginSaga);
   yield takeEvery(REGISTER, registerSaga);
-  yield takeEvery(MAILAUTH, mailAuthSaga);
+  yield takeEvery(MAIL_AUTH, mailAuthSaga);
+  yield takeEvery(USER_INFO, userInfoSaga);
 }

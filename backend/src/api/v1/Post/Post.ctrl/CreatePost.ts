@@ -9,20 +9,14 @@ import AuthRequest from "../../../../types/AuthRequest";
 
 export default async (request: AuthRequest, response: Response) => {
   try {
-    const {
-      title,
-      content,
-      introduction,
-      categories,
-      preview_img,
-    } = request.body;
+    const { title, content, introduction, categories, preview_img } =
+      request.body;
     const user: User = request.user;
 
     const postRepository: Repository<Post> = getRepository(Post);
-    const cateogoryRepository: Repository<Category> = getRepository(Category);
-    const postCategoryRepository: Repository<PostCategory> = getRepository(
-      PostCategory
-    );
+    const categoryRepository: Repository<Category> = getRepository(Category);
+    const postCategoryRepository: Repository<PostCategory> =
+      getRepository(PostCategory);
 
     let category;
     let categoryArray = [];
@@ -30,7 +24,7 @@ export default async (request: AuthRequest, response: Response) => {
     if (categories) {
       // 카테고리가 있는건지 검사
       for (let i in categories) {
-        category = await cateogoryRepository.findOne({
+        category = await categoryRepository.findOne({
           where: { category: categories[i] },
         });
         if (!category) {

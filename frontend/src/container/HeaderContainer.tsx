@@ -2,6 +2,7 @@ import Header from "components/common/Header";
 import { useCallback, useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import {
+  getInfoAsync,
   loginAsync,
   mailAuthAsync,
   registerAsync,
@@ -30,6 +31,10 @@ const HeaderContainer = () => {
     (state: RootState) => state.MailAuthReducer
   );
 
+  const { userError, loginCheck, userData } = useSelector(
+    (state: RootState) => state.GetInfoReducer
+  );
+
   const dispatch = useDispatch();
 
   const onClickLogin = async () => {
@@ -37,6 +42,7 @@ const HeaderContainer = () => {
       console.log("빈칸이 있습니다. 채워주세요");
     } else {
       dispatch(loginAsync.request({ email: id, pw: password }));
+      tryGetInfo();
       setLoading(false);
     }
   };
@@ -91,6 +97,10 @@ const HeaderContainer = () => {
     );
   };
 
+  const tryGetInfo = () => {
+    dispatch(getInfoAsync.request({}));
+  };
+
   useEffect(() => {
     Login();
   }, [data, loginErr]);
@@ -99,6 +109,10 @@ const HeaderContainer = () => {
     console.log(registerRes);
     console.log(registerErr?.response.status);
   }, [registerRes, registerErr]);
+
+  useEffect(() => {
+    if (userError) console.log(userError);
+  }, [userError]);
 
   useEffect(() => {
     setId("");
@@ -119,7 +133,14 @@ const HeaderContainer = () => {
 
   useEffect(() => {
     setModal(false);
+    if (localStorage.getItem("access_token")) {
+      tryGetInfo();
+    }
   }, []);
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
 
   return (
     <Header
@@ -141,6 +162,7 @@ const HeaderContainer = () => {
       mailAuthCode={mailAuthCode}
       setMailAuthCode={setMailAuthCode}
       onClickMailCodeSend={onClickMailCodeSend}
+      loginCheck={loginCheck}
     />
   );
 };
