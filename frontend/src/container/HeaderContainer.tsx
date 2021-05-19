@@ -4,8 +4,13 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import {
   getInfoAsync,
   loginAsync,
+  logOut,
+  // loginCheckFailure,
+  // loginCheckSuccess,
   mailAuthAsync,
   registerAsync,
+  USER_INFO_FAILURE,
+  USER_INFO_SUCCESS,
 } from "store/actions/UserAction";
 import { RootState } from "store/reducers";
 
@@ -31,7 +36,7 @@ const HeaderContainer = () => {
     (state: RootState) => state.MailAuthReducer
   );
 
-  const { userError, loginCheck, userData } = useSelector(
+  const { userError, userData, loginCheck } = useSelector(
     (state: RootState) => state.GetInfoReducer
   );
 
@@ -42,15 +47,16 @@ const HeaderContainer = () => {
       console.log("빈칸이 있습니다. 채워주세요");
     } else {
       dispatch(loginAsync.request({ email: id, pw: password }));
-      tryGetInfo();
       setLoading(false);
     }
   };
 
   const Login = useCallback(() => {
+    console.log("token save localStorage");
     setLoading(true);
     if (data.token && !loginErr) {
       localStorage.setItem("access_token", data.token);
+      tryGetInfo();
       setModal(false);
     } else if (loginErr) {
       ErrorHandler(loginErr?.response.status);
@@ -101,6 +107,18 @@ const HeaderContainer = () => {
     dispatch(getInfoAsync.request({}));
   };
 
+  const Logout = () => {
+    localStorage.removeItem("access_token");
+    dispatch(logOut());
+  };
+
+  const InputReset = () => {
+    setId("");
+    setPassword("");
+    setName("");
+    setCheckPassword("");
+  };
+
   useEffect(() => {
     Login();
   }, [data, loginErr]);
@@ -111,17 +129,18 @@ const HeaderContainer = () => {
   }, [registerRes, registerErr]);
 
   useEffect(() => {
-    if (userError) console.log(userError);
+    if (userError) {
+      console.log(userError);
+      dispatch(USER_INFO_FAILURE);
+    }
   }, [userError]);
 
   useEffect(() => {
-    setId("");
-    setPassword("");
-    setName("");
+    InputReset();
     modal === true
       ? (document.body.style.overflow = "hidden")
       : (document.body.style.overflow = "unset");
-  }, [modal]);
+  }, [modal, selectedAuth]);
 
   useEffect(() => {
     if (mailRes === 200) {
@@ -135,12 +154,17 @@ const HeaderContainer = () => {
     setModal(false);
     if (localStorage.getItem("access_token")) {
       tryGetInfo();
+      // dispatch(loginCheckSuccess());
     }
   }, []);
 
   useEffect(() => {
     console.log(userData);
   }, [userData]);
+
+  useEffect(() => {
+    console.log(loginCheck);
+  }, [userData, userError]);
 
   return (
     <Header
@@ -163,6 +187,7 @@ const HeaderContainer = () => {
       setMailAuthCode={setMailAuthCode}
       onClickMailCodeSend={onClickMailCodeSend}
       loginCheck={loginCheck}
+      Logout={Logout}
     />
   );
 };

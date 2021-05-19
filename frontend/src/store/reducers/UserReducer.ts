@@ -21,6 +21,8 @@ import {
   USER_INFO,
   USER_INFO_SUCCESS,
   USER_INFO_FAILURE,
+  // LOGIN_CHECK_SUCCESS,
+  // LOGIN_CHECK_FAILURE,
 } from "../actions/UserAction";
 
 const loginInitialState: ILoginState = {
@@ -121,6 +123,22 @@ export const GetInfoReducer = createReducer<IUserInfo>(userInfoInitialState, {
   [USER_INFO_FAILURE]: (state, action) => ({
     ...state,
     userData: null,
+    loginCheck: false,
     userError: action.payload,
   }),
 });
+
+// const loginCheckInitialState = {
+//   loginCheck: false,
+// };
+
+// export const LoginCheckReducer = createReducer(loginCheckInitialState, {
+//   [LOGIN_CHECK_SUCCESS]: (state, action) => ({
+//     ...state,
+//     loginCheck: true,
+//   }),
+//   [LOGIN_CHECK_FAILURE]: (state, action) => ({
+//     ...state,
+//     loginCheck: false,
+//   }),
+// });

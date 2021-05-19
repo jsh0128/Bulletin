@@ -21,6 +21,7 @@ interface HeaderProps {
   setMailAuthCode: React.Dispatch<React.SetStateAction<string>>;
   onClickMailCodeSend: () => void;
   loginCheck: boolean;
+  Logout: () => void;
 }
 
 const Header = ({
@@ -42,28 +43,36 @@ const Header = ({
   mailAuthCode,
   setMailAuthCode,
   onClickMailCodeSend,
+  loginCheck,
+  Logout,
 }: HeaderProps) => {
   return (
     <HeaderArea>
       <HeaderStyle>
         <LogoStyle>가나다라마바사</LogoStyle>
         <div>
-          <AuthSpan
-            onClick={() => {
-              setModal(true);
-              setSelectedAuth(false);
-            }}
-          >
-            로그인
-          </AuthSpan>
-          <AuthSpan
-            onClick={() => {
-              setModal(true);
-              setSelectedAuth(true);
-            }}
-          >
-            회원가입
-          </AuthSpan>
+          {loginCheck === true ? (
+            <span onClick={Logout}>로그아웃</span>
+          ) : (
+            <>
+              <AuthSpan
+                onClick={() => {
+                  setModal(true);
+                  setSelectedAuth(false);
+                }}
+              >
+                로그인
+              </AuthSpan>
+              <AuthSpan
+                onClick={() => {
+                  setModal(true);
+                  setSelectedAuth(true);
+                }}
+              >
+                회원가입
+              </AuthSpan>
+            </>
+          )}
         </div>
       </HeaderStyle>
       {modal && (

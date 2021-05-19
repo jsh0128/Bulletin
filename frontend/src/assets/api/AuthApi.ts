@@ -47,6 +47,7 @@ const AuthApi = {
     return data;
   },
   getInfo: async ({}) => {
+    console.log("getInfo");
     let config = {};
     if (localStorage.getItem("access_token")) {
       config = {
@@ -55,11 +56,10 @@ const AuthApi = {
         },
       };
     }
+
     console.log(config);
 
     const { data } = await axios.get(`${SERVER}/auth/getInfo`, config);
-    console.log(data);
-
     return data;
   },
 };

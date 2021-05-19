@@ -50,3 +50,8 @@ export const getInfoAsync = createAsyncAction(
   USER_INFO_SUCCESS,
   USER_INFO_FAILURE
 )<{}, { res: string }, AxiosResponse<Response>>();
+
+export const logOut = () => ({
+  type: USER_INFO_FAILURE,
+  userError: null,
+});
