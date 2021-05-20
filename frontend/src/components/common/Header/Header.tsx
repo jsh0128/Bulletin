@@ -22,6 +22,7 @@ interface HeaderProps {
   onClickMailCodeSend: () => void;
   loginCheck: boolean;
   Logout: () => void;
+  userData: { name: string; email: string; profileImg: string };
 }
 
 const Header = ({
@@ -45,6 +46,7 @@ const Header = ({
   onClickMailCodeSend,
   loginCheck,
   Logout,
+  userData,
 }: HeaderProps) => {
   return (
     <HeaderArea>
@@ -52,7 +54,9 @@ const Header = ({
         <LogoStyle>가나다라마바사</LogoStyle>
         <div>
           {loginCheck === true ? (
-            <span onClick={Logout}>로그아웃</span>
+            <RightSpan>
+              <AuthSpan onClick={Logout}>로그아웃</AuthSpan>
+            </RightSpan>
           ) : (
             <>
               <AuthSpan
@@ -124,6 +128,13 @@ const LogoStyle = styled.span`
 
 const AuthSpan = styled.span`
   margin-right: 0.5rem;
+  margin-left: 0.5rem;
+`;
+
+const RightSpan = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default Header;

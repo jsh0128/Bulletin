@@ -1,11 +1,16 @@
-import axios from "axios";
+import { getPostPayload } from "assets/types/PostPayLoadType";
+import axios, { AxiosResponse } from "axios";
+import { IGetPostResponse } from "util/types/PostResponse";
+import { SERVER } from "../../config/config.json";
 
-class PostApi {
-  static getPosts: any;
-  async getPosts() {
-    const { data } = await axios.get("/post/getposts");
+const PostApi = {
+  getPosts: async ({ postIdx }: getPostPayload) => {
+    const { data }: AxiosResponse<IGetPostResponse> = await axios.get(
+      `${SERVER}/post/getpost`
+    );
 
-    return data;
-  }
-}
+    console.log(data);
+    return { res: data };
+  },
+};
 export default PostApi;

@@ -4,7 +4,7 @@ import {
   RegisterPayload,
 } from "assets/types/AuthPayLoadTypes";
 import axios, { AxiosResponse } from "axios";
-import { ILoginResponse } from "lib/api/Responses";
+import { ILoginResponse } from "util/types/Response";
 import { SERVER } from "../../config/config.json";
 
 const AuthApi = {
@@ -47,7 +47,6 @@ const AuthApi = {
     return data;
   },
   getInfo: async ({}) => {
-    console.log("getInfo");
     let config = {};
     if (localStorage.getItem("access_token")) {
       config = {
@@ -56,8 +55,6 @@ const AuthApi = {
         },
       };
     }
-
-    console.log(config);
 
     const { data } = await axios.get(`${SERVER}/auth/getInfo`, config);
     return data;

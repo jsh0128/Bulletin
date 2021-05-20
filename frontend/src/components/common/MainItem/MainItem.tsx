@@ -1,14 +1,10 @@
 import styled from "styled-components";
 import { AiOutlineClockCircle } from "react-icons/ai";
+import { PostState } from "store/types/PostType";
+import { useEffect } from "react";
 
 interface MainItemProps {
-  data: {
-    img: string;
-    title: string;
-    introduction: string;
-    writer: string;
-    created_at: string;
-  };
+  data: PostState | null;
 }
 
 const MainItem = ({ data }: MainItemProps) => {
@@ -25,7 +21,7 @@ const MainItem = ({ data }: MainItemProps) => {
         <TitleStyle>{data.title}</TitleStyle>
         <Intro>{data.introduction}</Intro>
         <Bottom>
-          <Span>{data.writer}</Span>
+          <Span>{data.user_name}</Span>
           <CreateTimeStyle>
             <AiOutlineClockCircle />
             <Span>{data.created_at}</Span>

@@ -4,15 +4,15 @@ import {
   RegisterReducer,
   MailAuthReducer,
   GetInfoReducer,
-  // LoginCheckReducer,
 } from "./UserReducer";
+import { GetPostReducer } from "./PostReducer";
 
 const rootReducer = combineReducers({
   LoginReducer,
   RegisterReducer,
   MailAuthReducer,
   GetInfoReducer,
-  // LoginCheckReducer,
+  GetPostReducer,
 });
 
 export default rootReducer;

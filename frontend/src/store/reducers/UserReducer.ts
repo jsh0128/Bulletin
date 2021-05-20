@@ -1,13 +1,10 @@
-import { AxiosResponse } from "axios";
-import { Response } from "lib/api/Responses";
-import { HYDRATE } from "next-redux-wrapper";
 import {
   IAuthEmail,
   ILoginState,
   IRegisterState,
   IUserInfo,
 } from "store/types/UserType";
-import { ActionType, createReducer } from "typesafe-actions";
+import { createReducer } from "typesafe-actions";
 import {
   LOGIN,
   LOGIN_SUCCESS,
@@ -21,8 +18,6 @@ import {
   USER_INFO,
   USER_INFO_SUCCESS,
   USER_INFO_FAILURE,
-  // LOGIN_CHECK_SUCCESS,
-  // LOGIN_CHECK_FAILURE,
 } from "../actions/UserAction";
 
 const loginInitialState: ILoginState = {
@@ -127,18 +122,3 @@ export const GetInfoReducer = createReducer<IUserInfo>(userInfoInitialState, {
     userError: action.payload,
   }),
 });
-
-// const loginCheckInitialState = {
-//   loginCheck: false,
-// };
-
-// export const LoginCheckReducer = createReducer(loginCheckInitialState, {
-//   [LOGIN_CHECK_SUCCESS]: (state, action) => ({
-//     ...state,
-//     loginCheck: true,
-//   }),
-//   [LOGIN_CHECK_FAILURE]: (state, action) => ({
-//     ...state,
-//     loginCheck: false,
-//   }),
-// });

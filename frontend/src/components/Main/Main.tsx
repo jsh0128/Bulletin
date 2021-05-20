@@ -1,19 +1,16 @@
 import MainItem from "components/common/MainItem";
 import { useEffect } from "react";
+import { IGetPostState, PostState } from "store/types/PostType";
 import styled from "styled-components";
-interface MainProps {}
+interface MainProps {
+  data: { res: { data: PostState[] | PostState | null } };
+}
 
-const Main = ({}: MainProps) => {
-  const list = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-
-  const data = {
-    img: "",
-    title: "가나다",
-    introduction:
-      "테스트입니다. 테스트입니다. 테스트입니다. 테스트입니다. 테스트입니다. 테스트입니다. 테스트입니다. 테스트입니다. ",
-    writer: "나다",
-    created_at: "2013-01-05",
-  };
+const Main = ({ data }: MainProps) => {
+  useEffect(() => {
+    console.log(data?.res.data);
+    console.log(Array.isArray(data?.res.data));
+  }, [data]);
 
   return (
     <MainArea>
@@ -35,9 +32,9 @@ const Main = ({}: MainProps) => {
         </Right>
       </RightArea>
       <ItemsStyled>
-        {list.map((item, key) => (
-          <MainItem key={key} data={data} />
-        ))}
+        {Array.isArray(data?.res.data) &&
+          data &&
+          data?.res.data.map((item, key) => <MainItem key={key} data={item} />)}
       </ItemsStyled>
     </MainArea>
   );

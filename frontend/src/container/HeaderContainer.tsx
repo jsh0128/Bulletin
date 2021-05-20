@@ -5,12 +5,9 @@ import {
   getInfoAsync,
   loginAsync,
   logOut,
-  // loginCheckFailure,
-  // loginCheckSuccess,
   mailAuthAsync,
   registerAsync,
   USER_INFO_FAILURE,
-  USER_INFO_SUCCESS,
 } from "store/actions/UserAction";
 import { RootState } from "store/reducers";
 
@@ -52,7 +49,6 @@ const HeaderContainer = () => {
   };
 
   const Login = useCallback(() => {
-    console.log("token save localStorage");
     setLoading(true);
     if (data.token && !loginErr) {
       localStorage.setItem("access_token", data.token);
@@ -129,9 +125,8 @@ const HeaderContainer = () => {
   }, [registerRes, registerErr]);
 
   useEffect(() => {
-    if (userError) {
+    if (userError?.response.status === 500) {
       console.log(userError);
-      dispatch(USER_INFO_FAILURE);
     }
   }, [userError]);
 
@@ -154,17 +149,12 @@ const HeaderContainer = () => {
     setModal(false);
     if (localStorage.getItem("access_token")) {
       tryGetInfo();
-      // dispatch(loginCheckSuccess());
     }
   }, []);
 
   useEffect(() => {
     console.log(userData);
   }, [userData]);
-
-  useEffect(() => {
-    console.log(loginCheck);
-  }, [userData, userError]);
 
   return (
     <Header
@@ -188,6 +178,7 @@ const HeaderContainer = () => {
       onClickMailCodeSend={onClickMailCodeSend}
       loginCheck={loginCheck}
       Logout={Logout}
+      userData={userData}
     />
   );
 };
