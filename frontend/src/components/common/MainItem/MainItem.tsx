@@ -5,10 +5,9 @@ import router from "next/router";
 
 interface MainItemProps {
   data: PostState | null;
-  onClickPost: () => void;
 }
 
-const MainItem = ({ data, onClickPost }: MainItemProps) => {
+const MainItem = ({ data }: MainItemProps) => {
   return (
     <MainItemStyle onClick={() => router.push(`/post/${data.idx}`)}>
       <ImgContainer>

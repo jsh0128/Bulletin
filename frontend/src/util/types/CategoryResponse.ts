@@ -1,5 +1,5 @@
 export interface IGetCategoryResponse extends Response {
-  data: { category: string }[];
+  data: { category: string }[] | null;
 }
 
 export interface ISearchCategoryPostResponse extends Response {

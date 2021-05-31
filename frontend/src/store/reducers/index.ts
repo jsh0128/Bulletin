@@ -6,6 +6,7 @@ import {
   GetInfoReducer,
 } from "./UserReducer";
 import { GetPostReducer } from "./PostReducer";
+import { GetCategoryReducer } from "./CategoryReducer";
 
 const rootReducer = combineReducers({
   LoginReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   MailAuthReducer,
   GetInfoReducer,
   GetPostReducer,
+  GetCategoryReducer,
 });
 
 export default rootReducer;

@@ -1,12 +1,14 @@
 import MainItem from "components/common/MainItem";
+import { CategoryState } from "store/types/CategoryType";
 import { PostState } from "store/types/PostType";
 import styled from "styled-components";
+import { IGetCategoryResponse } from "util/types/CategoryResponse";
 interface MainProps {
   data: { res: { data: PostState[] | PostState | null } };
-  onClickPost: () => void;
+  getCategoryData: { data: CategoryState[] | null };
 }
 
-const Main = ({ data, onClickPost }: MainProps) => {
+const Main = ({ data, getCategoryData }: MainProps) => {
   return (
     <MainArea>
       <RightArea>
@@ -14,12 +16,11 @@ const Main = ({ data, onClickPost }: MainProps) => {
           <CategoriesStyle>
             <Category>전체보기</Category>
             <Category>React</Category>
+            {/* {getCategoryData.res.data &&
+              getCategoryData.res.data?.map((item, key) => (
+                <Category key={key}>{item}</Category>
+              ))} */}
             <SelectedCategory>Node.js</SelectedCategory>
-            <Category>TypeOrm</Category>
-            <Category>Java</Category>
-            <Category>Computer Science</Category>
-            <Category>JavaScript</Category>
-            <Category>TypeScript</Category>
           </CategoriesStyle>
           <SearchArea>
             <SearchInput placeholder="검색" />
@@ -29,9 +30,7 @@ const Main = ({ data, onClickPost }: MainProps) => {
       <ItemsStyled>
         {Array.isArray(data?.res.data) &&
           data &&
-          data?.res.data.map((item, key) => (
-            <MainItem key={key} data={item} onClickPost={onClickPost} />
-          ))}
+          data?.res.data.map((item, key) => <MainItem key={key} data={item} />)}
       </ItemsStyled>
     </MainArea>
   );
