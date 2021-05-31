@@ -1,12 +1,15 @@
 import React from "react";
+import { PostState } from "store/types/PostType";
 
-interface GetPostProps {}
+interface GetPostProps {
+  data: PostState;
+}
 
-const GetPost = ({}: GetPostProps) => {
+const GetPost = ({ data }: GetPostProps) => {
   return (
-    <>
-      <div></div>
-    </>
+    <div>
+      <h1>{data?.title}</h1>
+    </div>
   );
 };
 

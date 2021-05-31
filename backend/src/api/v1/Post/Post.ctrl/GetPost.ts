@@ -10,9 +10,8 @@ export default async (request: Request, response: Response) => {
   try {
     const { idx } = request.query;
     const postRepository: Repository<Post> = getRepository(Post);
-    const postCategoryRepository: Repository<PostCategory> = getRepository(
-      PostCategory
-    );
+    const postCategoryRepository: Repository<PostCategory> =
+      getRepository(PostCategory);
     const CategoryRepository: Repository<Category> = getRepository(Category);
     const UserRepository: Repository<User> = getRepository(User);
 
@@ -51,9 +50,19 @@ export default async (request: Request, response: Response) => {
         return;
       }
 
-      const userName = userFind.name;
+      const user_name = userFind.name;
 
-      const data = { findPost, categories, userName };
+      const data = {
+        category: categories,
+        idx: findPost.idx,
+        user_name: user_name,
+        title: findPost.title,
+        content: findPost.content,
+        user_email: findPost.fk_user_email,
+        preview_image: findPost.preview_image,
+        introduction: findPost.introduction,
+        created_at: findPost.created_at,
+      };
 
       console.log("글 조회 성공");
       handleResponse(response, 200, "글 조회 성공", data);
@@ -64,7 +73,6 @@ export default async (request: Request, response: Response) => {
         select: [
           "idx",
           "title",
-          "content",
           "introduction",
           "created_at",
           "fk_user_email",
@@ -102,7 +110,6 @@ export default async (request: Request, response: Response) => {
         data.push({
           idx: posts[i].idx,
           title: posts[i].title,
-          content: posts[i].content,
           created_at: posts[i].created_at,
           introduction: posts[i].introduction,
           preview_image: posts[i].preview_image,

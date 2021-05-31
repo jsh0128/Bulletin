@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import AuthModal from "./AuthModal";
 
@@ -48,10 +49,11 @@ const Header = ({
   Logout,
   userData,
 }: HeaderProps) => {
+  const router = useRouter();
   return (
     <HeaderArea>
       <HeaderStyle>
-        <LogoStyle>가나다라마바사</LogoStyle>
+        <LogoStyle onClick={() => router.push("/")}>가나다라마바사</LogoStyle>
         <div>
           {loginCheck === true ? (
             <RightSpan>
