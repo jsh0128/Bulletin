@@ -17,7 +17,7 @@ export interface PostState {
   user_name: string;
 }
 
-export interface IGETCategoryState {
+export interface IGetCategoryState {
   data: any | null;
   getCategoryErr: AxiosError | null;
 }
