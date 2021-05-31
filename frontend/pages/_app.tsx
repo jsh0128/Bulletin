@@ -5,7 +5,8 @@ import { Center, GlobalStyled, MaxWidth } from "styles/globals";
 import { FontStyle } from "../src/styles/font";
 import { configureStore } from "store/configureStore";
 import wrapper from "store/configureStore";
-import withReduxSaga from "next-redux-saga";
+import "react-notifications/lib/notifications.css";
+import { NotificationContainer } from "react-notifications";
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -19,6 +20,7 @@ function App({ Component, pageProps }: AppProps) {
           <FontStyle />
         </DefaultTemplate>
       </Center>
+      <NotificationContainer />
     </Provider>
   );
 }
@@ -26,9 +28,7 @@ function App({ Component, pageProps }: AppProps) {
 App.getInitialProps = async ({ Component, ctx }: AppContext): Promise<any> => {
   let pageProps = {};
 
-  // SSR 때 data population 하면
   if (Component.getInitialProps) {
-    // ctx (store 가 들어있음) 를 주입
     pageProps = await Component.getInitialProps(ctx);
   }
 

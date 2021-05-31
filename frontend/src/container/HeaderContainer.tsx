@@ -4,10 +4,9 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import {
   getInfoAsync,
   loginAsync,
-  logOut,
+  logout,
   mailAuthAsync,
   registerAsync,
-  USER_INFO_FAILURE,
 } from "store/actions/UserAction";
 import { RootState } from "store/reducers";
 
@@ -105,7 +104,7 @@ const HeaderContainer = () => {
 
   const Logout = () => {
     localStorage.removeItem("access_token");
-    dispatch(logOut());
+    dispatch(logout());
   };
 
   const InputReset = () => {

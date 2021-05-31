@@ -1,5 +1,4 @@
-import { AxiosError, AxiosResponse } from "axios";
-import { Response } from "util/types/Response";
+import { AxiosError } from "axios";
 import { createAsyncAction } from "typesafe-actions";
 
 export const LOGIN = "user/LOGIN" as const;
@@ -51,7 +50,9 @@ export const getInfoAsync = createAsyncAction(
   USER_INFO_FAILURE
 )<{}, { res: string }, AxiosError>();
 
-export const logOut = () => ({
+export const logout = () => ({
   type: USER_INFO_FAILURE,
   userError: null,
+  loginCheck: false,
+  userData: null,
 });

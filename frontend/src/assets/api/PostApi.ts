@@ -6,11 +6,20 @@ import { SERVER } from "../../config/config.json";
 const PostApi = {
   getPosts: async ({ postIdx }: getPostPayload) => {
     const { data }: AxiosResponse<IGetPostResponse> = await axios.get(
-      `${SERVER}/post/getpost`
+      postIdx
+        ? `${SERVER}/post/getpost?idx=${postIdx}`
+        : `${SERVER}/post/getpost`
     );
 
-    console.log(data);
+    return { res: data };
+  },
+  getCategory: async () => {
+    const { data }: AxiosResponse<IGetPostResponse> = await axios.get(
+      `${SERVER}/category/getcategory`
+    );
+
     return { res: data };
   },
 };
+
 export default PostApi;

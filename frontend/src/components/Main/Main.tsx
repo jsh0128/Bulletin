@@ -1,17 +1,12 @@
 import MainItem from "components/common/MainItem";
-import { useEffect } from "react";
-import { IGetPostState, PostState } from "store/types/PostType";
+import { PostState } from "store/types/PostType";
 import styled from "styled-components";
 interface MainProps {
   data: { res: { data: PostState[] | PostState | null } };
+  onClickPost: () => void;
 }
 
-const Main = ({ data }: MainProps) => {
-  useEffect(() => {
-    console.log(data?.res.data);
-    console.log(Array.isArray(data?.res.data));
-  }, [data]);
-
+const Main = ({ data, onClickPost }: MainProps) => {
   return (
     <MainArea>
       <RightArea>
@@ -34,7 +29,9 @@ const Main = ({ data }: MainProps) => {
       <ItemsStyled>
         {Array.isArray(data?.res.data) &&
           data &&
-          data?.res.data.map((item, key) => <MainItem key={key} data={item} />)}
+          data?.res.data.map((item, key) => (
+            <MainItem key={key} data={item} onClickPost={onClickPost} />
+          ))}
       </ItemsStyled>
     </MainArea>
   );

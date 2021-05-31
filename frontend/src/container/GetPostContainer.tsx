@@ -1,26 +1,25 @@
+import GetPost from "components/GetPost";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostAsync } from "store/actions/PostAction";
 import { RootState } from "store/reducers";
-import Main from "../components/Main";
 
-const MainContainer = () => {
+const GetPostContainer = () => {
+  const { query } = useRouter();
   const dispatch = useDispatch();
   const { data, getPostErr } = useSelector(
     (state: RootState) => state.GetPostReducer
   );
 
   useEffect(() => {
-    dispatch(getPostAsync.request({}));
+    dispatch(getPostAsync.request({ postIdx: Number(query.idx) }));
   }, []);
 
-  const onClickPost = () => {};
-
   useEffect(() => {
-    console.log(data);
-    console.log(getPostErr);
+    console.log(data, getPostErr);
   }, [data, getPostErr]);
 
-  return <Main data={data} onClickPost={onClickPost} />;
+  return <GetPost />;
 };
-export default MainContainer;
+export default GetPostContainer;

@@ -1,15 +1,16 @@
 import styled from "styled-components";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { PostState } from "store/types/PostType";
-import { useEffect } from "react";
+import router from "next/router";
 
 interface MainItemProps {
   data: PostState | null;
+  onClickPost: () => void;
 }
 
-const MainItem = ({ data }: MainItemProps) => {
+const MainItem = ({ data, onClickPost }: MainItemProps) => {
   return (
-    <MainItemStyle>
+    <MainItemStyle onClick={() => router.push(`/post/${data.idx}`)}>
       <ImgContainer>
         <ImgRatio>
           <ImgCenter>

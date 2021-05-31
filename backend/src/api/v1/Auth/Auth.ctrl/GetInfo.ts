@@ -8,8 +8,6 @@ export default async (request: AuthRequest, response: Response) => {
   try {
     const user: User = request.user;
 
-    console.log(user);
-
     return handleResponse(response, 200, "정보 조회 성공.", user);
   } catch (err) {
     console.log(err);
