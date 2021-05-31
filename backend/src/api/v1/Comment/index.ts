@@ -10,6 +10,6 @@ const router = Router();
 router.post("/create", validateUser, CreateComent);
 router.post("/delete", validateUser, DeleteComent);
 router.post("/modify", validateUser, ModifyComent);
-router.post("/getcoment", GetComent);
+router.post("/getComent", GetComent);
 
 export default router;

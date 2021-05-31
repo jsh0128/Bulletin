@@ -12,6 +12,6 @@ router.post("/create", validateAdmin, CreateCategory);
 router.post("/delete", validateAdmin, DeleteCategory);
 router.post("/modify", validateAdmin, ModifyCategory);
 router.get("/getCategory", GetCategory);
-router.get("/searchpostcategory", SearchPostCategory);
+router.get("/searchPostCategory", SearchPostCategory);
 
 export default router;

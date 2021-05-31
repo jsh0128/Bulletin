@@ -9,7 +9,7 @@ const router = Router();
 
 router.post("/signup", SignUp);
 router.post("/signin", SignIn);
-router.post("/emailcode", SendEmailCode);
-router.get("/getinfo", validateUser, GetInfo);
+router.post("/emailCode", SendEmailCode);
+router.get("/getInfo", validateUser, GetInfo);
 
 export default router;

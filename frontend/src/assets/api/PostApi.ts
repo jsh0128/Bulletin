@@ -7,15 +7,8 @@ const PostApi = {
   getPosts: async ({ postIdx }: getPostPayload) => {
     const { data }: AxiosResponse<IGetPostResponse> = await axios.get(
       postIdx
-        ? `${SERVER}/post/getpost?idx=${postIdx}`
-        : `${SERVER}/post/getpost`
-    );
-
-    return { res: data };
-  },
-  getCategory: async () => {
-    const { data }: AxiosResponse<IGetPostResponse> = await axios.get(
-      `${SERVER}/category/getcategory`
+        ? `${SERVER}/post/getPost?idx=${postIdx}`
+        : `${SERVER}/post/getPost`
     );
 
     return { res: data };

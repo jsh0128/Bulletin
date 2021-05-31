@@ -13,6 +13,6 @@ router.post("/delete", validateAdmin, DeletePost);
 router.post("/modify", validateAdmin, ModifyPost);
 
 router.post("/search", SearchPost);
-router.get("/getpost", DetailJoin);
+router.get("/getPost", DetailJoin);
 
 export default router;

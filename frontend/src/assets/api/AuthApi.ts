@@ -42,7 +42,7 @@ const AuthApi = {
     const body = {
       email,
     };
-    const { data } = await axios.post(`${SERVER}/auth/emailcode`, body);
+    const { data } = await axios.post(`${SERVER}/auth/emailCode`, body);
 
     return data;
   },
