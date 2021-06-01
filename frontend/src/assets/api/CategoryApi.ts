@@ -11,9 +11,7 @@ const CategoryApi = {
       `${SERVER}/category/getcategory`
     );
 
-    console.log(data);
-
-    return { res: data };
+    return { res: data?.data };
   },
   searchPostCategory: async ({ category }: CategorySearchPostPayload) => {
     const {

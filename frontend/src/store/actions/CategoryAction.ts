@@ -10,4 +10,4 @@ export const getCategoryAsync = createAsyncAction(
   GET_CATEGORY,
   GET_CATEGORY_SUCCESS,
   GET_CATEGORY_FAILURE
-)<{}, { res: IGetCategoryResponse }, AxiosError>();
+)<{}, { res: { category: string }[] | null }, AxiosError>();

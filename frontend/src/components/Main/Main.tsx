@@ -4,7 +4,7 @@ import { PostState } from "store/types/PostType";
 import styled from "styled-components";
 import { IGetCategoryResponse } from "util/types/CategoryResponse";
 interface MainProps {
-  data: { res: { data: PostState[] | PostState | null } };
+  data: { res: PostState[] | PostState | null };
   category: CategoryState[] | null;
 }
 
@@ -26,9 +26,9 @@ const Main = ({ data, category }: MainProps) => {
         </Right>
       </RightArea>
       <ItemsStyled>
-        {Array.isArray(data?.res.data) &&
+        {Array.isArray(data?.res) &&
           data &&
-          data?.res.data.map((item, key) => <MainItem key={key} data={item} />)}
+          data?.res.map((item, key) => <MainItem key={key} data={item} />)}
       </ItemsStyled>
     </MainArea>
   );

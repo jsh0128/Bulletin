@@ -11,7 +11,8 @@ const PostApi = {
         : `${SERVER}/post/getPost`
     );
 
-    return { res: data };
+    console.log({ res: data?.data });
+    return { res: data?.data };
   },
 };
 

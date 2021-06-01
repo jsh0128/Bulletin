@@ -4,7 +4,6 @@ import { getCategoryAsync } from "store/actions/CategoryAction";
 import { getPostAsync } from "store/actions/PostAction";
 import { RootState } from "store/reducers";
 import { CategoryState } from "store/types/CategoryType";
-import { IGetCategoryResponse } from "util/types/CategoryResponse";
 import Main from "../components/Main";
 
 const MainContainer = () => {
@@ -23,12 +22,14 @@ const MainContainer = () => {
   }, []);
 
   useEffect(() => {
-    setCategory(getCategoryData?.res.data);
+    setCategory(getCategoryData?.res);
   }, [getCategoryData, getCategoryErr]);
 
   useEffect(() => {
     console.log("글 ", data, getPostErr);
   }, [data, getPostErr]);
+
+  console.log(category && category[0].category);
 
   return <Main data={data} category={category} />;
 };

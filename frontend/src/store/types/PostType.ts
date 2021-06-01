@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 
 export interface IGetPostState {
-  data: { res: { data: PostState[] | PostState | null } };
+  data: { res: PostState[] | PostState | null };
   getPostErr: AxiosError | null;
 }
 
