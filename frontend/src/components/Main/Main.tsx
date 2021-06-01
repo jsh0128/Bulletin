@@ -5,22 +5,20 @@ import styled from "styled-components";
 import { IGetCategoryResponse } from "util/types/CategoryResponse";
 interface MainProps {
   data: { res: { data: PostState[] | PostState | null } };
-  getCategoryData: { data: CategoryState[] | null };
+  category: CategoryState[] | null;
 }
 
-const Main = ({ data, getCategoryData }: MainProps) => {
+const Main = ({ data, category }: MainProps) => {
   return (
     <MainArea>
       <RightArea>
         <Right>
           <CategoriesStyle>
             <Category>전체보기</Category>
-            <Category>React</Category>
-            {/* {getCategoryData.res.data &&
-              getCategoryData.res.data?.map((item, key) => (
-                <Category key={key}>{item}</Category>
-              ))} */}
-            <SelectedCategory>Node.js</SelectedCategory>
+            {category &&
+              category?.map((item, key) => (
+                <Category key={key}>{item.category}</Category>
+              ))}
           </CategoriesStyle>
           <SearchArea>
             <SearchInput placeholder="검색" />

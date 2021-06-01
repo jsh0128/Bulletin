@@ -2,10 +2,10 @@ import { AxiosError } from "axios";
 import { IGetCategoryResponse } from "util/types/CategoryResponse";
 
 export interface IGetCategoryState {
-  getCategoryData: { data: CategoryState[] | null };
+  getCategoryData: { res: { data: CategoryState[] | null } };
   getCategoryErr: AxiosError | null;
 }
 
 export interface CategoryState {
-  category: string[];
+  category: string;
 }
