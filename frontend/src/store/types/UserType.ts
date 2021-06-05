@@ -12,12 +12,12 @@ export interface IRegisterState {
   registerRes: number | null;
 }
 
-export interface IAuthEmail {
+export interface IAuthEmailState {
   mailSendErr: AxiosError | null;
   mailRes: number | null;
 }
 
-export interface IUserInfo {
+export interface IUserInfoState {
   userData: {
     name: string;
     email: string;

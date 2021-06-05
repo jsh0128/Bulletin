@@ -9,6 +9,7 @@ import {
   registerAsync,
 } from "store/actions/UserAction";
 import { RootState } from "store/reducers";
+import { NotificationManager } from "react-notifications";
 
 const HeaderContainer = () => {
   const [id, setId] = useState<string>("");
@@ -40,7 +41,7 @@ const HeaderContainer = () => {
 
   const onClickLogin = async () => {
     if (!id || !password) {
-      console.log("빈칸이 있습니다. 채워주세요");
+      NotificationManager.warning("빈칸이 있어", "채워줘!", 1500);
     } else {
       dispatch(loginAsync.request({ email: id, pw: password }));
       setLoading(false);
@@ -48,6 +49,7 @@ const HeaderContainer = () => {
   };
 
   const Login = useCallback(() => {
+    console.log(data);
     setLoading(true);
     if (data.token && !loginErr) {
       localStorage.setItem("access_token", data.token);
@@ -59,25 +61,26 @@ const HeaderContainer = () => {
   }, [data, loginErr]);
 
   const ErrorHandler = (error) => {
-    switch (error.response.status) {
+    switch (error) {
       case 400:
-        return;
+        break;
       case 401:
-        console.log("id 또는 비밀번호가 틀렸습니다.");
-        return;
+        NotificationManager.error("id 또는 비밀번호가 다름.", "틀림!", 1500);
+        break;
       case 404:
-        console.log("user를 찾을 수 없습니다");
-        return;
+        NotificationManager.error("사용자를 찾을 수 없음", "틀림!", 1500);
+        break;
       default:
-        console.log("서버 오류입니다");
+        NotificationManager.error("서버 오류", "틀림!", 1500);
+        break;
     }
   };
 
   const onClickRegister = () => {
     if (!id || !password || !name || !checkPassword) {
-      console.log("빈칸이 있습니다. 채워주세요");
+      NotificationManager.warning("빈칸이 있어", "채워줘!", 1500);
     } else if (password !== checkPassword) {
-      console.log("비밀번호가 일치하지 않습니다.");
+      NotificationManager.warning("비밀번호가 일치하지 않아", "틀림!", 1500);
     } else {
       dispatch(
         registerAsync.request({
@@ -119,13 +122,13 @@ const HeaderContainer = () => {
   }, [data, loginErr]);
 
   useEffect(() => {
-    console.log(registerRes);
-    console.log(registerErr?.response.status);
+    // console.log(registerRes);
+    // console.log(registerErr?.response.status);
   }, [registerRes, registerErr]);
 
   useEffect(() => {
     if (userError?.response.status === 500) {
-      console.log(userError);
+      // console.log(userError);
     }
   }, [userError]);
 
@@ -138,9 +141,9 @@ const HeaderContainer = () => {
 
   useEffect(() => {
     if (mailRes === 200) {
-      console.log("메일 보내기 성공");
-    } else {
-      console.log("서버 에러");
+      NotificationManager.success("메일 전송", "전송성공", 1500);
+    } else if (mailSendErr) {
+      NotificationManager.error("서버 에러", "에러", 1500);
     }
   }, [mailSendErr, mailRes]);
 
@@ -152,7 +155,7 @@ const HeaderContainer = () => {
   }, []);
 
   useEffect(() => {
-    console.log(userData);
+    // console.log(userData);
   }, [userData]);
 
   return (

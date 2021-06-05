@@ -1,8 +1,8 @@
 import {
-  IAuthEmail,
+  IAuthEmailState,
   ILoginState,
   IRegisterState,
-  IUserInfo,
+  IUserInfoState,
 } from "store/types/UserType";
 import { createReducer } from "typesafe-actions";
 import {
@@ -72,53 +72,59 @@ export const RegisterReducer = createReducer<IRegisterState>(
   }
 );
 
-const mailAuthInitialState: IAuthEmail = {
+const mailAuthInitialState: IAuthEmailState = {
   mailSendErr: null,
   mailRes: null,
 };
 
-export const MailAuthReducer = createReducer<IAuthEmail>(mailAuthInitialState, {
-  [MAIL_AUTH]: (state, action) => ({
-    ...state,
-    mailRes: null,
-    registerErr: null,
-  }),
-  [MAIL_AUTH_SUCCESS]: (state, action) => ({
-    ...state,
-    mailRes: action.payload.status,
-    registerErr: null,
-  }),
-  [MAIL_AUTH_FAILURE]: (state, action) => ({
-    ...state,
-    mailRes: null,
-    registerErr: action.payload,
-  }),
-});
+export const MailAuthReducer = createReducer<IAuthEmailState>(
+  mailAuthInitialState,
+  {
+    [MAIL_AUTH]: (state, action) => ({
+      ...state,
+      mailRes: null,
+      registerErr: null,
+    }),
+    [MAIL_AUTH_SUCCESS]: (state, action) => ({
+      ...state,
+      mailRes: action.payload.status,
+      registerErr: null,
+    }),
+    [MAIL_AUTH_FAILURE]: (state, action) => ({
+      ...state,
+      mailRes: null,
+      registerErr: action.payload,
+    }),
+  }
+);
 
-const userInfoInitialState: IUserInfo = {
+const userInfoInitialState: IUserInfoState = {
   userData: null,
   loginCheck: false,
   userError: null,
 };
 
-export const GetInfoReducer = createReducer<IUserInfo>(userInfoInitialState, {
-  [USER_INFO]: (state, action) => ({
-    ...state,
-  }),
-  [USER_INFO_SUCCESS]: (state, action) => ({
-    ...state,
-    userData: {
-      name: action.payload.data.name,
-      email: action.payload.data.email,
-      profileImg: action.payload.data.profile,
-    },
-    loginCheck: true,
-    userError: null,
-  }),
-  [USER_INFO_FAILURE]: (state, action) => ({
-    ...state,
-    userData: null,
-    loginCheck: false,
-    userError: action.payload,
-  }),
-});
+export const GetInfoReducer = createReducer<IUserInfoState>(
+  userInfoInitialState,
+  {
+    [USER_INFO]: (state, action) => ({
+      ...state,
+    }),
+    [USER_INFO_SUCCESS]: (state, action) => ({
+      ...state,
+      userData: {
+        name: action.payload.data.name,
+        email: action.payload.data.email,
+        profileImg: action.payload.data.profile,
+      },
+      loginCheck: true,
+      userError: null,
+    }),
+    [USER_INFO_FAILURE]: (state, action) => ({
+      ...state,
+      userData: null,
+      loginCheck: false,
+      userError: action.payload,
+    }),
+  }
+);

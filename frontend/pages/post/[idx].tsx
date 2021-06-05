@@ -8,4 +8,8 @@ const getPost = () => {
     </>
   );
 };
+
+getPost.getInitialProps = async (context) => {
+  return { idx: context.query.idx };
+};
 export default withRouter(getPost);

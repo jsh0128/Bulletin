@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoryAsync } from "store/actions/CategoryAction";
@@ -16,21 +17,20 @@ const MainContainer = () => {
     (state: RootState) => state.GetCategoryReducer
   );
 
-  useEffect(() => {
-    dispatch(getPostAsync.request({}));
-    dispatch(getCategoryAsync.request({}));
-  }, []);
+  // setTimeout(() => {
+  //   const { data } = useSelector((state: RootState) => state.GetPostReducer);
+  //   console.log(data);
+  // }, 3000);
 
   useEffect(() => {
     setCategory(getCategoryData?.res);
   }, [getCategoryData, getCategoryErr]);
 
   useEffect(() => {
-    console.log("글 ", data, getPostErr);
+    console.log(data);
   }, [data, getPostErr]);
-
-  console.log(category && category[0].category);
 
   return <Main data={data} category={category} />;
 };
+
 export default MainContainer;

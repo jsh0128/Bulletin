@@ -1,16 +1,15 @@
 import DefaultTemplate from "components/common/DefaultTemplate";
 import { AppContext, AppProps } from "next/app";
-import { Provider } from "react-redux";
 import { Center, GlobalStyled, MaxWidth } from "styles/globals";
 import { FontStyle } from "../src/styles/font";
-import { configureStore } from "store/configureStore";
 import wrapper from "store/configureStore";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
+import withReduxSaga from "next-redux-saga";
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={configureStore()}>
+    <>
       <Center>
         <DefaultTemplate>
           <MaxWidth>
@@ -21,7 +20,7 @@ function App({ Component, pageProps }: AppProps) {
         </DefaultTemplate>
       </Center>
       <NotificationContainer />
-    </Provider>
+    </>
   );
 }
 
@@ -35,4 +34,4 @@ App.getInitialProps = async ({ Component, ctx }: AppContext): Promise<any> => {
   return { pageProps };
 };
 
-export default wrapper.withRedux(App);
+export default wrapper.withRedux(withReduxSaga(App));

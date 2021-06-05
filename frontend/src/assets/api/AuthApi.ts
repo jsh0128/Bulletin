@@ -1,5 +1,5 @@
 import {
-  certMailPayload,
+  CertMailPayload,
   LoginPayload,
   RegisterPayload,
 } from "assets/types/AuthPayLoadTypes";
@@ -38,7 +38,7 @@ const AuthApi = {
 
     return data;
   },
-  certMail: async ({ email }: certMailPayload) => {
+  certMail: async ({ email }: CertMailPayload) => {
     const body = {
       email,
     };

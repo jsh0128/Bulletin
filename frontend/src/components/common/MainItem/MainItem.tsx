@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { PostState } from "store/types/PostType";
-import router from "next/router";
+import Link from "next/link";
 
 interface MainItemProps {
   data: PostState | null;
@@ -9,25 +9,29 @@ interface MainItemProps {
 
 const MainItem = ({ data }: MainItemProps) => {
   return (
-    <MainItemStyle onClick={() => router.push(`/post/${data.idx}`)}>
-      <ImgContainer>
-        <ImgRatio>
-          <ImgCenter>
-            <Img src="https://media.vlpt.us/images/gicomong/post/8d124099-3c88-4c20-9798-3d8584ac306a/gif (4).gif?w=640" />
-          </ImgCenter>
-        </ImgRatio>
-      </ImgContainer>
-      <ContentDiv>
-        <TitleStyle>{data.title}</TitleStyle>
-        <Intro>{data.introduction}</Intro>
-        <Bottom>
-          <Span>{data.user_name}</Span>
-          <CreateTimeStyle>
-            <AiOutlineClockCircle />
-            <Span>{data.created_at}</Span>
-          </CreateTimeStyle>
-        </Bottom>
-      </ContentDiv>
+    <MainItemStyle>
+      <Link href={`/post/${data.idx}`}>
+        <a>
+          <ImgContainer>
+            <ImgRatio>
+              <ImgCenter>
+                <Img src="https://media.vlpt.us/images/gicomong/post/8d124099-3c88-4c20-9798-3d8584ac306a/gif (4).gif?w=640" />
+              </ImgCenter>
+            </ImgRatio>
+          </ImgContainer>
+          <ContentDiv>
+            <TitleStyle>{data.title}</TitleStyle>
+            <Intro>{data.introduction}</Intro>
+            <Bottom>
+              <Span>{data.user_name}</Span>
+              <CreateTimeStyle>
+                <AiOutlineClockCircle />
+                <Span>{data.created_at}</Span>
+              </CreateTimeStyle>
+            </Bottom>
+          </ContentDiv>
+        </a>
+      </Link>
     </MainItemStyle>
   );
 };

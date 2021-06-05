@@ -1,3 +1,3 @@
-export type getPostPayload = {
+export type GetPostPayload = {
   postIdx?: number;
 };

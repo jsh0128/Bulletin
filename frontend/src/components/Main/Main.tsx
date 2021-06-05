@@ -2,7 +2,7 @@ import MainItem from "components/common/MainItem";
 import { CategoryState } from "store/types/CategoryType";
 import { PostState } from "store/types/PostType";
 import styled from "styled-components";
-import { IGetCategoryResponse } from "util/types/CategoryResponse";
+import { SERVER } from "config/config.json";
 interface MainProps {
   data: { res: PostState[] | PostState | null };
   category: CategoryState[] | null;

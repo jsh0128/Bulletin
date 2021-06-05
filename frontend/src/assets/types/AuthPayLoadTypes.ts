@@ -11,6 +11,6 @@ export type RegisterPayload = {
   authCode: number;
 };
 
-export type certMailPayload = {
+export type CertMailPayload = {
   email: string;
 };
