@@ -7,15 +7,27 @@ interface MainProps {
   data: { res: PostState[] | PostState | null };
   category: CategoryState[] | null;
   onClickCategoryPost: (idx: number) => void;
+  onClickSelectedAll: () => void;
 }
 
-const Main = ({ data, category, onClickCategoryPost }: MainProps) => {
+const Main = ({
+  data,
+  category,
+  onClickCategoryPost,
+  onClickSelectedAll,
+}: MainProps) => {
   return (
     <MainArea>
       <RightArea>
         <Right>
           <CategoriesStyle>
-            <Category>전체보기</Category>
+            <Category
+              onClick={() => {
+                onClickSelectedAll();
+              }}
+            >
+              전체보기
+            </Category>
             {category &&
               category?.map((item, key) => (
                 <Category

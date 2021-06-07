@@ -10,6 +10,7 @@ const getPost = () => {
 };
 
 getPost.getInitialProps = async (context) => {
+  console.log(context.query.idx);
   return { idx: context.query.idx };
 };
 export default withRouter(getPost);

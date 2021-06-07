@@ -13,6 +13,8 @@ import Main from "../components/Main";
 const MainContainer = () => {
   const dispatch = useDispatch();
   const [category, setCategory] = useState<CategoryState[]>();
+  const [selected, setSelected] = useState<number>(0);
+
   const { data, getPostErr } = useSelector(
     (state: RootState) => state.GetPostReducer
   );
@@ -26,8 +28,13 @@ const MainContainer = () => {
   );
 
   const onClickCategoryPost = (idx: number) => {
-    console.log();
+    setSelected(1);
     dispatch(getPostCategoryAsync.request({ category: idx }));
+  };
+
+  const onClickSelectedAll = () => {
+    setSelected(0);
+    dispatch(getPostAsync.request({}));
   };
 
   useEffect(() => {
@@ -49,11 +56,23 @@ const MainContainer = () => {
   }, [data, getPostErr]);
 
   return (
-    <Main
-      data={data}
-      category={category}
-      onClickCategoryPost={onClickCategoryPost}
-    />
+    <>
+      {selected ? (
+        <Main
+          data={getPostCategoryData}
+          category={category}
+          onClickCategoryPost={onClickCategoryPost}
+          onClickSelectedAll={onClickSelectedAll}
+        />
+      ) : (
+        <Main
+          data={data}
+          category={category}
+          onClickCategoryPost={onClickCategoryPost}
+          onClickSelectedAll={onClickSelectedAll}
+        />
+      )}
+    </>
   );
 };
 
