@@ -6,6 +6,7 @@ import {
 } from "assets/types/PostPayLoadType";
 import axios, { AxiosResponse } from "axios";
 import { IGetPostResponse } from "util/types/PostResponse";
+import { Response } from "util/types/Response";
 import { SERVER } from "../../config/config.json";
 
 const PostApi = {
@@ -33,7 +34,7 @@ const PostApi = {
       preview_img,
     };
 
-    const { data }: AxiosResponse<any> = await axios.post(
+    const { data }: AxiosResponse<Response> = await axios.post(
       `${SERVER}/post/create`,
       body
     );
@@ -52,7 +53,7 @@ const PostApi = {
       categories,
       post_idx,
     };
-    const { data }: AxiosResponse<any> = await axios.post(
+    const { data }: AxiosResponse<Response> = await axios.post(
       `${SERVER}/post/modify`,
       body
     );
@@ -61,7 +62,7 @@ const PostApi = {
   deletePosts: async ({ post_idx }: DeletePostPayload) => {
     const body = { post_idx };
 
-    const { data }: AxiosResponse<any> = await axios.post(
+    const { data }: AxiosResponse<Response> = await axios.post(
       `${SERVER}/post/delete`,
       body
     );

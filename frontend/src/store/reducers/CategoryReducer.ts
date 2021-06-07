@@ -2,8 +2,14 @@ import {
   GET_CATEGORY,
   GET_CATEGORY_FAILURE,
   GET_CATEGORY_SUCCESS,
+  GET_POST_CATEGORY,
+  GET_POST_CATEGORY_FAILURE,
+  GET_POST_CATEGORY_SUCCESS,
 } from "store/actions/CategoryAction";
-import { IGetCategoryState } from "store/types/CategoryType";
+import {
+  IGetCategoryState,
+  IGetPostCategoryState,
+} from "store/types/CategoryType";
 import { createReducer } from "typesafe-actions";
 
 const getCategoryInitialState: IGetCategoryState = {
@@ -28,6 +34,30 @@ export const GetCategoryReducer = createReducer<IGetCategoryState>(
       ...state,
       getCategoryData: null,
       getCategoryErr: action.payload,
+    }),
+  }
+);
+
+const getPostCategoryInitialState: IGetPostCategoryState = {
+  getPostCategoryData: null,
+  getPostCategoryErr: null,
+};
+
+export const GetPostCategoryReducer = createReducer<IGetPostCategoryState>(
+  getPostCategoryInitialState,
+  {
+    [GET_POST_CATEGORY]: (state, action) => ({
+      ...state,
+    }),
+    [GET_POST_CATEGORY_SUCCESS]: (state, action) => ({
+      ...state,
+      getPostCategoryData: action.payload,
+      getPostCategoryErr: null,
+    }),
+    [GET_POST_CATEGORY_FAILURE]: (state, action) => ({
+      ...state,
+      getPostCategoryData: null,
+      getPostCategoryErr: action.payload,
     }),
   }
 );

@@ -6,9 +6,10 @@ import { SERVER } from "config/config.json";
 interface MainProps {
   data: { res: PostState[] | PostState | null };
   category: CategoryState[] | null;
+  onClickCategoryPost: (idx: number) => void;
 }
 
-const Main = ({ data, category }: MainProps) => {
+const Main = ({ data, category, onClickCategoryPost }: MainProps) => {
   return (
     <MainArea>
       <RightArea>
@@ -17,7 +18,12 @@ const Main = ({ data, category }: MainProps) => {
             <Category>전체보기</Category>
             {category &&
               category?.map((item, key) => (
-                <Category key={key}>{item.category}</Category>
+                <Category
+                  onClick={() => onClickCategoryPost(item.idx)}
+                  key={key}
+                >
+                  {item.category}
+                </Category>
               ))}
           </CategoriesStyle>
           <SearchArea>

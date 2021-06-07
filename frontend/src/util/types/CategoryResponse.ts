@@ -1,5 +1,5 @@
 export interface IGetCategoryResponse extends Response {
-  data: { category: string }[] | null;
+  data: { category: string; idx: number }[] | null;
 }
 
 export interface ISearchCategoryPostResponse extends Response {
@@ -9,10 +9,11 @@ export interface ISearchCategoryPostResponse extends Response {
 export interface ISearchCategoryPost {
   idx: number;
   title: string;
-  introduction: string;
-  preview_image: string | null;
   content: string;
+  category: string[];
   created_at: string;
-  views: number;
-  fk_user_email: string;
+  introduction: string;
+  preview_image: null | string;
+  user_email: string;
+  user_name: string;
 }

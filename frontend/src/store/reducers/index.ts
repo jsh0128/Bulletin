@@ -6,7 +6,7 @@ import {
   GetInfoReducer,
 } from "./UserReducer";
 import { GetPostReducer } from "./PostReducer";
-import { GetCategoryReducer } from "./CategoryReducer";
+import { GetCategoryReducer, GetPostCategoryReducer } from "./CategoryReducer";
 import {
   IAuthEmailState,
   ILoginState,
@@ -16,7 +16,10 @@ import {
 import { HydrateReducer } from "store/reducers/HydrateReducer";
 import { HYDRATE } from "next-redux-wrapper";
 import { IGetPostState } from "store/types/PostType";
-import { IGetCategoryState } from "store/types/CategoryType";
+import {
+  IGetCategoryState,
+  IGetPostCategoryState,
+} from "store/types/CategoryType";
 import { IHydrateState } from "store/types/HydrateType";
 
 const rootReducer = (
@@ -42,6 +45,7 @@ const rootReducer = (
         GetInfoReducer,
         GetPostReducer,
         GetCategoryReducer,
+        GetPostCategoryReducer,
       });
       return combineReducer(state, action);
     }
@@ -60,4 +64,5 @@ interface IState {
   GetInfoReducer: IUserInfoState;
   GetPostReducer: IGetPostState;
   GetCategoryReducer: IGetCategoryState;
+  GetPostCategoryReducer: IGetPostCategoryState;
 }

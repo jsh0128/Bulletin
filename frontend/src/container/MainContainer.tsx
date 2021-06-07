@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategoryAsync } from "store/actions/CategoryAction";
+import {
+  getCategoryAsync,
+  getPostCategoryAsync,
+} from "store/actions/CategoryAction";
 import { getPostAsync } from "store/actions/PostAction";
 import { RootState } from "store/reducers";
 import { CategoryState } from "store/types/CategoryType";
@@ -13,24 +16,45 @@ const MainContainer = () => {
   const { data, getPostErr } = useSelector(
     (state: RootState) => state.GetPostReducer
   );
+
   const { getCategoryData, getCategoryErr } = useSelector(
     (state: RootState) => state.GetCategoryReducer
   );
 
-  // setTimeout(() => {
-  //   const { data } = useSelector((state: RootState) => state.GetPostReducer);
-  //   console.log(data);
-  // }, 3000);
+  const { getPostCategoryData, getPostCategoryErr } = useSelector(
+    (state: RootState) => state.GetPostCategoryReducer
+  );
+
+  const onClickCategoryPost = (idx: number) => {
+    console.log();
+    dispatch(getPostCategoryAsync.request({ category: idx }));
+  };
+
+  useEffect(() => {
+    dispatch(getPostAsync.request({}));
+    dispatch(getCategoryAsync.request({}));
+  }, []);
 
   useEffect(() => {
     setCategory(getCategoryData?.res);
+    console.log(getCategoryData?.res);
   }, [getCategoryData, getCategoryErr]);
+
+  useEffect(() => {
+    console.log(getPostCategoryData, getPostCategoryErr);
+  }, [getPostCategoryData, getPostCategoryErr]);
 
   useEffect(() => {
     console.log(data);
   }, [data, getPostErr]);
 
-  return <Main data={data} category={category} />;
+  return (
+    <Main
+      data={data}
+      category={category}
+      onClickCategoryPost={onClickCategoryPost}
+    />
+  );
 };
 
 export default MainContainer;

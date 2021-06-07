@@ -8,7 +8,7 @@ export default async (request: Request, response: Response) => {
     const categoryRepository: Repository<Category> = getRepository(Category);
 
     const category: Category[] = await categoryRepository.find({
-      select: ["category"],
+      select: ["category", "idx"],
     });
 
     console.log("카테고리 조회 성공");

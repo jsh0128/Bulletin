@@ -18,14 +18,14 @@ const CategoryApi = {
 
     return { res: data?.data };
   },
-  searchPostCategory: async ({ category }: CategorySearchPostPayload) => {
+  getPostCategory: async ({ category }: CategorySearchPostPayload) => {
     const {
       data,
     }: AxiosResponse<ISearchCategoryPostResponse> = await axios.get(
-      `${SERVER}/category/searchPostCategory?category${category}`
+      `${SERVER}/category/searchPostCategory?category=${category}`
     );
 
-    return { res: data };
+    return { res: data?.data };
   },
   createCategory: async ({ category }: CreateCategoryPayload) => {
     const body = {

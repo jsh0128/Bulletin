@@ -16,3 +16,5 @@ export interface PostState {
   user_email: string;
   user_name: string;
 }
+
+export interface ICreatePostState {}
