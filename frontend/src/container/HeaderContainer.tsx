@@ -127,7 +127,6 @@ const HeaderContainer = () => {
 
   useEffect(() => {
     if (userError?.response.status === 500) {
-      // console.log(userError);
     }
   }, [userError]);
 
@@ -153,9 +152,6 @@ const HeaderContainer = () => {
     }
   }, []);
 
-  useEffect(() => {
-    // console.log(userData);
-  }, [userData]);
 
   return (
     <Header

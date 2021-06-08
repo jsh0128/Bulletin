@@ -49,7 +49,7 @@ const Login = ({
           <Inputs>
             <CustomBtn onClick={onClickLogin}>로그인</CustomBtn>
             <CustomSpan onClick={() => setSelectedAuth(true)}>
-              회원가입 아직 안함?
+              회원가입 Let's get it~
             </CustomSpan>
           </Inputs>
         </Forms>

@@ -133,6 +133,10 @@ const SearchArea = styled.div`
 const SearchInput = styled.input`
   height: 1.3rem;
   padding-left: 0.5rem;
+  border: none;
+  border-bottom: 1px solid #e2e2e2;
+  padding-bottom: 4px;
+  font-size: 0.8rem;
   @media screen and (max-width: 1200px) {
     width: 100%;
   }

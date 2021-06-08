@@ -35,7 +35,6 @@ const PostApi = {
     };
     let config = {};
     if (localStorage.getItem("access_token")) {
-      console.log("1");
       config = {
         headers: {
           token: `${localStorage.getItem("access_token")}`,

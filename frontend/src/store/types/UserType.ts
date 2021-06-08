@@ -22,6 +22,7 @@ export interface IUserInfoState {
     name: string;
     email: string;
     profileImg: string | null;
+    is_admin: boolean;
   } | null;
   loginCheck: boolean;
   userError: AxiosError | null;

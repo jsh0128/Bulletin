@@ -116,6 +116,7 @@ export const GetInfoReducer = createReducer<IUserInfoState>(
         name: action.payload.data.name,
         email: action.payload.data.email,
         profileImg: action.payload.data.profile,
+        is_admin: action.payload.data.is_admin,
       },
       loginCheck: true,
       userError: null,

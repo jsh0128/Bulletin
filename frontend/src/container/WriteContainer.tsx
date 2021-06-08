@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createPostAsync } from "store/actions/PostAction";
 import { RootState } from "store/reducers";
 import Write from "../components/Write";
+import Router from "next/router";
 
 const WriteContainer = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const WriteContainer = () => {
         preview_img: preview_img,
       })
     );
+    Router.push("/");
   };
 
   useEffect(() => {

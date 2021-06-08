@@ -6,6 +6,10 @@ export const GlobalStyled = createGlobalStyle`
     padding : 0;
     font-family: NotoSansKR;
   }
+  a{ 
+   text-decoration : none;
+   color: black;
+  }
 `;
 
 export const Center = styled.div`

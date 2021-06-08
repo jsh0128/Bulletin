@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import AuthModal from "./AuthModal";
+import Link from "next/link";
 
 interface HeaderProps {
   id: string;
@@ -23,7 +24,12 @@ interface HeaderProps {
   onClickMailCodeSend: () => void;
   loginCheck: boolean;
   Logout: () => void;
-  userData: { name: string; email: string; profileImg: string };
+  userData: {
+    name: string;
+    email: string;
+    profileImg: string;
+    is_admin: boolean;
+  };
 }
 
 const Header = ({
@@ -53,10 +59,11 @@ const Header = ({
   return (
     <HeaderArea>
       <HeaderStyle>
-        <LogoStyle onClick={() => router.push("/")}>가나다라마바사</LogoStyle>
+        <LogoStyle onClick={() => router.push("/")}>ㄱㄴㄷ</LogoStyle>
         <div>
           {loginCheck === true ? (
             <RightSpan>
+              {userData?.is_admin && <Link href="/write">글쓰기</Link>}
               <AuthSpan onClick={Logout}>로그아웃</AuthSpan>
             </RightSpan>
           ) : (
@@ -110,7 +117,7 @@ const HeaderArea = styled.div`
   display: flex;
   width: 100%;
   height: 2.5rem;
-  box-shadow: 5px 5px 8px 0px rgba(0, 0, 0, 0.085);
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.05);
   align-items: center;
   z-index: 10;
   justify-content: center;

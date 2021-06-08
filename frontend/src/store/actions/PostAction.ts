@@ -28,6 +28,6 @@ export const createPostAsync = createAsyncAction(
     categories: string[];
     preview_img: string | null;
   },
-  Response,
+  AxiosResponse<Response>,
   AxiosError
 >();

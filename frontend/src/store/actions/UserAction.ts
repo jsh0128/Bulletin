@@ -38,7 +38,18 @@ export const mailAuthAsync = createAsyncAction(
   MAIL_AUTH,
   MAIL_AUTH_SUCCESS,
   MAIL_AUTH_FAILURE
-)<{ email: string }, { res: string }, AxiosError>();
+)<
+  { email: string },
+  {
+    userData: {
+      name: string;
+      email: string;
+      profileImg: string;
+      is_admin: boolean;
+    };
+  },
+  AxiosError
+>();
 
 export const USER_INFO = "user/USER_INFO" as const;
 export const USER_INFO_SUCCESS = "user/USER_INFO_SUCCESS" as const;

@@ -33,6 +33,7 @@ export const validateUser = async (
 ) => {
   try {
     const user: User = await validateAuth(request);
+    console.log(user);
     request.user = user;
     next();
   } catch (err) {
@@ -42,14 +43,17 @@ export const validateUser = async (
 };
 export const validateAuth = async (request: Request) => {
   const access_token = request.headers["token"];
-  console.log(access_token);
+  console.log("토큰 " + access_token);
   try {
     const decodeToken: any = await verifyToken(access_token);
+    console.log("토큰 " + decodeToken);
 
     const userRepository: Repository<User> = getRepository(User);
     const user: User = await userRepository.findOne({
       where: { email: decodeToken.email },
     });
+
+    console.log("user" + user);
 
     return user;
   } catch (err) {
