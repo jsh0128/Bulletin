@@ -112,6 +112,7 @@ const HeaderArea = styled.div`
   height: 2.5rem;
   box-shadow: 5px 5px 8px 0px rgba(0, 0, 0, 0.085);
   align-items: center;
+  z-index: 10;
   justify-content: center;
 `;
 
