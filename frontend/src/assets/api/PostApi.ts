@@ -33,13 +33,23 @@ const PostApi = {
       categories,
       preview_img,
     };
-
-    const { data }: AxiosResponse<Response> = await axios.post(
+    let config = {};
+    if (localStorage.getItem("access_token")) {
+      console.log("1");
+      config = {
+        headers: {
+          token: `${localStorage.getItem("access_token")}`,
+        },
+      };
+    }
+    console.log(config);
+    const { data }: AxiosResponse<any> = await axios.post(
       `${SERVER}/post/create`,
-      body
+      body,
+      config
     );
 
-    return { data };
+    return data;
   },
   modifyPosts: async ({
     title,
@@ -53,7 +63,7 @@ const PostApi = {
       categories,
       post_idx,
     };
-    const { data }: AxiosResponse<Response> = await axios.post(
+    const { data }: AxiosResponse<any> = await axios.post(
       `${SERVER}/post/modify`,
       body
     );
@@ -62,7 +72,7 @@ const PostApi = {
   deletePosts: async ({ post_idx }: DeletePostPayload) => {
     const body = { post_idx };
 
-    const { data }: AxiosResponse<Response> = await axios.post(
+    const { data }: AxiosResponse<any> = await axios.post(
       `${SERVER}/post/delete`,
       body
     );

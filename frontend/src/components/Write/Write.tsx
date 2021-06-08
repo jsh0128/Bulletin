@@ -1,21 +1,57 @@
 import React from "react";
 import styled from "styled-components";
 import MDEditor from "@uiw/react-md-editor";
+import { CustomBtn } from "components/common/Header/AuthModal/AuthStyle";
 
-interface WriteProps {}
+interface WriteProps {
+  title: string;
+  setTitle: React.Dispatch<React.SetStateAction<string>>;
+  intro: string;
+  setIntro: React.Dispatch<React.SetStateAction<string>>;
+  content: string;
+  setContent: React.Dispatch<React.SetStateAction<string>>;
+  categories: string[];
+  setCategories: React.Dispatch<React.SetStateAction<string[]>>;
+  onClickWrite: () => void;
+}
 
-const Write = ({}: WriteProps) => {
+const Write = ({
+  title,
+  setTitle,
+  intro,
+  setIntro,
+  content,
+  setContent,
+  categories,
+  setCategories,
+  onClickWrite,
+}: WriteProps) => {
   return (
     <WriteStyle>
       <Title>
-        <Input placeholder="제목" size={3} />
+        <Input
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+          placeholder="제목"
+          size={3}
+        />
       </Title>
       <Introduction>
-        <Input placeholder="소개글" size={2} />
+        <Input
+          value={intro}
+          onChange={(e) => {
+            setIntro(e.target.value);
+          }}
+          placeholder="소개글"
+          size={2}
+        />
       </Introduction>
       <Content>
-        <MDEditor style={{ height: "99%" }} />
+        <MDEditor value={content} onChange={setContent} height={"99%"} />
       </Content>
+      <Btn onClick={onClickWrite}>글쓰기</Btn>
     </WriteStyle>
   );
 };
@@ -28,6 +64,12 @@ const WriteStyle = styled.div`
 
 const Title = styled.div`
   height: 10%;
+`;
+
+const Btn = styled(CustomBtn)`
+  margin-top: none;
+  margin-bottom: 1rem;
+  font-weight: bold;
 `;
 
 const Introduction = styled.div`

@@ -5,7 +5,7 @@ import {
   MailAuthReducer,
   GetInfoReducer,
 } from "./UserReducer";
-import { GetPostReducer } from "./PostReducer";
+import { GetPostReducer, CreatePostReducer } from "./PostReducer";
 import { GetCategoryReducer, GetPostCategoryReducer } from "./CategoryReducer";
 import {
   IAuthEmailState,
@@ -15,7 +15,7 @@ import {
 } from "store/types/UserType";
 import { HydrateReducer } from "store/reducers/HydrateReducer";
 import { HYDRATE } from "next-redux-wrapper";
-import { IGetPostState } from "store/types/PostType";
+import { ICreatePostState, IGetPostState } from "store/types/PostType";
 import {
   IGetCategoryState,
   IGetPostCategoryState,
@@ -46,6 +46,7 @@ const rootReducer = (
         GetPostReducer,
         GetCategoryReducer,
         GetPostCategoryReducer,
+        CreatePostReducer,
       });
       return combineReducer(state, action);
     }
@@ -65,4 +66,5 @@ interface IState {
   GetPostReducer: IGetPostState;
   GetCategoryReducer: IGetCategoryState;
   GetPostCategoryReducer: IGetPostCategoryState;
+  CreatePostReducer: ICreatePostState;
 }

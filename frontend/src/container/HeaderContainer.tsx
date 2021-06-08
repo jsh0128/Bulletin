@@ -41,7 +41,7 @@ const HeaderContainer = () => {
 
   const onClickLogin = async () => {
     if (!id || !password) {
-      NotificationManager.warning("빈칸이 있어", "채워줘!", 1500);
+      NotificationManager.warning("빈칸이 있어", "채워!", 1500);
     } else {
       dispatch(loginAsync.request({ email: id, pw: password }));
       setLoading(false);
@@ -49,7 +49,6 @@ const HeaderContainer = () => {
   };
 
   const Login = useCallback(() => {
-    console.log(data);
     setLoading(true);
     if (data.token && !loginErr) {
       localStorage.setItem("access_token", data.token);

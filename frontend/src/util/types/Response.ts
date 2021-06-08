@@ -13,3 +13,11 @@ export interface ILoginResponse extends Response {
     };
   };
 }
+
+export interface IGetInfoResponse extends Response {
+  data: {
+    email: string;
+    name: string;
+    profile_Img: string | null;
+  };
+}

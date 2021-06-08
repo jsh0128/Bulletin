@@ -1,4 +1,5 @@
 import { AxiosError } from "axios";
+import { Response } from "util/types/Response";
 
 export interface IGetPostState {
   data: { res: PostState[] | PostState | null };
@@ -17,4 +18,7 @@ export interface PostState {
   user_name: string;
 }
 
-export interface ICreatePostState {}
+export interface ICreatePostState {
+  createPostData: null | Response;
+  createPostErr: null | AxiosError;
+}

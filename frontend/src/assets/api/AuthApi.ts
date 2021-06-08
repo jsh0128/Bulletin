@@ -4,7 +4,7 @@ import {
   RegisterPayload,
 } from "assets/types/AuthPayLoadTypes";
 import axios, { AxiosResponse } from "axios";
-import { ILoginResponse } from "util/types/Response";
+import { IGetInfoResponse, ILoginResponse } from "util/types/Response";
 import { SERVER } from "../../config/config.json";
 
 const AuthApi = {
@@ -34,7 +34,10 @@ const AuthApi = {
       profileImg,
       certCode: authCode,
     };
-    const { data } = await axios.post(`${SERVER}/auth/signup`, body);
+    const { data }: AxiosResponse<Response> = await axios.post(
+      `${SERVER}/auth/signup`,
+      body
+    );
 
     return data;
   },
@@ -42,7 +45,10 @@ const AuthApi = {
     const body = {
       email,
     };
-    const { data } = await axios.post(`${SERVER}/auth/emailCode`, body);
+    const { data }: AxiosResponse<Response> = await axios.post(
+      `${SERVER}/auth/emailCode`,
+      body
+    );
 
     return data;
   },
@@ -56,7 +62,10 @@ const AuthApi = {
       };
     }
 
-    const { data } = await axios.get(`${SERVER}/auth/getInfo`, config);
+    const { data }: AxiosResponse<IGetInfoResponse> = await axios.get(
+      `${SERVER}/auth/getInfo`,
+      config
+    );
     return data;
   },
 };

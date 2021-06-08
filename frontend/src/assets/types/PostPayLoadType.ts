@@ -6,7 +6,7 @@ export type CreatePostPayload = {
   content: string;
   introduction: string;
   categories: string[];
-  preview_img: string;
+  preview_img: string | null;
 };
 export type ModifyPostPayload = {
   title: string;
