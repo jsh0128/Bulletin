@@ -4,8 +4,9 @@ export const GlobalStyled = createGlobalStyle`
   *{
     margin : 0;
     padding : 0;
-    font-family: NotoSansKR;
+    font-family: 'Noto Sans KR', sans-serif;
   }
+  
   a{ 
    text-decoration : none;
    color: black;

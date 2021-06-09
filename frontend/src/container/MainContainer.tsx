@@ -13,6 +13,7 @@ const MainContainer = () => {
   const dispatch = useDispatch();
   const [category, setCategory] = useState<CategoryState[]>();
   const [selected, setSelected] = useState<number>(0);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
 
   const { data, getPostErr } = useSelector(
     (state: RootState) => state.GetPostReducer
@@ -26,13 +27,15 @@ const MainContainer = () => {
     (state: RootState) => state.GetPostCategoryReducer
   );
 
-  const onClickCategoryPost = (idx: number) => {
+  const onClickCategoryPost = (idx: number, category: string) => {
     setSelected(1);
+    setSelectedCategory(category);
     dispatch(getPostCategoryAsync.request({ category: idx }));
   };
 
   const onClickSelectedAll = () => {
     setSelected(0);
+    setSelectedCategory("");
     dispatch(getPostAsync.request({}));
   };
 
@@ -56,21 +59,13 @@ const MainContainer = () => {
 
   return (
     <>
-      {selected ? (
-        <Main
-          data={getPostCategoryData}
-          category={category}
-          onClickCategoryPost={onClickCategoryPost}
-          onClickSelectedAll={onClickSelectedAll}
-        />
-      ) : (
-        <Main
-          data={data}
-          category={category}
-          onClickCategoryPost={onClickCategoryPost}
-          onClickSelectedAll={onClickSelectedAll}
-        />
-      )}
+      <Main
+        data={selected ? getPostCategoryData : data}
+        category={category}
+        selectedCategory={selectedCategory}
+        onClickCategoryPost={onClickCategoryPost}
+        onClickSelectedAll={onClickSelectedAll}
+      />
     </>
   );
 };

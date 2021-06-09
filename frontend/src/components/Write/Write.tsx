@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import MDEditor from "@uiw/react-md-editor";
-import { CustomBtn } from "components/common/Header/AuthModal/AuthStyle";
+import { AuthCustomBtn } from "components/common/Header/AuthModal/AuthStyle";
 import { CategoryState } from "store/types/CategoryType";
+import { Center } from "components/common/CustomButton/CustomButton";
 
 interface WriteProps {
   title: string;
@@ -56,7 +57,7 @@ const Write = ({
             setIntro(e.target.value);
           }}
           placeholder="소개글"
-          size={2}
+          size={1.5}
         />
       </Introduction>
       <Categories>
@@ -90,7 +91,9 @@ const Write = ({
       <Content>
         <MDEditor value={content} onChange={setContent} height={"99%"} />
       </Content>
-      <Btn onClick={onClickWrite}>글쓰기</Btn>
+      <Center>
+        <Btn onClick={onClickWrite}>글쓰기</Btn>
+      </Center>
     </WriteStyle>
   );
 };
@@ -125,19 +128,21 @@ const SelectCategoriesForm = styled.div`
   width: 6rem;
   transition: 0.2s;
   &:hover {
-    background: #b4b4b4;
+    background: #343434;
+    color: white;
   }
 `;
 
 const Category = styled.div`
   display: flex;
+  color: #343434;
   align-items: center;
   justify-content: center;
   margin-left: 1rem;
   padding: 0 0.5rem;
   height: 100%;
-  border: 1px solid black;
-  border-radius: 4px;
+  border: 1px solid #343434;
+  border-radius: 3px;
 `;
 
 const Delete = styled.span`
@@ -165,10 +170,11 @@ const Title = styled.div`
   height: 10%;
 `;
 
-const Btn = styled(CustomBtn)`
+const Btn = styled(AuthCustomBtn)`
   margin-top: none;
   margin-bottom: 1rem;
   font-weight: bold;
+  width: 50%;
 `;
 
 const Introduction = styled.div`

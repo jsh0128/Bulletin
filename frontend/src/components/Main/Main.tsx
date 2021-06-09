@@ -2,17 +2,18 @@ import MainItem from "components/common/MainItem";
 import { CategoryState } from "store/types/CategoryType";
 import { PostState } from "store/types/PostType";
 import styled from "styled-components";
-import { SERVER } from "config/config.json";
 interface MainProps {
   data: { res: PostState[] | PostState | null };
   category: CategoryState[] | null;
-  onClickCategoryPost: (idx: number) => void;
+  selectedCategory: string;
+  onClickCategoryPost: (idx: number, category: string) => void;
   onClickSelectedAll: () => void;
 }
 
 const Main = ({
   data,
   category,
+  selectedCategory,
   onClickCategoryPost,
   onClickSelectedAll,
 }: MainProps) => {
@@ -21,21 +22,42 @@ const Main = ({
       <RightArea>
         <Right>
           <CategoriesStyle>
-            <Category
-              onClick={() => {
-                onClickSelectedAll();
-              }}
-            >
-              전체보기
-            </Category>
+            {selectedCategory === "" ? (
+              <SelectedCategory
+                onClick={() => {
+                  onClickSelectedAll();
+                }}
+              >
+                전체보기
+              </SelectedCategory>
+            ) : (
+              <Category
+                onClick={() => {
+                  onClickSelectedAll();
+                }}
+              >
+                전체보기
+              </Category>
+            )}
+
             {category &&
               category?.map((item, key) => (
-                <Category
-                  onClick={() => onClickCategoryPost(item.idx)}
-                  key={key}
-                >
-                  {item.category}
-                </Category>
+                <>
+                  {item.category === selectedCategory ? (
+                    <SelectedCategory key={key}>
+                      {item.category}
+                    </SelectedCategory>
+                  ) : (
+                    <Category
+                      onClick={() =>
+                        onClickCategoryPost(item.idx, item.category)
+                      }
+                      key={key}
+                    >
+                      {item.category}
+                    </Category>
+                  )}
+                </>
               ))}
           </CategoriesStyle>
           <SearchArea>
@@ -116,7 +138,7 @@ const Category = styled.span`
 const SelectedCategory = styled.span`
   margin-top: 0.3rem;
   font-weight: bold;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 `;
 
 const SearchArea = styled.div`

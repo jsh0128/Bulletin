@@ -102,10 +102,9 @@ const AuthModalArea = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 55rem;
-  height: 35rem;
+  width: 20rem;
+  height: 30rem;
   border-radius: 1rem;
-  background-color: white;
 `;
 
 export default AuthModal;

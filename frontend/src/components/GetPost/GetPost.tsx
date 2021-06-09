@@ -2,7 +2,7 @@ import React from "react";
 import { PostState } from "store/types/PostType";
 import MDEditor from "@uiw/react-md-editor";
 import styled from "styled-components";
-import CustomButton from "components/common/CustomButton";
+import { CustomButton } from "components/common/CustomButton/CustomButton";
 
 interface GetPostProps {
   data: PostState;
@@ -11,7 +11,7 @@ interface GetPostProps {
 
 const GetPost = ({ data, userData }: GetPostProps) => {
   return (
-    <PostArea>
+    <PostArea userData={userData}>
       <Center>
         <Title>{data?.title}</Title>
         <Intro>{data?.introduction}</Intro>
@@ -19,24 +19,28 @@ const GetPost = ({ data, userData }: GetPostProps) => {
           style={{ marginTop: "0.5rem" }}
           source={data?.content}
         />
-        {userData && (
-          <Buttons>
-            <CustomButton>글 수정</CustomButton>
-            <CustomButton>글 삭제</CustomButton>
-          </Buttons>
-        )}
       </Center>
+      {userData && (
+        <Buttons>
+          <CustomButton>글 수정</CustomButton>
+          <CustomButton style={{ marginLeft: "0.5rem" }}>글 삭제</CustomButton>
+        </Buttons>
+      )}
     </PostArea>
   );
 };
 
-const PostArea = styled.div`
+const PostArea = styled.div<{ userData: boolean }>`
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: ${(props: any) => (props.userData ? "none" : "center")};
 `;
 
-const Buttons = styled.div``;
+const Buttons = styled.div`
+  display: flex;
+  margin-top: 1rem;
+  height: 2rem;
+`;
 
 const Center = styled.div`
   width: 80%;
@@ -44,6 +48,7 @@ const Center = styled.div`
 
 const Title = styled.h1`
   margin-top: 0.5rem;
+  font-size: 2.7rem;
 `;
 
 const Intro = styled.h3`

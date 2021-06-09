@@ -1,13 +1,11 @@
 // import styled from "styled-components";
 import styled from "styled-components";
 import {
-  Img,
-  Forms,
   Inputs,
   AuthType,
   CustomInput,
   CustomSpan,
-  CustomBtn,
+  AuthCustomBtn,
 } from "../AuthStyle";
 
 interface RegisterProps {
@@ -44,8 +42,8 @@ const Register = ({
   return (
     <>
       <Forms>
-        <AuthType>회원가입</AuthType>
         <Inputs>
+          <AuthType>회원가입</AuthType>
           <EmailForm>
             <CustomInput
               placeholder="이메일"
@@ -79,9 +77,9 @@ const Register = ({
           />
         </Inputs>
         <Inputs>
-          <CustomBtn onClick={onClickRegister}>회원가입</CustomBtn>
+          <AuthCustomBtn onClick={onClickRegister}>회원가입</AuthCustomBtn>
           <CustomSpan onClick={() => setSelectedAuth(false)}>
-            사실 나 로그인 했어
+            사실 나 회원가입 했어
           </CustomSpan>
         </Inputs>
       </Forms>
@@ -92,21 +90,21 @@ export default Register;
 
 const EmailForm = styled.div`
   display: flex;
-  width: calc(65% + 16px);
+  width: calc(90% + 1rem);
   align-items: center;
   justify-content: space-between;
   margin-top: 1rem;
 `;
 
 const EmailCertBtn = styled.button`
-  width: 18%;
+  width: 20%;
   padding: 0;
-  border: 1px solid gray;
-  height: 100%;
+  height: 50px;
+  border: 1px solid #707070;
+  color: #9c9c9c;
   transition: 0.3s;
-  color: gray;
   background-color: white;
-  border-radius: 4px;
+  border-radius: 3px;
   &:hover {
     background-color: rgba(0, 0, 0, 0.75);
     color: white;
@@ -114,4 +112,12 @@ const EmailCertBtn = styled.button`
   &:focus {
     outline: none;
   }
+`;
+
+const Forms = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
 `;

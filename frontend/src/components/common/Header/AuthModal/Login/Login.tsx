@@ -1,11 +1,10 @@
+import styled from "styled-components";
 import {
-  Img,
-  Forms,
   Inputs,
   AuthType,
   CustomInput,
   CustomSpan,
-  CustomBtn,
+  AuthCustomBtn,
 } from "../AuthStyle";
 
 interface LoginProps {
@@ -46,7 +45,7 @@ const Login = ({
             />
           </Inputs>
           <Inputs>
-            <CustomBtn onClick={onClickLogin}>로그인</CustomBtn>
+            <AuthCustomBtn onClick={onClickLogin}>로그인</AuthCustomBtn>
             <CustomSpan onClick={() => setSelectedAuth(true)}>
               회원가입 Let's get it~
             </CustomSpan>
@@ -58,4 +57,12 @@ const Login = ({
     </>
   );
 };
+
+const Forms = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+`;
 export default Login;

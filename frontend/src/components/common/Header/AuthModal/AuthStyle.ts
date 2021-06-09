@@ -1,20 +1,5 @@
 import styled from "styled-components";
 
-export const Img = styled.div`
-  height: 100%;
-  width: 50%;
-  background-color: black;
-`;
-
-export const Forms = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 100%;
-  width: 50%;
-`;
-
 export const Inputs = styled.div`
   display: flex;
   align-items: center;
@@ -22,24 +7,25 @@ export const Inputs = styled.div`
   width: 100%;
 `;
 
-export const AuthType = styled.h1`
-  font-size: 2.5rem;
+export const AuthType = styled.div`
+  font-size: 1rem;
   margin-top: 0.5rem;
+  color: white;
+  font-weight: bold;
+  width: 100%;
 `;
 
 export const CustomInput = styled.input`
-  width: 65%;
+  width: 90%;
   padding-left: 1rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   height: 3rem;
-  border: none;
-  border-radius: 4px;
-  border: 1px solid gray;
+  border: 1px solid #707070;
+  border-radius: 3px;
   ::placeholder {
-    color: gray;
+    color: #9c9c9c;
   }
   :focus {
-    border: 1px solid black;
     outline: none;
   }
 `;
@@ -48,25 +34,25 @@ export const CustomSpan = styled.span`
   margin-top: 1rem;
   transition: 0.3s;
   cursor: pointer;
-  color: rgba(0, 0, 0, 0.75);
+  color: white;
   font-weight: bold;
   :hover {
-    color: black;
   }
 `;
 
-export const CustomBtn = styled.button`
+export const AuthCustomBtn = styled.button`
   margin-top: 1rem;
   transition: 0.3s;
   font-size: 1rem;
   padding: 0.5rem 2rem;
-  color: gray;
-  background-color: white;
-  border: 1px solid gray;
-  border-radius: 4px;
+  color: white;
+  width: 100%;
+  height: 3rem;
+  background-color: #343434;
+  border: 1px solid #707070;
+  border-radius: 28px;
   &:hover {
     background-color: rgba(0, 0, 0, 0.85);
-    color: white;
     border: 1px solid black;
   }
   &:focus {

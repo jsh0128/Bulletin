@@ -1,7 +1,6 @@
 import DefaultTemplate from "components/common/DefaultTemplate";
 import { AppContext, AppProps } from "next/app";
 import { Center, GlobalStyled, MaxWidth } from "styles/globals";
-import { FontStyle } from "../src/styles/font";
 import wrapper from "store/configureStore";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
@@ -16,7 +15,6 @@ function App({ Component, pageProps }: AppProps) {
             <Component {...pageProps} />
           </MaxWidth>
           <GlobalStyled />
-          <FontStyle />
         </DefaultTemplate>
       </Center>
       <NotificationContainer />
