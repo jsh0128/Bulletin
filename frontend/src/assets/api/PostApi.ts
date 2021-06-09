@@ -6,7 +6,6 @@ import {
 } from "assets/types/PostPayLoadType";
 import axios, { AxiosResponse } from "axios";
 import { IGetPostResponse } from "util/types/PostResponse";
-import { Response } from "util/types/Response";
 import { SERVER } from "../../config/config.json";
 
 const PostApi = {
@@ -41,7 +40,6 @@ const PostApi = {
         },
       };
     }
-    console.log(config);
     const { data }: AxiosResponse<any> = await axios.post(
       `${SERVER}/post/create`,
       body,
@@ -62,18 +60,35 @@ const PostApi = {
       categories,
       post_idx,
     };
+    let config = {};
+    if (localStorage.getItem("access_token")) {
+      config = {
+        headers: {
+          token: `${localStorage.getItem("access_token")}`,
+        },
+      };
+    }
     const { data }: AxiosResponse<any> = await axios.post(
       `${SERVER}/post/modify`,
-      body
+      body,
+      config
     );
     return data;
   },
   deletePosts: async ({ post_idx }: DeletePostPayload) => {
     const body = { post_idx };
-
+    let config = {};
+    if (localStorage.getItem("access_token")) {
+      config = {
+        headers: {
+          token: `${localStorage.getItem("access_token")}`,
+        },
+      };
+    }
     const { data }: AxiosResponse<any> = await axios.post(
       `${SERVER}/post/delete`,
-      body
+      body,
+      config
     );
     return data;
   },

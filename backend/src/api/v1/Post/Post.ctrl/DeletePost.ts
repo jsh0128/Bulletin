@@ -8,6 +8,8 @@ export default async (request: Request, response: Response) => {
   try {
     const { post_idx } = request.body;
 
+    console.log(post_idx);
+
     const postRepository: Repository<Post> = getRepository(Post);
 
     const findPost = await postRepository.findOne({ where: { idx: post_idx } });

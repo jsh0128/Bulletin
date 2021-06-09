@@ -31,3 +31,38 @@ export const createPostAsync = createAsyncAction(
   AxiosResponse<Response>,
   AxiosError
 >();
+
+export const MODIFY_POST = "MODIFY_POST" as const;
+export const MODIFY_POST_SUCCESS = "MODIFY_POST_SUCCESS" as const;
+export const MODIFY_POST_FAILURE = "MODIFY_POST_FAILURE" as const;
+
+export const modifyPostAsync = createAsyncAction(
+  MODIFY_POST,
+  MODIFY_POST_SUCCESS,
+  MODIFY_POST_FAILURE
+)<
+  {
+    title: string;
+    content: string;
+    post_idx: number;
+    categories: string;
+  },
+  AxiosResponse<Response>,
+  AxiosError
+>();
+
+export const DELETE_POST = "DELETE_POST" as const;
+export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS" as const;
+export const DELETE_POST_FAILURE = "DELETE_POST_FAILURE" as const;
+
+export const deletePostAsync = createAsyncAction(
+  DELETE_POST,
+  DELETE_POST_SUCCESS,
+  DELETE_POST_FAILURE
+)<
+  {
+    post_idx: number;
+  },
+  AxiosResponse<Response>,
+  AxiosError
+>();

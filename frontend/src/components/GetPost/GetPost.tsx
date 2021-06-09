@@ -7,9 +7,10 @@ import { CustomButton } from "components/common/CustomButton/CustomButton";
 interface GetPostProps {
   data: PostState;
   userData: boolean | null;
+  onClickDelete: () => void;
 }
 
-const GetPost = ({ data, userData }: GetPostProps) => {
+const GetPost = ({ data, userData, onClickDelete }: GetPostProps) => {
   return (
     <PostArea userData={userData}>
       <Center>
@@ -23,7 +24,12 @@ const GetPost = ({ data, userData }: GetPostProps) => {
       {userData && (
         <Buttons>
           <CustomButton>글 수정</CustomButton>
-          <CustomButton style={{ marginLeft: "0.5rem" }}>글 삭제</CustomButton>
+          <CustomButton
+            onClick={onClickDelete}
+            style={{ marginLeft: "0.5rem" }}
+          >
+            글 삭제
+          </CustomButton>
         </Buttons>
       )}
     </PostArea>

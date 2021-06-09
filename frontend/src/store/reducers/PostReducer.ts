@@ -6,7 +6,12 @@ import {
   CREATE_POST_SUCCESS,
   CREATE_POST_FAILURE,
 } from "store/actions/PostAction";
-import { IGetPostState, ICreatePostState } from "store/types/PostType";
+import {
+  IGetPostState,
+  ICreatePostState,
+  IModifyPostState,
+  IDeletePostState,
+} from "store/types/PostType";
 import { createReducer } from "typesafe-actions";
 
 const getPostInitialState: IGetPostState = {
@@ -45,8 +50,8 @@ export const CreatePostReducer = createReducer<ICreatePostState>(
   {
     [CREATE_POST]: (state, action) => ({
       ...state,
-      data: null,
-      getPostErr: null,
+      createPostData: null,
+      createPostErr: null,
     }),
     [CREATE_POST_SUCCESS]: (state, action) => ({
       ...state,
@@ -57,6 +62,56 @@ export const CreatePostReducer = createReducer<ICreatePostState>(
       ...state,
       createPostData: null,
       createPostErr: action.payload,
+    }),
+  }
+);
+
+const modifyPostInitialState: IModifyPostState = {
+  modifyPostData: null,
+  modifyPostErr: null,
+};
+export const modifyPostReducer = createReducer<IModifyPostState>(
+  modifyPostInitialState,
+  {
+    [CREATE_POST]: (state, action) => ({
+      ...state,
+      modifyPostData: null,
+      modifyPostErr: null,
+    }),
+    [CREATE_POST_SUCCESS]: (state, action) => ({
+      ...state,
+      modifyPostData: action.payload,
+      modifyPostErr: null,
+    }),
+    [CREATE_POST_FAILURE]: (state, action) => ({
+      ...state,
+      modifyPostData: null,
+      modifyPostErr: action.payload,
+    }),
+  }
+);
+
+const deletePostInitialState: IDeletePostState = {
+  deletePostData: null,
+  deletePostErr: null,
+};
+export const deletePostReducer = createReducer<IDeletePostState>(
+  deletePostInitialState,
+  {
+    [CREATE_POST]: (state, action) => ({
+      ...state,
+      deletePostData: null,
+      deletePostErr: null,
+    }),
+    [CREATE_POST_SUCCESS]: (state, action) => ({
+      ...state,
+      deletePostData: action.payload,
+      deletePostErr: null,
+    }),
+    [CREATE_POST_FAILURE]: (state, action) => ({
+      ...state,
+      deletePostData: null,
+      deletePostErr: action.payload,
     }),
   }
 );

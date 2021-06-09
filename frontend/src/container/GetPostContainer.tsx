@@ -2,11 +2,12 @@ import GetPost from "components/GetPost";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPostAsync } from "store/actions/PostAction";
+import { deletePostAsync, getPostAsync } from "store/actions/PostAction";
 import { RootState } from "store/reducers";
 import { PostState } from "store/types/PostType";
 import { NotificationManager } from "react-notifications";
 import history from "next/router";
+import Router from "next/router";
 
 const GetPostContainer = () => {
   const [postData, setPostData] = useState<PostState>();
@@ -16,6 +17,17 @@ const GetPostContainer = () => {
     (state: RootState) => state.GetPostReducer
   );
   const { userData } = useSelector((state: RootState) => state.GetInfoReducer);
+  const { deletePostData, deletePostErr } = useSelector(
+    (state: RootState) => state.deletePostReducer
+  );
+  const { modifyPostData, modifyPostErr } = useSelector(
+    (state: RootState) => state.modifyPostReducer
+  );
+
+  const onClickDelete = () => {
+    Router.push("/");
+    dispatch(deletePostAsync.request({ post_idx: Number(query.idx) }));
+  };
 
   useEffect(() => {
     dispatch(getPostAsync.request({ postIdx: Number(query.idx) }));
@@ -36,8 +48,16 @@ const GetPostContainer = () => {
     }
   }, [getPostErr]);
 
+  useEffect(() => {
+    console.log(deletePostData, deletePostErr);
+  }, [deletePostData, deletePostErr]);
+
   return (
-    <GetPost data={postData} userData={userData ? userData.is_admin : null} />
+    <GetPost
+      onClickDelete={onClickDelete}
+      data={postData}
+      userData={userData ? userData.is_admin : null}
+    />
   );
 };
 export default GetPostContainer;
