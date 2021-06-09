@@ -29,7 +29,6 @@ const Login = ({
 }: LoginProps) => {
   return (
     <>
-      <Img />
       {loading ? (
         <Forms>
           <AuthType>로그인</AuthType>

@@ -15,6 +15,7 @@ const GetPostContainer = () => {
   const { data, getPostErr } = useSelector(
     (state: RootState) => state.GetPostReducer
   );
+  const { userData } = useSelector((state: RootState) => state.GetInfoReducer);
 
   useEffect(() => {
     dispatch(getPostAsync.request({ postIdx: Number(query.idx) }));
@@ -35,8 +36,8 @@ const GetPostContainer = () => {
     }
   }, [getPostErr]);
 
-  console.log(postData);
-
-  return <GetPost data={postData} />;
+  return (
+    <GetPost data={postData} userData={userData ? userData.is_admin : null} />
+  );
 };
 export default GetPostContainer;

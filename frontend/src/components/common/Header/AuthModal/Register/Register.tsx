@@ -43,7 +43,6 @@ const Register = ({
 }: RegisterProps) => {
   return (
     <>
-      <Img />
       <Forms>
         <AuthType>회원가입</AuthType>
         <Inputs>
