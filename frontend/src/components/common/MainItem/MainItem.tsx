@@ -15,7 +15,7 @@ const MainItem = ({ data }: MainItemProps) => {
           <ImgContainer>
             <ImgRatio>
               <ImgCenter>
-                <Img src="https://media.vlpt.us/images/gicomong/post/8d124099-3c88-4c20-9798-3d8584ac306a/gif (4).gif?w=640" />
+                <Img src={data.preview_image} />
               </ImgCenter>
             </ImgRatio>
           </ImgContainer>
