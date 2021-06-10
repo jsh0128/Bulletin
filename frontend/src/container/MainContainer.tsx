@@ -60,6 +60,8 @@ const MainContainer = () => {
 
   const onClickCreateCategory = () => {
     dispatch(createCategoryAsync.request({ category: createCategory }));
+    setCreateCategory("");
+    setCategoryModal(false);
   };
 
   const onClickDeleteCategory = (category: string) => {
