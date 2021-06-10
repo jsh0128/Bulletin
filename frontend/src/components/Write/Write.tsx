@@ -3,7 +3,7 @@ import styled from "styled-components";
 import MDEditor from "@uiw/react-md-editor";
 import { AuthCustomBtn } from "components/common/Header/AuthModal/AuthStyle";
 import { CategoryState } from "store/types/CategoryType";
-import { Center } from "components/common/CustomButton/CustomButton";
+import { Center } from "components/common/Basic/Basic";
 
 interface WriteProps {
   title: string;

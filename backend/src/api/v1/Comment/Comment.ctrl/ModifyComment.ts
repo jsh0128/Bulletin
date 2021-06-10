@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { getRepository, Repository } from "typeorm";
-import { Coment } from "../../../../entity/Coment";
+import { Comment } from "../../../../entity/Comment";
 import User from "../../../../entity/User";
 import { handleResponse } from "../../../../lib/handleResponse";
 import AuthRequest from "../../../../types/AuthRequest";
@@ -9,18 +9,20 @@ export default async (request: AuthRequest, response: Response) => {
   try {
     const { idx, content } = request.body;
     const user: User = request.user;
-    const comentRepository: Repository<Coment> = getRepository(Coment);
+    const commentRepository: Repository<Comment> = getRepository(Comment);
 
-    const findComent = await comentRepository.findOne({ where: { idx: idx } });
+    const findComment = await commentRepository.findOne({
+      where: { idx: idx },
+    });
 
-    if (findComent.fk_user_email !== user.email) {
+    if (findComment.fk_user_email !== user.email) {
       console.log("수정 불가");
       handleResponse(response, 403, "수정 불가");
       return;
     }
 
-    findComent.content = content;
-    await comentRepository.save(findComent);
+    findComment.content = content;
+    await commentRepository.save(findComment);
 
     console.log("변경 성공");
     handleResponse(response, 200, "댓글 변경 성공");

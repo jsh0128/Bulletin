@@ -1,32 +1,32 @@
 import { Request, Response } from "express";
 import { getRepository, Repository } from "typeorm";
-import { Coment } from "../../../../entity/Coment";
+import { Comment } from "../../../../entity/Comment";
 import User from "../../../../entity/User";
 import { handleResponse } from "../../../../lib/handleResponse";
 import AuthRequest from "../../../../types/AuthRequest";
 
 export default async (request: AuthRequest, response: Response) => {
   try {
-    const { coment_idx } = request.body;
+    const { comment_idx } = request.body;
     const user: User = request.user;
-    const comentRepository: Repository<Coment> = getRepository(Coment);
-    const findComent = await comentRepository.findOne({
-      where: { idx: coment_idx },
+    const commentRepository: Repository<Comment> = getRepository(Comment);
+    const findComment = await commentRepository.findOne({
+      where: { idx: comment_idx },
     });
 
-    if (!coment_idx) {
-      console.log("coment idx가 없습니다.");
-      handleResponse(response, 405, "coment idx가 없습니다.");
+    if (!comment_idx) {
+      console.log("comment idx가 없습니다.");
+      handleResponse(response, 405, "comment idx가 없습니다.");
       return;
     }
 
-    if (findComent.fk_user_email !== user.email) {
+    if (findComment.fk_user_email !== user.email) {
       console.log("삭제 불가");
       handleResponse(response, 403, "삭제 불가");
       return;
     }
 
-    await comentRepository.delete(findComent);
+    await commentRepository.delete(findComment);
     console.log("삭제 성공");
     handleResponse(response, 200, "삭제 성공");
     return;

@@ -9,8 +9,8 @@ import {
 import { Post } from "./Post";
 import User from "./User";
 
-@Entity("coment")
-export class Coment {
+@Entity("comment")
+export class Comment {
   @PrimaryGeneratedColumn()
   idx!: number;
 
@@ -34,4 +34,7 @@ export class Coment {
 
   @Column()
   fk_user_email: string;
+
+  @Column()
+  name: string;
 }

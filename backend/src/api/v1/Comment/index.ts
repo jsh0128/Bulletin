@@ -1,15 +1,15 @@
 import { Router } from "express";
 import { validateUser } from "../../../lib/middleware/AuthTypeCheck";
-import CreateComent from "./Coment.ctrl/CreateComent";
-import DeleteComent from "./Coment.ctrl/DeleteComent";
-import GetComent from "./Coment.ctrl/GetComent";
-import ModifyComent from "./Coment.ctrl/ModifyComent";
+import CreateComment from "./Comment.ctrl/CreateComment";
+import DeleteComment from "./Comment.ctrl/DeleteComment";
+import GetComment from "./Comment.ctrl/GetComment";
+import ModifyComment from "./Comment.ctrl/ModifyComment";
 
 const router = Router();
 
-router.post("/create", validateUser, CreateComent);
-router.post("/delete", validateUser, DeleteComent);
-router.post("/modify", validateUser, ModifyComent);
-router.post("/getComent", GetComent);
+router.post("/create", validateUser, CreateComment);
+router.post("/delete", validateUser, DeleteComment);
+router.post("/modify", validateUser, ModifyComment);
+router.get("/getComment", GetComment);
 
 export default router;

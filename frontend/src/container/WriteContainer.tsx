@@ -20,6 +20,10 @@ const WriteContainer = () => {
   const { getCategoryData, getCategoryErr } = useSelector(
     (state: RootState) => state.GetCategoryReducer
   );
+  const { modifyPostData, modifyPostErr } = useSelector(
+    (state: RootState) => state.modifyPostReducer
+  );
+
   const [select, setSelect] = useState<boolean>(false);
 
   const getPreviewImg = () => {

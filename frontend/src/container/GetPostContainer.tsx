@@ -20,9 +20,6 @@ const GetPostContainer = () => {
   const { deletePostData, deletePostErr } = useSelector(
     (state: RootState) => state.deletePostReducer
   );
-  const { modifyPostData, modifyPostErr } = useSelector(
-    (state: RootState) => state.modifyPostReducer
-  );
 
   const onClickDelete = () => {
     Router.push("/");
