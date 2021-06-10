@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import { Response } from "util/types/Response";
 
 export interface IGetCommentState {
-  getCommentData: CommentState[] | null;
+  getCommentData: { data: CommentState[] | null };
   getCommentErr: AxiosError | null;
 }
 export interface ICreateCommentState {
@@ -18,8 +18,10 @@ export interface IDeleteCommentState {
   deleteCommentErr: AxiosError | null;
 }
 export interface CommentState {
+  idx: number;
   content: string;
   user_email: string;
   user_name: string;
   user_profile_img: string;
+  created_at: string;
 }

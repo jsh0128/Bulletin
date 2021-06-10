@@ -18,3 +18,9 @@ export const Center = styled.div`
   align-items: center;
   justify-content: center;
 `;
+export const BasicInput = styled.input`
+  padding-left: 1rem;
+  :focus {
+    outline: none;
+  }
+`;

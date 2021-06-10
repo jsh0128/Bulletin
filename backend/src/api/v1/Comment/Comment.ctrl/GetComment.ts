@@ -18,7 +18,7 @@ export default async (request: Request, response: Response) => {
 
     const findComment = await commentRepository.find({
       where: { fk_post_idx: post_idx },
-      select: ["content", "created_at", "fk_user_email"],
+      select: ["content", "created_at", "fk_user_email", "idx"],
       order: { created_at: "DESC" },
     });
 
@@ -37,6 +37,7 @@ export default async (request: Request, response: Response) => {
       data.push({
         idx: findComment[i].idx,
         content: findComment[i].content,
+        created_at: findComment[i].created_at,
         user_email: findComment[i].fk_user_email,
         user_name: username.name,
         user_profile_img: username.profile_img,

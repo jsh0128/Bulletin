@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { AiOutlineClockCircle } from "react-icons/ai";
+import { AiOutlineClockCircle } from "react-icons/Ai";
 import { PostState } from "store/types/PostType";
 import Link from "next/link";
 import TimeCounting from "time-counting";
@@ -27,7 +27,7 @@ const MainItem = ({ data }: MainItemProps) => {
               <Span>{data.user_name}</Span>
               <CreateTimeStyle>
                 <AiOutlineClockCircle />
-                <Span>{TimeCounting(data.created_at)}</Span>
+                <Span>{TimeCounting(data.created_at, { lang: "ko" })}</Span>
               </CreateTimeStyle>
             </Bottom>
           </ContentDiv>
