@@ -2,7 +2,7 @@ import React from "react";
 import { PostState } from "store/types/PostType";
 import MDEditor from "@uiw/react-md-editor";
 import styled from "styled-components";
-import { CustomButton } from "components/common/CustomButton/CustomButton";
+import { CustomButton } from "components/common/Basic/Basic";
 
 interface GetPostProps {
   data: PostState;

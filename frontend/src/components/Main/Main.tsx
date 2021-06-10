@@ -1,3 +1,4 @@
+import { BasicButton, CustomButton } from "components/common/Basic/Basic";
 import MainItem from "components/common/MainItem";
 import { CategoryState } from "store/types/CategoryType";
 import { PostState } from "store/types/PostType";
@@ -8,6 +9,7 @@ interface MainProps {
   selectedCategory: string;
   onClickCategoryPost: (idx: number, category: string) => void;
   onClickSelectedAll: () => void;
+  is_admin: boolean | null;
 }
 
 const Main = ({
@@ -16,6 +18,7 @@ const Main = ({
   selectedCategory,
   onClickCategoryPost,
   onClickSelectedAll,
+  is_admin,
 }: MainProps) => {
   return (
     <MainArea>
@@ -60,6 +63,7 @@ const Main = ({
                 </>
               ))}
           </CategoriesStyle>
+          {is_admin && <div></div>}
           <SearchArea>
             <SearchInput placeholder="검색" />
           </SearchArea>
@@ -85,6 +89,14 @@ const MainArea = styled.div`
   }
 `;
 
+const CategoryModify = styled.div`
+  margin-top: 3rem;
+  display: flex;
+`;
+
+const CategoryBtn = styled(BasicButton)`
+  padding: 0 0.6rem;
+`;
 const ItemsStyled = styled.div`
   display: flex;
   width: 80%;

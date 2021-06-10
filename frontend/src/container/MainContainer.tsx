@@ -19,6 +19,8 @@ const MainContainer = () => {
     (state: RootState) => state.GetPostReducer
   );
 
+  const { userData } = useSelector((state: RootState) => state.GetInfoReducer);
+
   const { getCategoryData, getCategoryErr } = useSelector(
     (state: RootState) => state.GetCategoryReducer
   );
@@ -65,6 +67,7 @@ const MainContainer = () => {
         selectedCategory={selectedCategory}
         onClickCategoryPost={onClickCategoryPost}
         onClickSelectedAll={onClickSelectedAll}
+        is_admin={userData?.is_admin}
       />
     </>
   );
