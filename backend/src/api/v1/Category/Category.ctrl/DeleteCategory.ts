@@ -6,6 +6,7 @@ import { handleResponse } from "../../../../lib/handleResponse";
 export default async (request: Request, response: Response) => {
   try {
     const { category } = request.body;
+    console.log(category);
     const categoryRepository: Repository<Category> = getRepository(Category);
 
     const findCategory = await categoryRepository.findOne({

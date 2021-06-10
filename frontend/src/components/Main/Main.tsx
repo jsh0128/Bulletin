@@ -3,6 +3,8 @@ import MainItem from "components/common/MainItem";
 import { CategoryState } from "store/types/CategoryType";
 import { PostState } from "store/types/PostType";
 import styled from "styled-components";
+import Update from "util/enums/Update";
+import Category from "./Category";
 interface MainProps {
   data: { res: PostState[] | PostState | null };
   category: CategoryState[] | null;
@@ -10,6 +12,14 @@ interface MainProps {
   onClickCategoryPost: (idx: number, category: string) => void;
   onClickSelectedAll: () => void;
   is_admin: boolean | null;
+  updateCategory: (
+    type: Update,
+    category?: string,
+    changeName?: string
+  ) => void;
+  categoryModal: boolean;
+  setCategoryModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setCreateCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Main = ({
@@ -19,51 +29,26 @@ const Main = ({
   onClickCategoryPost,
   onClickSelectedAll,
   is_admin,
+  updateCategory,
+  categoryModal,
+  setCategoryModal,
+  setCreateCategory,
 }: MainProps) => {
   return (
     <MainArea>
       <RightArea>
         <Right>
-          <CategoriesStyle>
-            {selectedCategory === "" ? (
-              <SelectedCategory
-                onClick={() => {
-                  onClickSelectedAll();
-                }}
-              >
-                전체보기
-              </SelectedCategory>
-            ) : (
-              <Category
-                onClick={() => {
-                  onClickSelectedAll();
-                }}
-              >
-                전체보기
-              </Category>
-            )}
-
-            {category &&
-              category?.map((item, key) => (
-                <>
-                  {item.category === selectedCategory ? (
-                    <SelectedCategory key={key}>
-                      {item.category}
-                    </SelectedCategory>
-                  ) : (
-                    <Category
-                      onClick={() =>
-                        onClickCategoryPost(item.idx, item.category)
-                      }
-                      key={key}
-                    >
-                      {item.category}
-                    </Category>
-                  )}
-                </>
-              ))}
-          </CategoriesStyle>
-          {is_admin && <div></div>}
+          <Category
+            category={category}
+            selectedCategory={selectedCategory}
+            onClickCategoryPost={onClickCategoryPost}
+            onClickSelectedAll={onClickSelectedAll}
+            is_admin={is_admin}
+            updateCategory={updateCategory}
+            categoryModal={categoryModal}
+            setCategoryModal={setCategoryModal}
+            setCreateCategory={setCreateCategory}
+          />
           <SearchArea>
             <SearchInput placeholder="검색" />
           </SearchArea>
@@ -123,34 +108,6 @@ const Right = styled.div`
     width: 100%;
     position: relative;
   }
-`;
-
-const CategoriesStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-content: flex-end;
-  border-right: 1px solid black;
-  padding-right: 3rem;
-  @media screen and (max-width: 1200px) {
-    width: 100%;
-    flex-direction: row;
-    border: none;
-    align-items: center;
-    justify-content: space-between;
-  }
-  @media screen and (max-width: 1200px) {
-    justify-content: center;
-  }
-`;
-
-const Category = styled.span`
-  margin-top: 0.3rem;
-`;
-
-const SelectedCategory = styled.span`
-  margin-top: 0.3rem;
-  font-weight: bold;
-  font-size: 1.1rem;
 `;
 
 const SearchArea = styled.div`

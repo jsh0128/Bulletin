@@ -5,24 +5,25 @@ import {
   DeleteCategoryPayload,
 } from "assets/types/CategoryPayLoadType";
 import axios, { AxiosResponse } from "axios";
+import customAxios from "lib/CustomAxios";
 import {
   IGetCategoryResponse,
   ISearchCategoryPostResponse,
 } from "util/types/CategoryResponse";
-import { SERVER } from "../../config/config.json";
+import { Response } from "util/types/Response";
 const CategoryApi = {
   getCategory: async () => {
-    const { data }: AxiosResponse<IGetCategoryResponse> = await axios.get(
-      `${SERVER}/category/getCategory`
+    const { data }: AxiosResponse<IGetCategoryResponse> = await customAxios.get(
+      `/category/getCategory`
     );
 
-    return { res: data?.data };
+    return { res: data.data };
   },
   getPostCategory: async ({ category }: CategorySearchPostPayload) => {
     const {
       data,
-    }: AxiosResponse<ISearchCategoryPostResponse> = await axios.get(
-      `${SERVER}/category/searchPostCategory?category=${category}`
+    }: AxiosResponse<ISearchCategoryPostResponse> = await customAxios.get(
+      `/category/searchPostCategory?category=${category}`
     );
 
     return { res: data?.data };
@@ -31,8 +32,8 @@ const CategoryApi = {
     const body = {
       category,
     };
-    const { data }: AxiosResponse<Response> = await axios.post(
-      `${SERVER}/category/create`,
+    const { data }: AxiosResponse<Response> = await customAxios.post(
+      `/category/create`,
       body
     );
 
@@ -43,8 +44,8 @@ const CategoryApi = {
       category_name: category,
       change_name: changeName,
     };
-    const { data }: AxiosResponse<Response> = await axios.post(
-      `${SERVER}/category/modify`,
+    const { data }: AxiosResponse<Response> = await customAxios.post(
+      `/category/modify`,
       body
     );
 
@@ -54,8 +55,8 @@ const CategoryApi = {
     const body = {
       category,
     };
-    const { data }: AxiosResponse<Response> = await axios.post(
-      `${SERVER}/category/delete`,
+    const { data }: AxiosResponse<Response> = await customAxios.post(
+      `/category/delete`,
       body
     );
 

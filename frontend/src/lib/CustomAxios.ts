@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import AxiosType from "util/enums/AxiosType";
 import { SERVER } from "config/config.json";
 interface CustomAxios {
@@ -8,48 +8,20 @@ interface CustomAxios {
   type: AxiosType;
 }
 
-const CustomAxios = ({ url, body, configCheck, type }: CustomAxios) => {
-  if (configCheck) {
-    let config = {};
-    if (localStorage.getItem("access_token")) {
-      config = {
-        headers: {
-          token: `${localStorage.getItem("access_token")}`,
-        },
-      };
-    }
-    return asyncProcess(url, body, type, config);
-  } else {
-    return asyncProcess(url, body, type);
+const addToken = (config: AxiosRequestConfig) => {
+  const token = localStorage.getItem("access_token");
+
+  console.log("123123123");
+
+  if (token) {
+    config.headers["token"] = token;
   }
+
+  return config;
 };
 
-const asyncProcess = async (
-  url: string,
-  body: object,
-  type: AxiosType,
-  config?: object
-) => {
-  switch (type) {
-    case AxiosType.GET: {
-      const { data }: AxiosResponse<any> = await axios.get(
-        `${SERVER}` + `${url}`,
-        config
-      );
+const customAxios = axios.create({ baseURL: SERVER });
 
-      return data;
-    }
-    case AxiosType.POST: {
-      const { data }: AxiosResponse<any> = await axios.post(
-        `${SERVER}${url}`,
-        body,
-        config
-      );
-      return data;
-    }
-    default:
-      return;
-  }
-};
+customAxios.interceptors.request.use(addToken);
 
-export default CustomAxios;
+export default customAxios;

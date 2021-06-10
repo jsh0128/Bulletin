@@ -106,12 +106,18 @@ const GetPostContainer = () => {
   // 댓글 가져온 후 핸들링
   useEffect(() => {
     setCommentData(getCommentData && getCommentData.data);
+    if (getCommentErr) {
+      NotificationManager.error("서버 오류입니다", "SERVER ERROR", 1500);
+    }
     console.log("댓글 데이터 " + getCommentData, "댓글 오류 " + getCommentErr);
   }, [getCommentData, getCommentErr]);
 
   // 포스트 삭제 후 핸들링
   useEffect(() => {
     console.log(deletePostData, deletePostErr);
+    if (deletePostErr) {
+      NotificationManager.error("서버 오류입니다", "SERVER ERROR", 1500);
+    }
   }, [deletePostData, deletePostErr]);
 
   // 댓글 만든 후 데이터 핸들링
@@ -126,6 +132,8 @@ const GetPostContainer = () => {
   useEffect(() => {
     if (deleteCommentData && deleteCommentData?.status === 200) {
       dispatch(getCommentAsync.request({ post_idx: Number(query.idx) }));
+    } else if (deleteCommentErr) {
+      NotificationManager.error("서버 오류입니다", "SERVER ERROR", 1500);
     }
     console.log(deleteCommentData, deleteCommentErr);
   }, [deleteCommentData, deleteCommentErr]);

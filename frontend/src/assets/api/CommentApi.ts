@@ -4,54 +4,39 @@ import {
   ModifyCommentPayload,
   CreateCommentPayload,
 } from "assets/types/CommentPayLoadType";
-import CustomAxios from "lib/CustomAxios";
-import AxiosType from "util/enums/AxiosType";
+import customAxios from "lib/CustomAxios";
 
 const CommentApi = {
-  getCommentApi: ({ post_idx }: GetCommentPayload) => {
-    const data = CustomAxios({
-      url: `/comment/getComment?post_idx=${post_idx}`,
-      configCheck: false,
-      type: AxiosType.GET,
-    });
+  getCommentApi: async ({ post_idx }: GetCommentPayload) => {
+    const { data } = await customAxios.get(
+      `/comment/getComment?post_idx=${post_idx}`
+    );
     return data;
   },
-  createCommentApi: ({ post_idx, content }: CreateCommentPayload) => {
+  createCommentApi: async ({ post_idx, content }: CreateCommentPayload) => {
     const body = {
       post_idx,
       content,
     };
-    const data = CustomAxios({
-      url: "/comment/create",
-      body: body,
-      configCheck: true,
-      type: AxiosType.POST,
-    });
+    const { data } = await customAxios.post(`/comment/create`, body);
+
     return data;
   },
-  modifyCommentApi: ({ idx, content }: ModifyCommentPayload) => {
+  modifyCommentApi: async ({ idx, content }: ModifyCommentPayload) => {
     const body = {
       idx,
       content,
     };
-    const data = CustomAxios({
-      url: "/comment/create",
-      body: body,
-      configCheck: true,
-      type: AxiosType.POST,
-    });
+    const { data } = await customAxios.post(`/comment/modify`, body);
+
     return data;
   },
-  deleteCommentApi: ({ comment_idx }: DeleteCommentPayload) => {
+  deleteCommentApi: async ({ comment_idx }: DeleteCommentPayload) => {
     const body = {
       comment_idx,
     };
-    const data = CustomAxios({
-      url: "/comment/delete",
-      body: body,
-      configCheck: true,
-      type: AxiosType.POST,
-    });
+    const { data } = await customAxios.post(`/comment/delete`, body);
+
     return data;
   },
 };

@@ -11,7 +11,13 @@ import {
   modifyPostReducer,
   deletePostReducer,
 } from "./PostReducer";
-import { GetCategoryReducer, GetPostCategoryReducer } from "./CategoryReducer";
+import {
+  GetCategoryReducer,
+  GetPostCategoryReducer,
+  createCategoryReducer,
+  modifyCategoryReducer,
+  deleteCategoryReducer,
+} from "./CategoryReducer";
 import {
   IAuthEmailState,
   ILoginState,
@@ -27,8 +33,11 @@ import {
   IModifyPostState,
 } from "store/types/PostType";
 import {
+  ICreateCategoryState,
+  IDeleteCategoryState,
   IGetCategoryState,
   IGetPostCategoryState,
+  IModifyCategoryState,
 } from "store/types/CategoryType";
 import { IHydrateState } from "store/types/HydrateType";
 import {
@@ -75,6 +84,9 @@ const rootReducer = (
         createCommentReducer,
         modifyCommentReducer,
         deleteCommentReducer,
+        createCategoryReducer,
+        modifyCategoryReducer,
+        deleteCategoryReducer,
       });
       return combineReducer(state, action);
     }
@@ -101,4 +113,7 @@ interface IState {
   createCommentReducer: ICreateCommentState;
   modifyCommentReducer: IModifyCommentState;
   deleteCommentReducer: IDeleteCommentState;
+  createCategoryReducer: ICreateCategoryState;
+  modifyCategoryReducer: IModifyCategoryState;
+  deleteCategoryReducer: IDeleteCategoryState;
 }
