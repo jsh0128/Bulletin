@@ -25,7 +25,7 @@ const getCommentInitialState: IGetCommentState = {
   getCommentErr: null,
 };
 
-export const GetCommentReducer = createReducer<IGetCommentState>(
+export const getCommentReducer = createReducer<IGetCommentState>(
   getCommentInitialState,
   {
     [GET_COMMENT]: (state, action) => ({

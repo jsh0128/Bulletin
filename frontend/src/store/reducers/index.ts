@@ -31,6 +31,18 @@ import {
   IGetPostCategoryState,
 } from "store/types/CategoryType";
 import { IHydrateState } from "store/types/HydrateType";
+import {
+  getCommentReducer,
+  createCommentReducer,
+  modifyCommentReducer,
+  deleteCommentReducer,
+} from "store/reducers/CommentReducer";
+import {
+  ICreateCommentState,
+  IDeleteCommentState,
+  IGetCommentState,
+  IModifyCommentState,
+} from "store/types/CommentType";
 
 const rootReducer = (
   state: IState,
@@ -59,6 +71,10 @@ const rootReducer = (
         CreatePostReducer,
         modifyPostReducer,
         deletePostReducer,
+        getCommentReducer,
+        createCommentReducer,
+        modifyCommentReducer,
+        deleteCommentReducer,
       });
       return combineReducer(state, action);
     }
@@ -81,4 +97,8 @@ interface IState {
   CreatePostReducer: ICreatePostState;
   modifyPostReducer: IModifyPostState;
   deletePostReducer: IDeletePostState;
+  getCommentReducer: IGetCommentState;
+  createCommentReducer: ICreateCommentState;
+  modifyCommentReducer: IModifyCommentState;
+  deleteCommentReducer: IDeleteCommentState;
 }

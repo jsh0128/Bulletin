@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import AxiosType from "util/enums/AxiosType";
-import SERVER from "config/config.json";
-
+import { SERVER } from "config/config.json";
 interface CustomAxios {
   url: string;
   body?: object;
@@ -34,9 +33,10 @@ const asyncProcess = async (
   switch (type) {
     case AxiosType.GET: {
       const { data }: AxiosResponse<any> = await axios.get(
-        `${SERVER}${url}`,
+        `${SERVER}` + `${url}`,
         config
       );
+
       return data;
     }
     case AxiosType.POST: {

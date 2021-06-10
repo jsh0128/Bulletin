@@ -8,6 +8,7 @@ import { PostState } from "store/types/PostType";
 import { NotificationManager } from "react-notifications";
 import history from "next/router";
 import Router from "next/router";
+import { getCommentAsync } from "store/actions/CommentActions";
 
 const GetPostContainer = () => {
   const [postData, setPostData] = useState<PostState>();
@@ -20,6 +21,18 @@ const GetPostContainer = () => {
   const { deletePostData, deletePostErr } = useSelector(
     (state: RootState) => state.deletePostReducer
   );
+  const { getCommentData, getCommentErr } = useSelector(
+    (state: RootState) => state.getCommentReducer
+  );
+  const { modifyCommentData, modifyCommentErr } = useSelector(
+    (state: RootState) => state.modifyCommentReducer
+  );
+  const { createCommentData, createCommentErr } = useSelector(
+    (state: RootState) => state.createCommentReducer
+  );
+  const { deleteCommentData, deleteCommentErr } = useSelector(
+    (state: RootState) => state.deleteCommentReducer
+  );
 
   const onClickDelete = () => {
     Router.push("/");
@@ -28,6 +41,7 @@ const GetPostContainer = () => {
 
   useEffect(() => {
     dispatch(getPostAsync.request({ postIdx: Number(query.idx) }));
+    dispatch(getCommentAsync.request({ post_idx: Number(query.idx) }));
   }, []);
 
   useEffect(() => {
@@ -44,6 +58,10 @@ const GetPostContainer = () => {
         break;
     }
   }, [getPostErr]);
+
+  useEffect(() => {
+    console.log("댓글 데이터 " + getCommentData, "댓글 오류 " + getCommentErr);
+  }, [getCommentData, getCommentErr]);
 
   useEffect(() => {
     console.log(deletePostData, deletePostErr);

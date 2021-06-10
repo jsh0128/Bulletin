@@ -10,13 +10,13 @@ import AxiosType from "util/enums/AxiosType";
 const CommentApi = {
   getCommentApi: ({ post_idx }: GetCommentPayload) => {
     const data = CustomAxios({
-      url: `comment/getComment?post_idx${post_idx}`,
+      url: `/comment/getComment?post_idx=${post_idx}`,
       configCheck: false,
       type: AxiosType.GET,
     });
     return data;
   },
-  createCommentApi: ({ post_idx, content }: any) => {
+  createCommentApi: ({ post_idx, content }: CreateCommentPayload) => {
     const body = {
       post_idx,
       content,
@@ -29,7 +29,7 @@ const CommentApi = {
     });
     return data;
   },
-  modifyCommentApi: ({ idx, content }: any) => {
+  modifyCommentApi: ({ idx, content }: ModifyCommentPayload) => {
     const body = {
       idx,
       content,
