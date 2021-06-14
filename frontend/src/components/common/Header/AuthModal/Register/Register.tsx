@@ -1,12 +1,7 @@
 // import styled from "styled-components";
+import { CustomInput, CustomBtn } from "components/common/Basic/Basic";
 import styled from "styled-components";
-import {
-  Inputs,
-  AuthType,
-  CustomInput,
-  CustomSpan,
-  AuthCustomBtn,
-} from "../AuthStyle";
+import { Inputs, AuthType, CustomSpan } from "../AuthStyle";
 
 interface RegisterProps {
   id: string;
@@ -77,7 +72,7 @@ const Register = ({
           />
         </Inputs>
         <Inputs>
-          <AuthCustomBtn onClick={onClickRegister}>회원가입</AuthCustomBtn>
+          <CustomBtn onClick={onClickRegister}>회원가입</CustomBtn>
           <CustomSpan onClick={() => setSelectedAuth(false)}>
             사실 나 회원가입 했어
           </CustomSpan>

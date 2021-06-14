@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import MDEditor from "@uiw/react-md-editor";
-import { AuthCustomBtn } from "components/common/Header/AuthModal/AuthStyle";
 import { CategoryState } from "store/types/CategoryType";
-import { Center } from "components/common/Basic/Basic";
+import { Center, CustomBtn } from "components/common/Basic/Basic";
 
 interface WriteProps {
   title: string;
@@ -89,7 +88,7 @@ const Write = ({
         </SelectedCategory>
       </Categories>
       <Content>
-        <MDEditor value={content} onChange={setContent} fullscreen={true} />
+        <MDEditor value={content} onChange={setContent} />
       </Content>
       <Center>
         <Btn onClick={onClickWrite}>글쓰기</Btn>
@@ -170,7 +169,7 @@ const Title = styled.div`
   height: 10%;
 `;
 
-const Btn = styled(AuthCustomBtn)`
+const Btn = styled(CustomBtn)`
   margin-top: none;
   margin-bottom: 1rem;
   font-weight: bold;

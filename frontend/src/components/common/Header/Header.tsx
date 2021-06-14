@@ -60,7 +60,10 @@ const Header = ({
   return (
     <HeaderArea>
       <HeaderStyle>
-        <LogoStyle onClick={() => router.push("/")}>
+        <LogoStyle
+          onClick={() => router.push("/")}
+          style={{ cursor: "pointer" }}
+        >
           <img src={Logo} />
         </LogoStyle>
         <div>

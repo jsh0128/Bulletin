@@ -25,28 +25,6 @@ export const BasicInput = styled.input`
   }
 `;
 
-const ImgContainer = styled.div`
-  width: 100%;
-  background-color: #e4e4e4;
-`;
-
-const ImgRatio = styled.div`
-  position: relative;
-  padding-top: 56.25%; /* 1:1 ratio */
-  overflow: hidden;
-`;
-
-const ImgCenter = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  -webkit-transform: translate(50%, 50%);
-  -ms-transform: translate(50%, 50%);
-  transform: translate(50%, 50%);
-`;
-
 export const CustomImg = styled.img`
   max-width: 100%;
   width: 100%;
@@ -58,7 +36,7 @@ export const Write = styled.input``;
 
 export const ModalBackground = styled.div`
   background: #0000009b;
-  z-index: 1000;
+  z-index: 100;
   position: fixed;
   width: 100%;
   height: 100%;
@@ -66,4 +44,39 @@ export const ModalBackground = styled.div`
   top: 0;
   bottom: 0;
   left: 0;
+`;
+
+export const CustomInput = styled.input`
+  width: 90%;
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+  height: 3rem;
+  border: 1px solid #707070;
+  border-radius: 3px;
+  ::placeholder {
+    color: #9c9c9c;
+  }
+  :focus {
+    outline: none;
+  }
+`;
+
+export const CustomBtn = styled.button`
+  margin-top: 1rem;
+  transition: 0.3s;
+  font-size: 1rem;
+  padding: 0.5rem 2rem;
+  color: white;
+  width: 100%;
+  height: 3rem;
+  background-color: #343434;
+  border: 1px solid #707070;
+  border-radius: 28px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.85);
+    border: 1px solid black;
+  }
+  &:focus {
+    outline: none;
+  }
 `;

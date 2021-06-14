@@ -20,6 +20,9 @@ interface MainProps {
   categoryModal: boolean;
   setCategoryModal: React.Dispatch<React.SetStateAction<boolean>>;
   setCreateCategory: React.Dispatch<React.SetStateAction<string>>;
+  update: string;
+  setUpdate: React.Dispatch<React.SetStateAction<string>>;
+  setChangeName: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Main = ({
@@ -33,6 +36,9 @@ const Main = ({
   categoryModal,
   setCategoryModal,
   setCreateCategory,
+  update,
+  setUpdate,
+  setChangeName,
 }: MainProps) => {
   return (
     <MainArea>
@@ -48,6 +54,9 @@ const Main = ({
             categoryModal={categoryModal}
             setCategoryModal={setCategoryModal}
             setCreateCategory={setCreateCategory}
+            update={update}
+            setUpdate={setUpdate}
+            setChangeName={setChangeName}
           />
           <SearchArea>
             <SearchInput placeholder="검색" />
@@ -68,10 +77,10 @@ const MainArea = styled.div`
   justify-content: space-between;
   width: 100%;
   margin-top: 1rem;
-  @media screen and (max-width: 1200px) {
+  /* @media screen and (max-width: 1200px) {
     flex-direction: column;
     align-items: center;
-  }
+  } */
 `;
 
 const CategoryModify = styled.div`
@@ -86,39 +95,39 @@ const ItemsStyled = styled.div`
   display: flex;
   width: 80%;
   flex-wrap: wrap;
-  @media screen and (max-width: 1200px) {
+  /* @media screen and (max-width: 1200px) {
     width: 90%;
   }
   @media screen and (max-width: 750px) {
     width: 90%;
     justify-content: center;
-  }
+  } */
 `;
 
 const RightArea = styled.div`
   width: 20%;
-  @media screen and (max-width: 1200px) {
+  /* @media screen and (max-width: 1200px) {
     width: 80%;
-  }
+  } */
 `;
 
 const Right = styled.div`
   position: fixed;
-  @media screen and (max-width: 1200px) {
+  /* @media screen and (max-width: 1200px) {
     width: 100%;
     position: relative;
-  }
+  } */
 `;
 
 const SearchArea = styled.div`
   width: 100%;
   margin-top: 3rem;
   display: flex;
-  @media screen and (max-width: 1200px) {
+  /* @media screen and (max-width: 1200px) {
     align-items: center;
     justify-content: center;
     margin: 0.5rem 0rem;
-  }
+  } */
 `;
 
 const SearchInput = styled.input`
@@ -128,9 +137,9 @@ const SearchInput = styled.input`
   border-bottom: 1px solid #e2e2e2;
   padding-bottom: 4px;
   font-size: 0.8rem;
-  @media screen and (max-width: 1200px) {
+  /* @media screen and (max-width: 1200px) {
     width: 100%;
-  }
+  } */
   :focus {
     outline: none;
   }

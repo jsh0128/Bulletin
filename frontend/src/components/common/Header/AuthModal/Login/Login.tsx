@@ -1,11 +1,6 @@
+import { CustomInput, CustomBtn } from "components/common/Basic/Basic";
 import styled from "styled-components";
-import {
-  Inputs,
-  AuthType,
-  CustomInput,
-  CustomSpan,
-  AuthCustomBtn,
-} from "../AuthStyle";
+import { Inputs, AuthType, CustomSpan } from "../AuthStyle";
 
 interface LoginProps {
   id: string;
@@ -45,7 +40,7 @@ const Login = ({
             />
           </Inputs>
           <Inputs>
-            <AuthCustomBtn onClick={onClickLogin}>로그인</AuthCustomBtn>
+            <CustomBtn onClick={onClickLogin}>로그인</CustomBtn>
             <CustomSpan onClick={() => setSelectedAuth(true)}>
               회원가입 Let's get it~
             </CustomSpan>

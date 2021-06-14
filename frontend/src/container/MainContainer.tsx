@@ -5,6 +5,7 @@ import {
   deleteCategoryAsync,
   getCategoryAsync,
   getPostCategoryAsync,
+  modifyCategoryAsync,
 } from "store/actions/CategoryAction";
 import { getPostAsync } from "store/actions/PostAction";
 import { RootState } from "store/reducers";
@@ -19,6 +20,8 @@ const MainContainer = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [createCategory, setCreateCategory] = useState<string>("");
   const [categoryModal, setCategoryModal] = useState<boolean>(false);
+  const [update, setUpdate] = useState<string>("");
+  const [changeName, setChangeName] = useState<string>("");
 
   const { data, getPostErr } = useSelector(
     (state: RootState) => state.GetPostReducer
@@ -68,19 +71,30 @@ const MainContainer = () => {
     dispatch(deleteCategoryAsync.request({ category: category }));
   };
 
-  const updateCategory = (
-    type: Update,
-    category?: string,
-    changeName?: string
-  ) => {
+  const onClickModifyCategory = () => {
+    dispatch(
+      modifyCategoryAsync.request({
+        category: changeName,
+        changeName: createCategory,
+      })
+    );
+    setCreateCategory("");
+    setCategoryModal(false);
+  };
+
+  const updateCategory = (type: Update, category?: string) => {
     switch (type) {
       case Update.CREATE:
         onClickCreateCategory();
+        setCreateCategory("");
         return;
       case Update.MODIFY:
+        onClickModifyCategory();
+        setCreateCategory("");
         return;
       case Update.DELETE:
         onClickDeleteCategory(category);
+
         return;
     }
   };
@@ -93,11 +107,17 @@ const MainContainer = () => {
   useEffect(() => {
     if (
       (createCategoryData && createCategoryData?.status === 200) ||
-      (deleteCategoryData && deleteCategoryData?.status === 200)
+      (deleteCategoryData && deleteCategoryData?.status === 200) ||
+      (modifyCategoryData && modifyCategoryData?.status === 200)
     ) {
       dispatch(getCategoryAsync.request({}));
     }
-  }, [createCategoryData, deleteCategoryData]);
+  }, [createCategoryData, deleteCategoryData, modifyCategoryData]);
+
+  useEffect(() => {
+    console.log(modifyCategoryData, modifyCategoryErr);
+  }, [modifyCategoryData, modifyCategoryErr]);
+
   useEffect(() => {
     console.log("오류   ", createCategoryErr, deleteCategoryErr);
   }, [createCategoryErr, deleteCategoryErr]);
@@ -128,6 +148,9 @@ const MainContainer = () => {
         categoryModal={categoryModal}
         setCategoryModal={setCategoryModal}
         setCreateCategory={setCreateCategory}
+        update={update}
+        setUpdate={setUpdate}
+        setChangeName={setChangeName}
       />
     </>
   );
