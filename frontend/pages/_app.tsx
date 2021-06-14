@@ -32,4 +32,4 @@ App.getInitialProps = async ({ Component, ctx }: AppContext): Promise<any> => {
   return { pageProps };
 };
 
-export default wrapper.withRedux(withReduxSaga({ async: true })(App));
+export default wrapper.withRedux(withReduxSaga(App));

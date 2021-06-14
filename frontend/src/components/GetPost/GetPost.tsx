@@ -34,7 +34,7 @@ const GetPost = ({
       <Center>
         <Title>{data?.title}</Title>
         <Intro>{data?.introduction}</Intro>
-        <MDEditor.Markdown
+        <CustomMarkdownRender
           style={{ marginTop: "0.5rem" }}
           source={data?.content}
         />
@@ -80,6 +80,12 @@ const PostArea = styled.div<{ userData: boolean }>`
   align-items: center;
   justify-content: center;
   align-items: ${(props: any) => (props.userData ? "none" : "center")};
+`;
+
+const CustomMarkdownRender = styled(MDEditor.Markdown)`
+  & img {
+    width: 100%;
+  }
 `;
 
 const CheckIcon = styled(AiOutlineCheckCircle)`

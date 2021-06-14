@@ -4,6 +4,11 @@ import MDEditor from "@uiw/react-md-editor";
 import { CategoryState } from "store/types/CategoryType";
 import { Center, CustomBtn } from "components/common/Basic/Basic";
 
+import dynamic from "next/dynamic";
+const PostEditor = dynamic(() => import("components/common/CustomEditor"), {
+  ssr: false,
+});
+
 interface WriteProps {
   title: string;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
@@ -88,7 +93,8 @@ const Write = ({
         </SelectedCategory>
       </Categories>
       <Content>
-        <MDEditor value={content} onChange={setContent} />
+        <PostEditor value={content} onChange={setContent} />
+        {/* <MDCustomEditor value={content} onChange={setContent} /> */}
       </Content>
       <Center>
         <Btn onClick={onClickWrite}>글쓰기</Btn>
@@ -193,15 +199,6 @@ const Input = styled.input`
   border: none;
   font-weight: bold;
   font-size: ${(props) => (props.size ? props.size : 1)}rem;
-`;
-
-const ContentInput = styled.textarea`
-  width: 100%;
-  height: 99%;
-  outline: none;
-  border: none;
-  font-weight: bold;
-  font-size: 2rem;
 `;
 
 export default Write;
