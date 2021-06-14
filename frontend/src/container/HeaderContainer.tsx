@@ -20,6 +20,7 @@ const HeaderContainer = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [name, setName] = useState<string>("");
   const [mailAuthCode, setMailAuthCode] = useState<string>("");
+  const [registerPage, setRegisterPage] = useState<boolean>(false);
 
   const { data, loginErr } = useSelector(
     (state: RootState) => state.LoginReducer
@@ -116,6 +117,8 @@ const HeaderContainer = () => {
     setCheckPassword("");
   };
 
+  useEffect(() => {}, []);
+
   useEffect(() => {
     Login();
   }, [data, loginErr]);
@@ -135,6 +138,7 @@ const HeaderContainer = () => {
     modal === true
       ? (document.body.style.overflow = "hidden")
       : (document.body.style.overflow = "unset");
+    setRegisterPage(false);
   }, [modal, selectedAuth]);
 
   useEffect(() => {
@@ -175,6 +179,8 @@ const HeaderContainer = () => {
       loginCheck={loginCheck}
       Logout={Logout}
       userData={userData}
+      registerPage={registerPage}
+      setRegisterPage={setRegisterPage}
     />
   );
 };

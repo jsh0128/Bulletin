@@ -5,6 +5,7 @@ import wrapper from "store/configureStore";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
 import withReduxSaga from "next-redux-saga";
+import { getInfoAsync } from "store/actions/UserAction";
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -23,6 +24,7 @@ function App({ Component, pageProps }: AppProps) {
 }
 
 App.getInitialProps = async ({ Component, ctx }: AppContext): Promise<any> => {
+  const { store } = ctx;
   let pageProps = {};
 
   if (Component.getInitialProps) {

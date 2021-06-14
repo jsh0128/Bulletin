@@ -31,6 +31,8 @@ interface HeaderProps {
     profileImg: string;
     is_admin: boolean;
   };
+  registerPage: boolean;
+  setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Header = ({
@@ -55,6 +57,8 @@ const Header = ({
   loginCheck,
   Logout,
   userData,
+  registerPage,
+  setRegisterPage,
 }: HeaderProps) => {
   const router = useRouter();
   return (
@@ -113,6 +117,8 @@ const Header = ({
           mailAuthCode={mailAuthCode}
           setMailAuthCode={setMailAuthCode}
           onClickMailCodeSend={onClickMailCodeSend}
+          registerPage={registerPage}
+          setRegisterPage={setRegisterPage}
         />
       )}
     </HeaderArea>

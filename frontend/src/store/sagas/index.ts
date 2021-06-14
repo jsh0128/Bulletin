@@ -5,5 +5,11 @@ import { postSaga } from "./PostSaga";
 import { authSaga } from "./UserSaga";
 
 export default function* rootSaga() {
-  yield all([authSaga(), postSaga(), categorySaga(), commentSaga()]);
+  yield all([
+    authSaga(),
+    postSaga(),
+    categorySaga(),
+    commentSaga(),
+    uploadSaga(),
+  ]);
 }

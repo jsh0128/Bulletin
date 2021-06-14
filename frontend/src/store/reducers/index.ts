@@ -1,4 +1,5 @@
 import { AnyAction, CombinedState, combineReducers } from "redux";
+import { UploadReducer } from "./UploadReducer";
 import {
   LoginReducer,
   RegisterReducer,
@@ -52,6 +53,7 @@ import {
   IGetCommentState,
   IModifyCommentState,
 } from "store/types/CommentType";
+import { IUploadState } from "store/types/UploadType";
 
 const rootReducer = (
   state: IState,
@@ -87,6 +89,7 @@ const rootReducer = (
         createCategoryReducer,
         modifyCategoryReducer,
         deleteCategoryReducer,
+        UploadReducer,
       });
       return combineReducer(state, action);
     }
@@ -116,4 +119,5 @@ export interface IState {
   createCategoryReducer: ICreateCategoryState;
   modifyCategoryReducer: IModifyCategoryState;
   deleteCategoryReducer: IDeleteCategoryState;
+  UploadReducer: IUploadState;
 }

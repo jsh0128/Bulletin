@@ -21,6 +21,8 @@ interface AuthModalProps {
   mailAuthCode: string;
   setMailAuthCode: React.Dispatch<React.SetStateAction<string>>;
   onClickMailCodeSend: () => void;
+  registerPage: boolean;
+  setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AuthModal = ({
@@ -41,6 +43,8 @@ const AuthModal = ({
   mailAuthCode,
   setMailAuthCode,
   onClickMailCodeSend,
+  registerPage,
+  setRegisterPage,
 }: AuthModalProps) => {
   return (
     <>
@@ -61,6 +65,8 @@ const AuthModal = ({
             mailAuthCode={mailAuthCode}
             setMailAuthCode={setMailAuthCode}
             onClickMailCodeSend={onClickMailCodeSend}
+            registerPage={registerPage}
+            setRegisterPage={setRegisterPage}
           />
         )}
         {selectedAuth === false && (
@@ -103,7 +109,6 @@ const AuthModalArea = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   width: 20rem;
-  height: 30rem;
   border-radius: 1rem;
 `;
 

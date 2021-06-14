@@ -11,7 +11,7 @@ const Home = () => {
 };
 
 Home.getInitialProps = async (ctx) => {
-  const { store, req } = ctx;
+  const { store } = ctx;
   await store.dispatch(getPostAsync.request({}));
   const state: RootState = store.getState();
 
