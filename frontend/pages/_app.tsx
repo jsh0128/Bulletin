@@ -1,6 +1,6 @@
 import DefaultTemplate from "components/common/DefaultTemplate";
 import { AppContext, AppProps } from "next/app";
-import { Center, GlobalStyled, MaxWidth } from "styles/globals";
+import { Center, GlobalStyled, MaxWidth, theme } from "styles/globals";
 import wrapper from "store/configureStore";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
@@ -12,7 +12,7 @@ function App({ Component, pageProps }: AppProps) {
       <Center>
         <DefaultTemplate>
           <MaxWidth>
-            <Component {...pageProps} />
+            <Component {...pageProps} theme={theme} />
           </MaxWidth>
           <GlobalStyled />
         </DefaultTemplate>
@@ -32,4 +32,4 @@ App.getInitialProps = async ({ Component, ctx }: AppContext): Promise<any> => {
   return { pageProps };
 };
 
-export default wrapper.withRedux(withReduxSaga(App));
+export default wrapper.withRedux(withReduxSaga({ async: true })(App));

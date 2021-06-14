@@ -2,7 +2,7 @@ import { CategoryState } from "store/types/CategoryType";
 import styled from "styled-components";
 import Update from "util/enums/Update";
 import { GiCancel } from "react-icons/Gi";
-import { BasicInput } from "components/common/Basic/Basic";
+import { BasicInput, ModalBackground } from "components/common/Basic/Basic";
 import { AiOutlineCheckCircle } from "react-icons/Ai";
 
 interface CategoryProps {
@@ -34,7 +34,7 @@ const Category = ({
 }: CategoryProps) => {
   return (
     <>
-      <CategoriesStyle style={{ display: "flex" }}>
+      <CategoriesStyle is_admin={is_admin}>
         <div>
           {selectedCategory === "" ? (
             <SelectedCategory
@@ -72,35 +72,39 @@ const Category = ({
               </>
             ))}
         </div>
-        <UpdateBtn>
-          <CustomSpan
-            onClick={() => {
-              setCategoryModal(true);
-            }}
-          >
-            +
-          </CustomSpan>
-          {is_admin &&
-            category &&
-            category?.map((item, key) => (
-              <CustomSpan
-                onClick={() => updateCategory(Update.DELETE, item.category)}
-                key={key}
-              >
-                -
-              </CustomSpan>
-            ))}
-        </UpdateBtn>
+        {is_admin && (
+          <UpdateBtn>
+            <CustomSpan
+              onClick={() => {
+                setCategoryModal(true);
+              }}
+            >
+              +
+            </CustomSpan>
+            {category &&
+              category?.map((item, key) => (
+                <CustomSpan
+                  onClick={() => updateCategory(Update.DELETE, item.category)}
+                  key={key}
+                >
+                  -
+                </CustomSpan>
+              ))}
+          </UpdateBtn>
+        )}
       </CategoriesStyle>
       {categoryModal && (
-        <CreateCategoryArea>
-          <CreateCategoryInput
-            onChange={(e) => setCreateCategory(e.target.value)}
-            placeholder="카테고리"
-          />
-          <Success onClick={() => updateCategory(Update.CREATE)} />
-          <Cancel onClick={() => setCategoryModal(false)} />
-        </CreateCategoryArea>
+        <>
+          <CreateCategoryArea>
+            <CreateCategoryInput
+              onChange={(e) => setCreateCategory(e.target.value)}
+              placeholder="카테고리"
+            />
+            <Success onClick={() => updateCategory(Update.CREATE)} />
+            <Cancel onClick={() => setCategoryModal(false)} />
+          </CreateCategoryArea>
+          <ModalBackground />
+        </>
       )}
     </>
   );
@@ -137,18 +141,20 @@ const Cancel = styled(GiCancel)`
 
 const CreateCategoryArea = styled.div`
   display: flex;
+  position: fixed;
   align-items: center;
   justify-content: center;
   margin-top: 5rem;
   width: 10rem;
 `;
 
-const CategoriesStyle = styled.div`
+const CategoriesStyle = styled.div<{ is_admin: boolean }>`
   display: flex;
   align-content: flex-end;
-  border-right: 1px solid black;
+  border-right: ${(props) => !props.is_admin && "1px solid black"};
   padding-right: 3rem;
-  @media screen and (max-width: 1200px) {
+  display: flex;
+  /* @media screen and (max-width: 1200px) {
     width: 100%;
     flex-direction: row;
     border: none;
@@ -157,7 +163,7 @@ const CategoriesStyle = styled.div`
   }
   @media screen and (max-width: 1200px) {
     justify-content: center;
-  }
+  } */
 `;
 
 const UpdateBtn = styled.div`

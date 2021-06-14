@@ -11,8 +11,6 @@ interface CustomAxios {
 const addToken = (config: AxiosRequestConfig) => {
   const token = localStorage.getItem("access_token");
 
-  console.log("123123123");
-
   if (token) {
     config.headers["token"] = token;
   }

@@ -12,6 +12,19 @@ export const GlobalStyled = createGlobalStyle`
    color: black;
   }
 `;
+const size = {
+  mobile: "500px",
+  tablet: "767px",
+  smallDesktop: "900px",
+  desktop: "1250px",
+};
+
+export const theme = {
+  mobile: `@media only screen and (max-width: ${size.mobile})`,
+  tablet: `@media only screen and (max-width: ${size.tablet})`,
+  smallDesktop: `@media only screen and (max-width: ${size.smallDesktop})`,
+  desktop: `@media only screen and (max-width: ${size.desktop})`,
+};
 
 export const Center = styled.div`
   width: 100%;

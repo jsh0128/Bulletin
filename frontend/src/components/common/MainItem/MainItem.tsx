@@ -3,6 +3,7 @@ import { AiOutlineClockCircle } from "react-icons/Ai";
 import { PostState } from "store/types/PostType";
 import Link from "next/link";
 import TimeCounting from "time-counting";
+import { CustomImg } from "../Basic/Basic";
 
 interface MainItemProps {
   data: PostState | null;
@@ -13,13 +14,7 @@ const MainItem = ({ data }: MainItemProps) => {
     <MainItemStyle>
       <Link href={`/post/${data.idx}`}>
         <a>
-          <ImgContainer>
-            <ImgRatio>
-              <ImgCenter>
-                <Img src={data.preview_image} />
-              </ImgCenter>
-            </ImgRatio>
-          </ImgContainer>
+          <CustomImg src={data.preview_image} />
           <ContentDiv>
             <TitleStyle>{data.title}</TitleStyle>
             <Intro>{data.introduction}</Intro>
@@ -57,13 +52,13 @@ const MainItemStyle = styled.div`
   background-color: whitesmoke;
   padding-bottom: 5px;
   border-radius: 1rem;
-  @media screen and (max-width: 1200px) {
+  /* @media screen and (max-width: 1200px) {
     width: calc(50% - 2rem);
   }
   @media screen and (max-width: 765px) {
     width: 100%;
     margin-left: 0;
-  }
+  } */
 `;
 
 const ContentDiv = styled.div`

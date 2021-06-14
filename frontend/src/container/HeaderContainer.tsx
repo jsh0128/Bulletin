@@ -101,7 +101,7 @@ const HeaderContainer = () => {
   };
 
   const tryGetInfo = () => {
-    dispatch(getInfoAsync.request({}));
+    dispatch(getInfoAsync.request());
   };
 
   const Logout = () => {

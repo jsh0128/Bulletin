@@ -1,5 +1,10 @@
+import {
+  CertMailPayload,
+  RegisterPayload,
+} from "assets/types/AuthPayLoadTypes";
 import { AxiosError } from "axios";
 import { createAsyncAction } from "typesafe-actions";
+import { IGetInfoResponse, Response } from "util/types/Response";
 
 export const LOGIN = "user/LOGIN" as const;
 export const LOGIN_SUCCESS = "user/LOGIN_SUCCESS" as const;
@@ -19,17 +24,7 @@ export const registerAsync = createAsyncAction(
   REGISTER,
   REGISTER_SUCCESS,
   REGISTER_FAILURE
-)<
-  {
-    email: string;
-    password: string;
-    name: string;
-    profileImg?: string;
-    authCode: number;
-  },
-  { res: string },
-  AxiosError
->();
+)<RegisterPayload, Response, AxiosError>();
 
 export const MAIL_AUTH = "user/MAIL_AUTH" as const;
 export const MAIL_AUTH_SUCCESS = "user/MAIL_AUTH_SUCCESS" as const;
@@ -38,18 +33,7 @@ export const mailAuthAsync = createAsyncAction(
   MAIL_AUTH,
   MAIL_AUTH_SUCCESS,
   MAIL_AUTH_FAILURE
-)<
-  { email: string },
-  {
-    userData: {
-      name: string;
-      email: string;
-      profileImg: string;
-      is_admin: boolean;
-    };
-  },
-  AxiosError
->();
+)<CertMailPayload, Response, AxiosError>();
 
 export const USER_INFO = "user/USER_INFO" as const;
 export const USER_INFO_SUCCESS = "user/USER_INFO_SUCCESS" as const;
@@ -59,7 +43,7 @@ export const getInfoAsync = createAsyncAction(
   USER_INFO,
   USER_INFO_SUCCESS,
   USER_INFO_FAILURE
-)<{}, { res: string }, AxiosError>();
+)<void, IGetInfoResponse, AxiosError>();
 
 export const logout = () => ({
   type: USER_INFO_FAILURE,

@@ -89,7 +89,7 @@ const CheckIcon = styled(AiOutlineCheckCircle)`
   right: 0;
   cursor: pointer;
   &:hover {
-    color: #707070;
+    color: green;
   }
 `;
 

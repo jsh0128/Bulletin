@@ -6,6 +6,8 @@ import {
 import axios, { AxiosResponse } from "axios";
 import { IGetInfoResponse, ILoginResponse } from "util/types/Response";
 import { SERVER } from "../../config/config.json";
+import { Response } from "util/types/Response";
+import customAxios from "lib/CustomAxios";
 
 const AuthApi = {
   login: async ({ email, pw }: LoginPayload) => {
@@ -52,19 +54,9 @@ const AuthApi = {
 
     return data;
   },
-  getInfo: async ({}) => {
-    let config = {};
-    if (localStorage.getItem("access_token")) {
-      config = {
-        headers: {
-          token: `${localStorage.getItem("access_token")}`,
-        },
-      };
-    }
-
-    const { data }: AxiosResponse<IGetInfoResponse> = await axios.get(
-      `${SERVER}/auth/getInfo`,
-      config
+  getInfo: async () => {
+    const { data }: AxiosResponse<IGetInfoResponse> = await customAxios.get(
+      `${SERVER}/auth/getInfo`
     );
     return data;
   },

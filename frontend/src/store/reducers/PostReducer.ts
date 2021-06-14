@@ -24,7 +24,6 @@ export const GetPostReducer = createReducer<IGetPostState>(
   {
     [GET_POST]: (state, action) => ({
       ...state,
-      data: null,
       getPostErr: null,
     }),
     [GET_POST_SUCCESS]: (state, action) => ({

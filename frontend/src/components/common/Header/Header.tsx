@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import AuthModal from "./AuthModal";
 import Link from "next/link";
+import Logo from "../../../assets/img/Logo.png";
 
 interface HeaderProps {
   id: string;
@@ -59,7 +60,9 @@ const Header = ({
   return (
     <HeaderArea>
       <HeaderStyle>
-        <LogoStyle onClick={() => router.push("/")}>ㄱㄴㄷ</LogoStyle>
+        <LogoStyle onClick={() => router.push("/")}>
+          <img src={Logo} />
+        </LogoStyle>
         <div>
           {loginCheck === true ? (
             <RightSpan>
@@ -132,6 +135,8 @@ const HeaderStyle = styled.div`
 `;
 
 const LogoStyle = styled.span`
+  display: flex;
+  align-items: center;
   font-size: 1.5rem;
   font-weight: bold;
 `;

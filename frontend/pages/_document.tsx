@@ -1,5 +1,6 @@
 import Document, {
   DocumentContext,
+  Html,
   Head,
   Main,
   NextScript,
@@ -26,7 +27,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <html>
+      <Html>
         <Head>
           {/* Step 5: Output the styles in the head  */}
           <meta charSet="utf-8" />
@@ -43,7 +44,7 @@ export default class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }

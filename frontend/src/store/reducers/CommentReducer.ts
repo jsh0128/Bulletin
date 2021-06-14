@@ -30,8 +30,8 @@ export const getCommentReducer = createReducer<IGetCommentState>(
   {
     [GET_COMMENT]: (state, action) => ({
       ...state,
-      getCommentData: null,
-      getCommentErr: null,
+      getCommentData: state?.getCommentData,
+      getCommentErr: state?.getCommentErr,
     }),
     [GET_COMMENT_SUCCESS]: (state, action) => ({
       ...state,

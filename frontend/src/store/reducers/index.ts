@@ -97,7 +97,7 @@ export default rootReducer;
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-interface IState {
+export interface IState {
   HydrateReducer: IHydrateState;
   LoginReducer: ILoginState;
   RegisterReducer: IRegisterState;

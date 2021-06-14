@@ -89,7 +89,7 @@ const Write = ({
         </SelectedCategory>
       </Categories>
       <Content>
-        <MDEditor value={content} onChange={setContent} height={"99%"} />
+        <MDEditor value={content} onChange={setContent} fullscreen={true} />
       </Content>
       <Center>
         <Btn onClick={onClickWrite}>글쓰기</Btn>
