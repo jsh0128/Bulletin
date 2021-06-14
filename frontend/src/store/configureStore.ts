@@ -20,13 +20,6 @@ const wrapper = createWrapper(configureStore);
 
 export default wrapper;
 
-interface Test extends Store<IState, AnyAction> {
-  runSaga: () => void;
-  saga: any;
-  stopSaga: () => void;
-  execSagaTasks: (isServer: boolean, tasks: any) => void;
-}
-
 // const makeStore = (initialState) => {
 //   const sagaMiddleware = createSagaMiddleware();
 //   const middleware = [sagaMiddleware];

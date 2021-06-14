@@ -5,12 +5,18 @@ import styled from "styled-components";
 
 interface ImgUploadProps {
   img?: string;
+  profileImg: string | ArrayBuffer | null;
+  onClickImgUpload: (File) => void;
 }
 
-const ImgUpload = ({ img }: ImgUploadProps) => {
+const ImgUpload = ({ img, profileImg, onClickImgUpload }: ImgUploadProps) => {
   return (
     <CustomCenter>
-      {img ? <img src={img} /> : <UserImgIcon />}
+      {profileImg ? (
+        <img src={profileImg.toString()} />
+      ) : (
+        <>{img ? <img src={img} /> : <UserImgIcon />}</>
+      )}
       <CustomCenter>
         <FileUploadLabel htmlFor="file">
           <span>사진선택</span>
@@ -20,6 +26,9 @@ const ImgUpload = ({ img }: ImgUploadProps) => {
           type="file"
           id="file"
           accept="image/png image/jpeg image/jpg"
+          onChange={(e) => {
+            onClickImgUpload(e);
+          }}
         />
         <CustomBtn>{img ? "회원가입" : "프로필 사진 없이 회원가입"}</CustomBtn>
       </CustomCenter>

@@ -18,6 +18,8 @@ interface RegisterProps {
   onClickMailCodeSend: () => void;
   registerPage: boolean;
   setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
+  profileImg: string | ArrayBuffer | null;
+  onClickImgUpload: (File) => void;
 }
 
 const Register = ({
@@ -36,11 +38,16 @@ const Register = ({
   onClickMailCodeSend,
   registerPage,
   setRegisterPage,
+  profileImg,
+  onClickImgUpload,
 }: RegisterProps) => {
   return (
     <>
       {registerPage ? (
-        <ImgUpload />
+        <ImgUpload
+          profileImg={profileImg}
+          onClickImgUpload={onClickImgUpload}
+        />
       ) : (
         <RegisterWriteInfo
           id={id}

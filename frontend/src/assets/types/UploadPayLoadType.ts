@@ -1,3 +1,3 @@
 export type UploadPayload = {
-  file: File;
+  files: File;
 };

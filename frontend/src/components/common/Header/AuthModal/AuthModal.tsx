@@ -23,6 +23,8 @@ interface AuthModalProps {
   onClickMailCodeSend: () => void;
   registerPage: boolean;
   setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
+  profileImg: string | ArrayBuffer | null;
+  onClickImgUpload: (File) => void;
 }
 
 const AuthModal = ({
@@ -45,6 +47,8 @@ const AuthModal = ({
   onClickMailCodeSend,
   registerPage,
   setRegisterPage,
+  profileImg,
+  onClickImgUpload,
 }: AuthModalProps) => {
   return (
     <>
@@ -67,6 +71,8 @@ const AuthModal = ({
             onClickMailCodeSend={onClickMailCodeSend}
             registerPage={registerPage}
             setRegisterPage={setRegisterPage}
+            profileImg={profileImg}
+            onClickImgUpload={onClickImgUpload}
           />
         )}
         {selectedAuth === false && (

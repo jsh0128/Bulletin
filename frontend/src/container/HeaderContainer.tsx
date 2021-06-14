@@ -10,6 +10,7 @@ import {
 } from "store/actions/UserAction";
 import { RootState } from "store/reducers";
 import { NotificationManager } from "react-notifications";
+import { uploadAsync } from "store/actions/UploadAction";
 
 const HeaderContainer = () => {
   const [id, setId] = useState<string>("");
@@ -21,9 +22,15 @@ const HeaderContainer = () => {
   const [name, setName] = useState<string>("");
   const [mailAuthCode, setMailAuthCode] = useState<string>("");
   const [registerPage, setRegisterPage] = useState<boolean>(false);
+  const [profileImg, setProfileImg] = useState<string | ArrayBuffer | null>();
+  const [profile, setProfile] = useState<File>();
 
   const { data, loginErr } = useSelector(
     (state: RootState) => state.LoginReducer
+  );
+
+  const { uploadData, uploadDataErr } = useSelector(
+    (state: RootState) => state.UploadReducer
   );
 
   const { registerRes, registerErr } = useSelector(
@@ -48,6 +55,25 @@ const HeaderContainer = () => {
       setLoading(false);
     }
   };
+
+  const onClickImgUpload = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      let reader = new FileReader();
+      if (e.target.files && e.target.files.length) {
+        let file = e.target.files[0];
+        setProfile(file);
+        reader.onloadend = () => {
+          setProfileImg(reader.result);
+        };
+      } else {
+        setProfileImg("");
+      }
+      // dispatch(uploadAsync.request({ files: profileImg }));
+    },
+    [profile, setProfile, setProfileImg]
+  );
+
+  console.log(profileImg);
 
   const Login = useCallback(() => {
     setLoading(true);
@@ -181,6 +207,8 @@ const HeaderContainer = () => {
       userData={userData}
       registerPage={registerPage}
       setRegisterPage={setRegisterPage}
+      profileImg={profileImg}
+      onClickImgUpload={onClickImgUpload}
     />
   );
 };

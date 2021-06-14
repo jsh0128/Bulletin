@@ -33,6 +33,8 @@ interface HeaderProps {
   };
   registerPage: boolean;
   setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
+  profileImg: string | ArrayBuffer | null;
+  onClickImgUpload: (File) => void;
 }
 
 const Header = ({
@@ -59,6 +61,8 @@ const Header = ({
   userData,
   registerPage,
   setRegisterPage,
+  profileImg,
+  onClickImgUpload,
 }: HeaderProps) => {
   const router = useRouter();
   return (
@@ -119,6 +123,8 @@ const Header = ({
           onClickMailCodeSend={onClickMailCodeSend}
           registerPage={registerPage}
           setRegisterPage={setRegisterPage}
+          profileImg={profileImg}
+          onClickImgUpload={onClickImgUpload}
         />
       )}
     </HeaderArea>

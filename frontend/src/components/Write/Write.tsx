@@ -5,9 +5,12 @@ import { CategoryState } from "store/types/CategoryType";
 import { Center, CustomBtn } from "components/common/Basic/Basic";
 
 import dynamic from "next/dynamic";
-const PostEditor = dynamic(() => import("components/common/CustomEditor"), {
-  ssr: false,
-});
+const PostEditor = dynamic(
+  () => import("components/common/CustomEditor/CustomEditor"),
+  {
+    ssr: false,
+  }
+);
 
 interface WriteProps {
   title: string;
