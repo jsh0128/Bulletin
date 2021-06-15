@@ -23,25 +23,20 @@ const GetPostContainer = () => {
 
   const { query } = useRouter();
   const dispatch = useDispatch();
-  const { data, getPostErr } = useSelector(
-    (state: RootState) => state.GetPostReducer
+  const { data, getPostErr, deletePostData, deletePostErr } = useSelector(
+    (state: RootState) => state.postReducer
   );
-  const { userData } = useSelector((state: RootState) => state.GetInfoReducer);
-  const { deletePostData, deletePostErr } = useSelector(
-    (state: RootState) => state.deletePostReducer
-  );
-  const { getCommentData, getCommentErr } = useSelector(
-    (state: RootState) => state.getCommentReducer
-  );
-  const { modifyCommentData, modifyCommentErr } = useSelector(
-    (state: RootState) => state.modifyCommentReducer
-  );
-  const { createCommentData, createCommentErr } = useSelector(
-    (state: RootState) => state.createCommentReducer
-  );
-  const { deleteCommentData, deleteCommentErr } = useSelector(
-    (state: RootState) => state.deleteCommentReducer
-  );
+  const { userData } = useSelector((state: RootState) => state.userReducer);
+  const {
+    getCommentData,
+    getCommentErr,
+    modifyCommentData,
+    modifyCommentErr,
+    createCommentData,
+    createCommentErr,
+    deleteCommentData,
+    deleteCommentErr,
+  } = useSelector((state: RootState) => state.commentReducer);
 
   // 포스트 삭제 함수
   const onClickDelete = () => {
@@ -50,6 +45,12 @@ const GetPostContainer = () => {
   };
 
   const onClickCreateComment = useCallback(() => {
+    if (!userData) {
+      NotificationManager.warning("로그인 해줘~", "댓글 작성 불가", 1500);
+    } else if (!comment) {
+      NotificationManager.warning("빈칸을 채워줘", "빈칸 채워", 1500);
+      return;
+    }
     setComment("");
     dispatch(
       createCommentAsync.request({
@@ -67,13 +68,11 @@ const GetPostContainer = () => {
     (type: Update, comment_idx?: number) => {
       switch (type) {
         case Update.CREATE:
-          console.log();
           onClickCreateComment();
           return;
         case Update.MODIFY:
           return;
         case Update.DELETE:
-          console.log(comment_idx);
           onClickDeleteComment(comment_idx);
           return;
         default:
@@ -114,7 +113,9 @@ const GetPostContainer = () => {
 
   // 포스트 삭제 후 핸들링
   useEffect(() => {
-    console.log(deletePostData, deletePostErr);
+    if (deletePostData) {
+      NotificationManager.error("글 삭제 성공", "글 삭제", 1500);
+    }
     if (deletePostErr) {
       NotificationManager.error("서버 오류입니다", "SERVER ERROR", 1500);
     }
@@ -124,8 +125,9 @@ const GetPostContainer = () => {
   useEffect(() => {
     if (createCommentData && createCommentData?.status === 200) {
       dispatch(getCommentAsync.request({ post_idx: Number(query.idx) }));
+    } else if (createCommentErr) {
+      NotificationManager.error("서버 오류입니다", "SERVER ERROR", 1500);
     }
-    console.log(createCommentData, createCommentErr);
   }, [createCommentData, createCommentErr]);
 
   // 댓글 삭제 후 데이터 핸들링
@@ -135,7 +137,6 @@ const GetPostContainer = () => {
     } else if (deleteCommentErr) {
       NotificationManager.error("서버 오류입니다", "SERVER ERROR", 1500);
     }
-    console.log(deleteCommentData, deleteCommentErr);
   }, [deleteCommentData, deleteCommentErr]);
 
   return (

@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { CategoryState } from "store/types/CategoryType";
 import { Center, CustomBtn } from "components/common/Basic/Basic";
-
+import MDEditor from "@uiw/react-md-editor";
 import dynamic from "next/dynamic";
+import { MutableRefObject } from "react";
 const PostEditor = dynamic(
   () => import("components/common/CustomEditor/CustomEditor"),
   {
@@ -26,6 +27,7 @@ interface WriteProps {
   setSelect: React.Dispatch<React.SetStateAction<boolean>>;
   deleteCategory: (string) => void;
   selectedCategory: (string) => void;
+  contentInput: MutableRefObject<undefined>;
 }
 
 const Write = ({
@@ -43,6 +45,7 @@ const Write = ({
   setSelect,
   deleteCategory,
   selectedCategory,
+  contentInput,
 }: WriteProps) => {
   return (
     <WriteStyle>
@@ -95,7 +98,12 @@ const Write = ({
         </SelectedCategory>
       </Categories>
       <Content>
-        <PostEditor value={content} onChange={setContent} />
+        {/* <PostEditor
+          value={content}
+          onChange={setContent}
+          useRef={contentInput}
+        /> */}
+        <MDEditor value={content} onChange={setContent} height={"99%"} />
       </Content>
       <Center>
         <Btn onClick={onClickWrite}>글쓰기</Btn>

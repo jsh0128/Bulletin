@@ -26,24 +26,20 @@ const HeaderContainer = () => {
   const [profileImg, setProfileImg] = useState<string | ArrayBuffer | null>();
   const [profile, setProfile] = useState<File | null>();
 
-  const { data, loginErr } = useSelector(
-    (state: RootState) => state.LoginReducer
-  );
+  const {
+    data,
+    loginErr,
+    registerRes,
+    registerErr,
+    mailSendErr,
+    mailRes,
+    userError,
+    userData,
+    loginCheck,
+  } = useSelector((state: RootState) => state.userReducer);
 
   const { uploadData, uploadDataErr } = useSelector(
     (state: RootState) => state.UploadReducer
-  );
-
-  const { registerRes, registerErr } = useSelector(
-    (state: RootState) => state.RegisterReducer
-  );
-
-  const { mailSendErr, mailRes } = useSelector(
-    (state: RootState) => state.MailAuthReducer
-  );
-
-  const { userError, userData, loginCheck } = useSelector(
-    (state: RootState) => state.GetInfoReducer
   );
 
   const dispatch = useDispatch();

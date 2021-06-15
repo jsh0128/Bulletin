@@ -1,23 +1,14 @@
 import { AxiosError } from "axios";
 
-export interface ILoginState {
+export interface IUserState {
   loginErr: AxiosError | null;
   data: {
     token: string;
   };
-}
-
-export interface IRegisterState {
   registerErr: AxiosError | null;
   registerRes: number | null;
-}
-
-export interface IAuthEmailState {
   mailSendErr: AxiosError | null;
   mailRes: number | null;
-}
-
-export interface IUserInfoState {
   userData: {
     name: string;
     email: string;

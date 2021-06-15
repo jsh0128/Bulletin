@@ -16,6 +16,7 @@ import {
   MODIFY_CATEGORY_SUCCESS,
 } from "store/actions/CategoryAction";
 import {
+  ICategoryReducer,
   ICreateCategoryState,
   IDeleteCategoryState,
   IGetCategoryState,
@@ -24,13 +25,21 @@ import {
 } from "store/types/CategoryType";
 import { createReducer } from "typesafe-actions";
 
-const getCategoryInitialState: IGetCategoryState = {
+const categoryInitialState: ICategoryReducer = {
   getCategoryData: null,
   getCategoryErr: null,
+  getPostCategoryData: null,
+  getPostCategoryErr: null,
+  createCategoryData: null,
+  createCategoryErr: null,
+  modifyCategoryData: null,
+  modifyCategoryErr: null,
+  deleteCategoryData: null,
+  deleteCategoryErr: null,
 };
 
-export const GetCategoryReducer = createReducer<IGetCategoryState>(
-  getCategoryInitialState,
+export const CategoryReducer = createReducer<ICategoryReducer>(
+  categoryInitialState,
   {
     [GET_CATEGORY]: (state, action) => ({
       ...state,
@@ -47,17 +56,6 @@ export const GetCategoryReducer = createReducer<IGetCategoryState>(
       getCategoryData: null,
       getCategoryErr: action.payload,
     }),
-  }
-);
-
-const getPostCategoryInitialState: IGetPostCategoryState = {
-  getPostCategoryData: null,
-  getPostCategoryErr: null,
-};
-
-export const GetPostCategoryReducer = createReducer<IGetPostCategoryState>(
-  getPostCategoryInitialState,
-  {
     [GET_POST_CATEGORY]: (state, action) => ({
       ...state,
     }),
@@ -71,16 +69,6 @@ export const GetPostCategoryReducer = createReducer<IGetPostCategoryState>(
       getPostCategoryData: null,
       getPostCategoryErr: action.payload,
     }),
-  }
-);
-const createCategoryInitialState: ICreateCategoryState = {
-  createCategoryData: null,
-  createCategoryErr: null,
-};
-
-export const createCategoryReducer = createReducer<ICreateCategoryState>(
-  createCategoryInitialState,
-  {
     [CREATE_CATEGORY]: (state, action) => ({
       ...state,
     }),
@@ -94,17 +82,6 @@ export const createCategoryReducer = createReducer<ICreateCategoryState>(
       createCategoryData: null,
       createCategoryErr: action.payload,
     }),
-  }
-);
-
-const modifyCategoryInitialState: IModifyCategoryState = {
-  modifyCategoryData: null,
-  modifyCategoryErr: null,
-};
-
-export const modifyCategoryReducer = createReducer<IModifyCategoryState>(
-  modifyCategoryInitialState,
-  {
     [MODIFY_CATEGORY]: (state, action) => ({
       ...state,
     }),
@@ -118,17 +95,6 @@ export const modifyCategoryReducer = createReducer<IModifyCategoryState>(
       modifyCategoryData: null,
       modifyCategoryErr: action.payload,
     }),
-  }
-);
-
-const deleteCategoryInitialState: IDeleteCategoryState = {
-  deleteCategoryData: null,
-  deleteCategoryErr: null,
-};
-
-export const deleteCategoryReducer = createReducer<IDeleteCategoryState>(
-  deleteCategoryInitialState,
-  {
     [DELETE_CATEGORY]: (state, action) => ({
       ...state,
     }),

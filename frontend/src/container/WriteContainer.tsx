@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createPostAsync } from "store/actions/PostAction";
 import { RootState } from "store/reducers";
@@ -6,27 +6,29 @@ import Write from "../components/Write";
 import Router from "next/router";
 import { CategoryState } from "store/types/CategoryType";
 import { getCategoryAsync } from "store/actions/CategoryAction";
+import { NotificationManager } from "react-notifications";
 
 const WriteContainer = () => {
   const dispatch = useDispatch();
+  const contentInput = useRef<any>();
   const [title, setTitle] = useState<string>("");
   const [intro, setIntro] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [categories, setCategories] = useState<string[]>([]);
   const [selectCategory, setSelectCategory] = useState<CategoryState[]>();
-  const { createPostData, createPostErr } = useSelector(
-    (state: RootState) => state.CreatePostReducer
-  );
+  const {
+    createPostData,
+    createPostErr,
+    modifyPostData,
+    modifyPostErr,
+  } = useSelector((state: RootState) => state.postReducer);
   const { getCategoryData, getCategoryErr } = useSelector(
-    (state: RootState) => state.GetCategoryReducer
-  );
-  const { modifyPostData, modifyPostErr } = useSelector(
-    (state: RootState) => state.modifyPostReducer
+    (state: RootState) => state.CategoryReducer
   );
 
   const [select, setSelect] = useState<boolean>(false);
 
-  const getPreviewImg = () => {
+  const getPreviewImg = useCallback(() => {
     if (!content.includes("](")) {
       console.log("이미지를 등록해주세요");
       return false;
@@ -35,7 +37,7 @@ const WriteContainer = () => {
       const lastIdx = content.slice(startIdx, content.length).indexOf(")");
       return content.slice(startIdx, startIdx + lastIdx);
     }
-  };
+  }, [content]);
 
   const selectedCategory = useCallback(
     (category: string) => {
@@ -60,7 +62,11 @@ const WriteContainer = () => {
     [categories]
   );
 
-  console.log(categories);
+  // useEffect(() => {
+  //   if (contentInput.current?.getInstance()) {
+  //     console.log(contentInput.current.getInstance());
+  //   }
+  // }, [contentInput]);
 
   const handleCreatePost = () => {
     const previewImg = getPreviewImg();
@@ -91,8 +97,11 @@ const WriteContainer = () => {
   }, [getCategoryData, getCategoryErr]);
 
   useEffect(() => {
-    console.log(createPostData);
-    console.log(createPostErr);
+    if (createPostData) {
+      NotificationManager.success("글 작성 성공", "글작성", 1500);
+    } else if (createPostErr) {
+      NotificationManager.success("글 작성 실패", "글작성", 1500);
+    }
   }, [createPostData, createPostErr]);
 
   useEffect(() => {
@@ -116,6 +125,7 @@ const WriteContainer = () => {
       setSelect={setSelect}
       deleteCategory={deleteCategory}
       selectedCategory={selectedCategory}
+      contentInput={contentInput}
     />
   );
 };

@@ -24,30 +24,23 @@ const MainContainer = () => {
   const [changeName, setChangeName] = useState<string>("");
 
   const { data, getPostErr } = useSelector(
-    (state: RootState) => state.GetPostReducer
+    (state: RootState) => state.postReducer
   );
 
-  const { userData } = useSelector((state: RootState) => state.GetInfoReducer);
+  const { userData } = useSelector((state: RootState) => state.userReducer);
 
-  const { getCategoryData, getCategoryErr } = useSelector(
-    (state: RootState) => state.GetCategoryReducer
-  );
-
-  const { createCategoryData, createCategoryErr } = useSelector(
-    (state: RootState) => state.createCategoryReducer
-  );
-
-  const { modifyCategoryData, modifyCategoryErr } = useSelector(
-    (state: RootState) => state.modifyCategoryReducer
-  );
-
-  const { deleteCategoryData, deleteCategoryErr } = useSelector(
-    (state: RootState) => state.deleteCategoryReducer
-  );
-
-  const { getPostCategoryData, getPostCategoryErr } = useSelector(
-    (state: RootState) => state.GetPostCategoryReducer
-  );
+  const {
+    getCategoryData,
+    getCategoryErr,
+    createCategoryData,
+    createCategoryErr,
+    modifyCategoryData,
+    modifyCategoryErr,
+    deleteCategoryData,
+    deleteCategoryErr,
+    getPostCategoryData,
+    getPostCategoryErr,
+  } = useSelector((state: RootState) => state.CategoryReducer);
 
   const onClickCategoryPost = (idx: number, category: string) => {
     setSelected(1);

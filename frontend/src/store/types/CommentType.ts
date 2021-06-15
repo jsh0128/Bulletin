@@ -1,22 +1,17 @@
 import { AxiosError } from "axios";
 import { Response } from "util/types/Response";
 
-export interface IGetCommentState {
+export interface ICommentState {
   getCommentData: { data: CommentState[] | null };
   getCommentErr: AxiosError | null;
-}
-export interface ICreateCommentState {
   createCommentData: Response | null;
   createCommentErr: AxiosError | null;
-}
-export interface IModifyCommentState {
   modifyCommentData: Response | null;
   modifyCommentErr: AxiosError | null;
-}
-export interface IDeleteCommentState {
   deleteCommentData: Response | null;
   deleteCommentErr: AxiosError | null;
 }
+
 export interface CommentState {
   idx: number;
   content: string;

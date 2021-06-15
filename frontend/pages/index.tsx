@@ -15,7 +15,7 @@ Home.getInitialProps = async (ctx) => {
   await store.dispatch(getPostAsync.request({}));
   const state: RootState = store.getState();
 
-  return { postData: state.GetPostReducer.data };
+  return { postData: state.postReducer.data };
 };
 
 export default Home;

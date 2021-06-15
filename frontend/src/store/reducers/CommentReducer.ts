@@ -12,21 +12,22 @@ import {
   MODIFY_COMMENT_FAILURE,
   MODIFY_COMMENT_SUCCESS,
 } from "store/actions/CommentActions";
-import {
-  ICreateCommentState,
-  IDeleteCommentState,
-  IGetCommentState,
-  IModifyCommentState,
-} from "store/types/CommentType";
+import { ICommentState } from "store/types/CommentType";
 import { createReducer } from "typesafe-actions";
 
-const getCommentInitialState: IGetCommentState = {
+const commentInitialState: ICommentState = {
   getCommentData: null,
   getCommentErr: null,
+  createCommentData: null,
+  createCommentErr: null,
+  modifyCommentData: null,
+  modifyCommentErr: null,
+  deleteCommentData: null,
+  deleteCommentErr: null,
 };
 
-export const getCommentReducer = createReducer<IGetCommentState>(
-  getCommentInitialState,
+export const commentReducer = createReducer<ICommentState>(
+  commentInitialState,
   {
     [GET_COMMENT]: (state, action) => ({
       ...state,
@@ -43,17 +44,6 @@ export const getCommentReducer = createReducer<IGetCommentState>(
       getCommentData: null,
       getCommentErr: action.payload,
     }),
-  }
-);
-
-const createCommentInitialState: ICreateCommentState = {
-  createCommentData: null,
-  createCommentErr: null,
-};
-
-export const createCommentReducer = createReducer<ICreateCommentState>(
-  createCommentInitialState,
-  {
     [CREATE_COMMENT]: (state, action) => ({
       ...state,
       createCommentData: null,
@@ -69,17 +59,6 @@ export const createCommentReducer = createReducer<ICreateCommentState>(
       createCommentData: null,
       createCommentErr: action.payload,
     }),
-  }
-);
-
-const modifyCommentInitialState: IModifyCommentState = {
-  modifyCommentData: null,
-  modifyCommentErr: null,
-};
-
-export const modifyCommentReducer = createReducer<IModifyCommentState>(
-  modifyCommentInitialState,
-  {
     [MODIFY_COMMENT]: (state, action) => ({
       ...state,
       modifyCommentData: null,
@@ -95,17 +74,6 @@ export const modifyCommentReducer = createReducer<IModifyCommentState>(
       modifyCommentData: null,
       modifyCommentErr: action.payload,
     }),
-  }
-);
-
-const deleteCommentInitialState: IDeleteCommentState = {
-  deleteCommentData: null,
-  deleteCommentErr: null,
-};
-
-export const deleteCommentReducer = createReducer<IDeleteCommentState>(
-  deleteCommentInitialState,
-  {
     [DELETE_COMMENT]: (state, action) => ({
       ...state,
       deleteCommentData: null,

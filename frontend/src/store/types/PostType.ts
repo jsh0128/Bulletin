@@ -1,9 +1,15 @@
 import { AxiosError } from "axios";
 import { Response } from "util/types/Response";
 
-export interface IGetPostState {
+export interface IPostState {
   data: { res: PostState[] | PostState | null };
   getPostErr: AxiosError | null;
+  createPostData: null | Response;
+  createPostErr: null | AxiosError;
+  modifyPostData: null | Response;
+  modifyPostErr: null | AxiosError;
+  deletePostData: null | Response;
+  deletePostErr: null | AxiosError;
 }
 
 export interface PostState {
@@ -16,19 +22,4 @@ export interface PostState {
   title: string;
   user_email: string;
   user_name: string;
-}
-
-export interface ICreatePostState {
-  createPostData: null | Response;
-  createPostErr: null | AxiosError;
-}
-
-export interface IModifyPostState {
-  modifyPostData: null | Response;
-  modifyPostErr: null | AxiosError;
-}
-
-export interface IDeletePostState {
-  deletePostData: null | Response;
-  deletePostErr: null | AxiosError;
 }

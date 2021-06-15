@@ -1,58 +1,16 @@
 import { AnyAction, CombinedState, combineReducers } from "redux";
 import { UploadReducer } from "./UploadReducer";
-import {
-  LoginReducer,
-  RegisterReducer,
-  MailAuthReducer,
-  GetInfoReducer,
-} from "./UserReducer";
-import {
-  GetPostReducer,
-  CreatePostReducer,
-  modifyPostReducer,
-  deletePostReducer,
-} from "./PostReducer";
-import {
-  GetCategoryReducer,
-  GetPostCategoryReducer,
-  createCategoryReducer,
-  modifyCategoryReducer,
-  deleteCategoryReducer,
-} from "./CategoryReducer";
-import {
-  IAuthEmailState,
-  ILoginState,
-  IRegisterState,
-  IUserInfoState,
-} from "store/types/UserType";
+import { userReducer } from "./UserReducer";
+import { postReducer } from "./PostReducer";
+import { CategoryReducer } from "./CategoryReducer";
+import { IUserState } from "store/types/UserType";
 import { HydrateReducer } from "store/reducers/HydrateReducer";
 import { HYDRATE } from "next-redux-wrapper";
-import {
-  ICreatePostState,
-  IDeletePostState,
-  IGetPostState,
-  IModifyPostState,
-} from "store/types/PostType";
-import {
-  ICreateCategoryState,
-  IDeleteCategoryState,
-  IGetCategoryState,
-  IGetPostCategoryState,
-  IModifyCategoryState,
-} from "store/types/CategoryType";
+import { IPostState } from "store/types/PostType";
+import { ICategoryReducer } from "store/types/CategoryType";
 import { IHydrateState } from "store/types/HydrateType";
-import {
-  getCommentReducer,
-  createCommentReducer,
-  modifyCommentReducer,
-  deleteCommentReducer,
-} from "store/reducers/CommentReducer";
-import {
-  ICreateCommentState,
-  IDeleteCommentState,
-  IGetCommentState,
-  IModifyCommentState,
-} from "store/types/CommentType";
+import { commentReducer } from "store/reducers/CommentReducer";
+import { ICommentState } from "store/types/CommentType";
 import { IUploadState } from "store/types/UploadType";
 
 const rootReducer = (
@@ -72,24 +30,11 @@ const rootReducer = (
     default: {
       const combineReducer = combineReducers({
         HydrateReducer,
-        LoginReducer,
-        RegisterReducer,
-        MailAuthReducer,
-        GetInfoReducer,
-        GetPostReducer,
-        GetCategoryReducer,
-        GetPostCategoryReducer,
-        CreatePostReducer,
-        modifyPostReducer,
-        deletePostReducer,
-        getCommentReducer,
-        createCommentReducer,
-        modifyCommentReducer,
-        deleteCommentReducer,
-        createCategoryReducer,
-        modifyCategoryReducer,
-        deleteCategoryReducer,
+        userReducer,
+        postReducer,
+        commentReducer,
         UploadReducer,
+        CategoryReducer,
       });
       return combineReducer(state, action);
     }
@@ -102,22 +47,9 @@ export type RootState = ReturnType<typeof rootReducer>;
 
 export interface IState {
   HydrateReducer: IHydrateState;
-  LoginReducer: ILoginState;
-  RegisterReducer: IRegisterState;
-  MailAuthReducer: IAuthEmailState;
-  GetInfoReducer: IUserInfoState;
-  GetPostReducer: IGetPostState;
-  GetCategoryReducer: IGetCategoryState;
-  GetPostCategoryReducer: IGetPostCategoryState;
-  CreatePostReducer: ICreatePostState;
-  modifyPostReducer: IModifyPostState;
-  deletePostReducer: IDeletePostState;
-  getCommentReducer: IGetCommentState;
-  createCommentReducer: ICreateCommentState;
-  modifyCommentReducer: IModifyCommentState;
-  deleteCommentReducer: IDeleteCommentState;
-  createCategoryReducer: ICreateCategoryState;
-  modifyCategoryReducer: IModifyCategoryState;
-  deleteCategoryReducer: IDeleteCategoryState;
+  userReducer: IUserState;
+  postReducer: IPostState;
+  commentReducer: ICommentState;
   UploadReducer: IUploadState;
+  CategoryReducer: ICategoryReducer;
 }

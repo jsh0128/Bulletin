@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, response, Response } from "express";
 import { getRepository, Repository } from "typeorm";
 import User from "../../entity/User";
 import AuthRequest from "../../types/AuthRequest";
@@ -43,17 +43,16 @@ export const validateUser = async (
 };
 export const validateAuth = async (request: Request) => {
   const access_token = request.headers["token"];
-  console.log("토큰 " + access_token);
+  if (!access_token) {
+    handleResponse(response, 404, "토큰을 찾을 수 없습니다");
+  }
   try {
     const decodeToken: any = await verifyToken(access_token);
-    console.log("토큰 " + decodeToken);
 
     const userRepository: Repository<User> = getRepository(User);
     const user: User = await userRepository.findOne({
       where: { email: decodeToken.email },
     });
-
-    console.log("user" + user);
 
     return user;
   } catch (err) {

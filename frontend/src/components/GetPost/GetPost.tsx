@@ -108,6 +108,7 @@ const CommentWriteArea = styled.div`
 `;
 
 const CommentArea = styled.div`
+  margin-bottom: 4rem;
   margin-top: 1rem;
 `;
 
