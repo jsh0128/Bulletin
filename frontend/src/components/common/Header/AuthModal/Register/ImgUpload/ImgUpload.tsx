@@ -7,9 +7,15 @@ interface ImgUploadProps {
   img?: string;
   profileImg: string | ArrayBuffer | null;
   onClickImgUpload: (File) => void;
+  onClickRegister: () => void;
 }
 
-const ImgUpload = ({ img, profileImg, onClickImgUpload }: ImgUploadProps) => {
+const ImgUpload = ({
+  img,
+  profileImg,
+  onClickImgUpload,
+  onClickRegister,
+}: ImgUploadProps) => {
   return (
     <CustomCenter>
       {profileImg ? (
@@ -30,7 +36,14 @@ const ImgUpload = ({ img, profileImg, onClickImgUpload }: ImgUploadProps) => {
             onClickImgUpload(e);
           }}
         />
-        <CustomBtn>{img ? "회원가입" : "프로필 사진 없이 회원가입"}</CustomBtn>
+        <CustomBtn
+          onClick={() => {
+            console.log("onClickRegister");
+            onClickRegister();
+          }}
+        >
+          {img ? "회원가입" : "프로필 사진 없이 회원가입"}
+        </CustomBtn>
       </CustomCenter>
     </CustomCenter>
   );

@@ -5,6 +5,8 @@ import { handleResponse } from "../../../../lib/handleResponse";
 export default async (request: Request, response: Response) => {
   try {
     const requestFiles = request.files;
+    console.log(request);
+    console.log(requestFiles);
     let files: string[] = [];
 
     if (!requestFiles.length) {

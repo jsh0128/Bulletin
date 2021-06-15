@@ -1,6 +1,7 @@
 import { AxiosError } from "axios";
+import { IUploadResponse } from "util/types/UploadResponse";
 
 export interface IUploadState {
-  uploadData: Response | null;
+  uploadData: IUploadResponse | null;
   uploadDataErr: AxiosError | null;
 }

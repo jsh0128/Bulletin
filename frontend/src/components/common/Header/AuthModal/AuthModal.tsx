@@ -25,6 +25,7 @@ interface AuthModalProps {
   setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
   profileImg: string | ArrayBuffer | null;
   onClickImgUpload: (File) => void;
+  ChangeRegisterPage: () => void;
 }
 
 const AuthModal = ({
@@ -49,6 +50,7 @@ const AuthModal = ({
   setRegisterPage,
   profileImg,
   onClickImgUpload,
+  ChangeRegisterPage,
 }: AuthModalProps) => {
   return (
     <>
@@ -73,6 +75,7 @@ const AuthModal = ({
             setRegisterPage={setRegisterPage}
             profileImg={profileImg}
             onClickImgUpload={onClickImgUpload}
+            ChangeRegisterPage={ChangeRegisterPage}
           />
         )}
         {selectedAuth === false && (

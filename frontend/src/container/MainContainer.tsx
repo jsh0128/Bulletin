@@ -114,26 +114,17 @@ const MainContainer = () => {
     }
   }, [createCategoryData, deleteCategoryData, modifyCategoryData]);
 
-  useEffect(() => {
-    console.log(modifyCategoryData, modifyCategoryErr);
-  }, [modifyCategoryData, modifyCategoryErr]);
+  useEffect(() => {}, [modifyCategoryData, modifyCategoryErr]);
 
-  useEffect(() => {
-    console.log("오류   ", createCategoryErr, deleteCategoryErr);
-  }, [createCategoryErr, deleteCategoryErr]);
+  useEffect(() => {}, [createCategoryErr, deleteCategoryErr]);
 
   useEffect(() => {
     setCategory(getCategoryData?.res);
-    console.log(getCategoryData?.res);
   }, [getCategoryData, getCategoryErr]);
 
-  useEffect(() => {
-    console.log(getPostCategoryData, getPostCategoryErr);
-  }, [getPostCategoryData, getPostCategoryErr]);
+  useEffect(() => {}, [getPostCategoryData, getPostCategoryErr]);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data, getPostErr]);
+  useEffect(() => {}, [data, getPostErr]);
 
   return (
     <>

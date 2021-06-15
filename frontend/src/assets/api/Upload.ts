@@ -5,11 +5,13 @@ import { IUploadResponse } from "util/types/UploadResponse";
 
 const UploadApi = {
   upload: async ({ files }: UploadPayload) => {
+    console.log("UploadApi " + files);
     const formData = new FormData();
-    formData.append("file", files);
+    formData.append("files", files);
 
     const { data }: AxiosResponse<IUploadResponse> = await customAxios.post(
-      "/upload"
+      "/upload",
+      formData
     );
 
     return data;

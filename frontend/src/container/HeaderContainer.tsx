@@ -65,15 +65,29 @@ const HeaderContainer = () => {
         reader.onloadend = () => {
           setProfileImg(reader.result);
         };
+        reader.readAsDataURL(file);
       } else {
         setProfileImg("");
       }
-      // dispatch(uploadAsync.request({ files: profileImg }));
     },
-    [profile, setProfile, setProfileImg]
+    [profile, setProfile, setProfileImg, profileImg]
   );
 
-  console.log(profileImg);
+  const onClickRegister = () => {
+    console.log("onClickRegister");
+    if (profileImg) {
+      dispatch(uploadAsync.request({ files: profile }));
+    } else {
+      dispatch(
+        registerAsync.request({
+          email: id,
+          password: password,
+          name: name,
+          authCode: Number(mailAuthCode),
+        })
+      );
+    }
+  };
 
   const Login = useCallback(() => {
     setLoading(true);
@@ -102,22 +116,9 @@ const HeaderContainer = () => {
     }
   };
 
-  const onClickRegister = () => {
-    if (!id || !password || !name || !checkPassword) {
-      NotificationManager.warning("빈칸이 있어", "채워줘!", 1500);
-    } else if (password !== checkPassword) {
-      NotificationManager.warning("비밀번호가 일치하지 않아", "틀림!", 1500);
-    } else {
-      dispatch(
-        registerAsync.request({
-          email: id,
-          password: password,
-          name: name,
-          authCode: Number(mailAuthCode),
-        })
-      );
-    }
-  };
+  // const onClickUpload = () => {
+  //   dispatch
+  // }
 
   const onClickMailCodeSend = () => {
     dispatch(
@@ -137,21 +138,61 @@ const HeaderContainer = () => {
   };
 
   const InputReset = () => {
+    setMailAuthCode("");
     setId("");
     setPassword("");
     setName("");
     setCheckPassword("");
   };
 
-  useEffect(() => {}, []);
+  const ChangeRegisterPage = () => {
+    if (!id || !password || !name || !checkPassword) {
+      NotificationManager.warning("빈칸이 있어", "채워줘!", 1500);
+    } else if (password !== checkPassword) {
+      NotificationManager.warning("비밀번호가 일치하지 않아", "틀림!", 1500);
+    } else {
+      setRegisterPage(true);
+    }
+  };
+
+  useEffect(() => {
+    if (uploadData) {
+      console.log(uploadData.data.files);
+      dispatch(
+        registerAsync.request({
+          email: id,
+          password: password,
+          name: name,
+          authCode: Number(mailAuthCode),
+          profileImg: uploadData.data.files[0],
+        })
+      );
+      setModal(false);
+    } else if (uploadDataErr) {
+      console.log(uploadDataErr);
+    }
+  }, [uploadData, uploadDataErr]);
 
   useEffect(() => {
     Login();
   }, [data, loginErr]);
 
   useEffect(() => {
-    // console.log(registerRes);
-    // console.log(registerErr?.response.status);
+    if (registerRes) {
+      NotificationManager.success("회원가입 성공", "채워줘", 1500);
+    } else if (registerErr) {
+      switch (registerErr.response?.status) {
+        case 400:
+          NotificationManager.warning("메일 인증 안함", "회원가입 실패", 1500);
+          return;
+        case 409:
+          NotificationManager.warning("중복된 회원", "회원가입 실패", 1500);
+          return;
+        default:
+          NotificationManager.warning("회원가입 실패", "서버오류", 1500);
+          return;
+      }
+    }
   }, [registerRes, registerErr]);
 
   useEffect(() => {
@@ -167,13 +208,7 @@ const HeaderContainer = () => {
     setRegisterPage(false);
   }, [modal, selectedAuth]);
 
-  useEffect(() => {
-    if (mailRes === 200) {
-      NotificationManager.success("메일 전송", "전송성공", 1500);
-    } else if (mailSendErr) {
-      NotificationManager.error("서버 에러", "에러", 1500);
-    }
-  }, [mailSendErr, mailRes]);
+  useEffect(() => {}, [mailSendErr, mailRes]);
 
   useEffect(() => {
     setModal(false);
@@ -209,6 +244,7 @@ const HeaderContainer = () => {
       setRegisterPage={setRegisterPage}
       profileImg={profileImg}
       onClickImgUpload={onClickImgUpload}
+      ChangeRegisterPage={ChangeRegisterPage}
     />
   );
 };

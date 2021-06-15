@@ -20,6 +20,7 @@ interface RegisterProps {
   setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
   profileImg: string | ArrayBuffer | null;
   onClickImgUpload: (File) => void;
+  ChangeRegisterPage: () => void;
 }
 
 const Register = ({
@@ -40,6 +41,7 @@ const Register = ({
   setRegisterPage,
   profileImg,
   onClickImgUpload,
+  ChangeRegisterPage,
 }: RegisterProps) => {
   return (
     <>
@@ -47,6 +49,7 @@ const Register = ({
         <ImgUpload
           profileImg={profileImg}
           onClickImgUpload={onClickImgUpload}
+          onClickRegister={onClickRegister}
         />
       ) : (
         <RegisterWriteInfo
@@ -59,11 +62,11 @@ const Register = ({
           checkPassword={checkPassword}
           setCheckPassword={setCheckPassword}
           setSelectedAuth={setSelectedAuth}
-          onClickRegister={onClickRegister}
           mailAuthCode={mailAuthCode}
           setMailAuthCode={setMailAuthCode}
           onClickMailCodeSend={onClickMailCodeSend}
           setRegisterPage={setRegisterPage}
+          ChangeRegisterPage={ChangeRegisterPage}
         />
       )}
     </>

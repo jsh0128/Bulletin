@@ -35,6 +35,7 @@ interface HeaderProps {
   setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
   profileImg: string | ArrayBuffer | null;
   onClickImgUpload: (File) => void;
+  ChangeRegisterPage: () => void;
 }
 
 const Header = ({
@@ -63,6 +64,7 @@ const Header = ({
   setRegisterPage,
   profileImg,
   onClickImgUpload,
+  ChangeRegisterPage,
 }: HeaderProps) => {
   const router = useRouter();
   return (
@@ -125,6 +127,7 @@ const Header = ({
           setRegisterPage={setRegisterPage}
           profileImg={profileImg}
           onClickImgUpload={onClickImgUpload}
+          ChangeRegisterPage={ChangeRegisterPage}
         />
       )}
     </HeaderArea>

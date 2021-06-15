@@ -12,11 +12,11 @@ interface RegisterWriteInfoProps {
   checkPassword: string;
   setCheckPassword: React.Dispatch<React.SetStateAction<string>>;
   setSelectedAuth: React.Dispatch<React.SetStateAction<boolean>>;
-  onClickRegister: () => void;
   mailAuthCode: string;
   setMailAuthCode: React.Dispatch<React.SetStateAction<string>>;
   onClickMailCodeSend: () => void;
   setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
+  ChangeRegisterPage: () => void;
 }
 
 const RegisterWriteInfo = ({
@@ -29,11 +29,11 @@ const RegisterWriteInfo = ({
   checkPassword,
   setCheckPassword,
   setSelectedAuth,
-  onClickRegister,
   mailAuthCode,
   setMailAuthCode,
   onClickMailCodeSend,
   setRegisterPage,
+  ChangeRegisterPage,
 }: RegisterWriteInfoProps) => {
   return (
     <Forms>
@@ -74,8 +74,7 @@ const RegisterWriteInfo = ({
       <Inputs>
         <CustomBtn
           onClick={() => {
-            // onClickRegister();
-            setRegisterPage(true);
+            ChangeRegisterPage();
           }}
         >
           회원가입
