@@ -74,7 +74,6 @@ const HeaderContainer = () => {
   );
 
   const onClickRegister = () => {
-    console.log("onClickRegister");
     if (profileImg) {
       dispatch(uploadAsync.request({ files: profile }));
     } else {
@@ -87,6 +86,7 @@ const HeaderContainer = () => {
         })
       );
     }
+    setModal(false);
   };
 
   const Login = useCallback(() => {

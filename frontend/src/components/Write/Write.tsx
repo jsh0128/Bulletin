@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import MDEditor from "@uiw/react-md-editor";
 import { CategoryState } from "store/types/CategoryType";
 import { Center, CustomBtn } from "components/common/Basic/Basic";
 
@@ -97,7 +96,6 @@ const Write = ({
       </Categories>
       <Content>
         <PostEditor value={content} onChange={setContent} />
-        {/* <MDCustomEditor value={content} onChange={setContent} /> */}
       </Content>
       <Center>
         <Btn onClick={onClickWrite}>글쓰기</Btn>
