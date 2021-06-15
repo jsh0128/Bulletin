@@ -18,7 +18,8 @@ export default async (request: Request, response: Response) => {
       },
     });
 
-    console.log(certCode, email);
+    console.log("메일 인증", certCode);
+    console.log("이메일", email);
 
     if (!checkCertEmail) {
       console.log("이메일 인증이 되지 않았습니다.");

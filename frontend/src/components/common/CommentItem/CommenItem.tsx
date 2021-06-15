@@ -4,6 +4,7 @@ import { Center } from "styles/globals";
 import { AiOutlineUser } from "react-icons/Ai";
 import TimeCounting from "time-counting";
 import Update from "util/enums/Update";
+import { CustomImg } from "../Basic/Basic";
 
 interface CommentItemProps {
   commentData: CommentState;
@@ -20,7 +21,10 @@ const CommentItem = ({
     <CommentItemArea>
       <ImgArea>
         {commentData.user_profile_img ? (
-          <img src={commentData.user_profile_img} />
+          <CustomImg
+            style={{ width: "3rem", height: "3rem" }}
+            src={commentData.user_profile_img}
+          />
         ) : (
           <Img />
         )}

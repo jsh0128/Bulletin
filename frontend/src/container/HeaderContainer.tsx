@@ -7,6 +7,7 @@ import {
   logout,
   mailAuthAsync,
   registerAsync,
+  REGISTER_SUCCESS,
 } from "store/actions/UserAction";
 import { RootState } from "store/reducers";
 import { NotificationManager } from "react-notifications";
@@ -23,7 +24,7 @@ const HeaderContainer = () => {
   const [mailAuthCode, setMailAuthCode] = useState<string>("");
   const [registerPage, setRegisterPage] = useState<boolean>(false);
   const [profileImg, setProfileImg] = useState<string | ArrayBuffer | null>();
-  const [profile, setProfile] = useState<File>();
+  const [profile, setProfile] = useState<File | null>();
 
   const { data, loginErr } = useSelector(
     (state: RootState) => state.LoginReducer
@@ -47,6 +48,7 @@ const HeaderContainer = () => {
 
   const dispatch = useDispatch();
 
+  // 로그인 함수
   const onClickLogin = async () => {
     if (!id || !password) {
       NotificationManager.warning("빈칸이 있어", "채워", 1500);
@@ -56,6 +58,7 @@ const HeaderContainer = () => {
     }
   };
 
+  // 이미지 state에 없로드
   const onClickImgUpload = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       let reader = new FileReader();
@@ -73,7 +76,8 @@ const HeaderContainer = () => {
     [profile, setProfile, setProfileImg, profileImg]
   );
 
-  const onClickRegister = () => {
+  // 회원가입
+  const onClickRegister = useCallback(() => {
     if (profileImg) {
       dispatch(uploadAsync.request({ files: profile }));
     } else {
@@ -85,10 +89,11 @@ const HeaderContainer = () => {
           authCode: Number(mailAuthCode),
         })
       );
+      setModal(false);
     }
-    setModal(false);
-  };
+  }, [id, password, name, mailAuthCode, profile, profileImg]);
 
+  // 로그인 데이터 통신 후
   const Login = useCallback(() => {
     setLoading(true);
     if (data.token && !loginErr) {
@@ -100,6 +105,7 @@ const HeaderContainer = () => {
     }
   }, [data, loginErr]);
 
+  // 로그인 에러 처리
   const ErrorHandler = (error) => {
     switch (error) {
       case 400:
@@ -116,10 +122,7 @@ const HeaderContainer = () => {
     }
   };
 
-  // const onClickUpload = () => {
-  //   dispatch
-  // }
-
+  // 메일 인증코드 보내기
   const onClickMailCodeSend = () => {
     dispatch(
       mailAuthAsync.request({
@@ -128,23 +131,29 @@ const HeaderContainer = () => {
     );
   };
 
+  // 정보 받기
   const tryGetInfo = () => {
     dispatch(getInfoAsync.request());
   };
 
+  // 로그아웃
   const Logout = () => {
     localStorage.removeItem("access_token");
     dispatch(logout());
   };
 
+  // input Reset
   const InputReset = () => {
     setMailAuthCode("");
     setId("");
     setPassword("");
     setName("");
     setCheckPassword("");
+    setProfile(null);
+    setProfileImg(null);
   };
 
+  // state로 회원가입 페이지 변경
   const ChangeRegisterPage = () => {
     if (!id || !password || !name || !checkPassword) {
       NotificationManager.warning("빈칸이 있어", "채워줘!", 1500);
@@ -155,9 +164,9 @@ const HeaderContainer = () => {
     }
   };
 
+  // 데이터 보내기
   useEffect(() => {
-    if (uploadData) {
-      console.log(uploadData.data.files);
+    if (uploadData?.data.files) {
       dispatch(
         registerAsync.request({
           email: id,
@@ -171,7 +180,7 @@ const HeaderContainer = () => {
     } else if (uploadDataErr) {
       console.log(uploadDataErr);
     }
-  }, [uploadData, uploadDataErr]);
+  }, [uploadData]);
 
   useEffect(() => {
     Login();
@@ -197,24 +206,31 @@ const HeaderContainer = () => {
 
   useEffect(() => {
     if (userError?.response.status === 500) {
+      Logout();
     }
   }, [userError]);
 
   useEffect(() => {
-    InputReset();
     modal === true
       ? (document.body.style.overflow = "hidden")
       : (document.body.style.overflow = "unset");
     setRegisterPage(false);
+    InputReset();
   }, [modal, selectedAuth]);
 
-  useEffect(() => {}, [mailSendErr, mailRes]);
+  useEffect(() => {
+    if (mailRes) {
+      NotificationManager.success("전송 성공", "Mail", 1500);
+    } else if (mailSendErr) {
+      NotificationManager.error("전송 실패", "Mail", 1500);
+    }
+  }, [mailSendErr, mailRes]);
 
   useEffect(() => {
-    setModal(false);
     if (localStorage.getItem("access_token")) {
       tryGetInfo();
     }
+    setModal(false);
   }, []);
 
   return (

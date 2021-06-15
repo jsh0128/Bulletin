@@ -1,4 +1,4 @@
-import { Center, CustomBtn } from "components/common/Basic/Basic";
+import { Center, CustomBtn, CustomImg } from "components/common/Basic/Basic";
 import { AiFillFolderOpen } from "react-icons/Ai";
 import { BiUserPin } from "react-icons/Bi";
 import styled from "styled-components";
@@ -19,7 +19,9 @@ const ImgUpload = ({
   return (
     <CustomCenter>
       {profileImg ? (
-        <img src={profileImg.toString()} />
+        <ImgArea>
+          <CustomImg style={{ height: "100%" }} src={profileImg.toString()} />
+        </ImgArea>
       ) : (
         <>{img ? <img src={img} /> : <UserImgIcon />}</>
       )}
@@ -42,12 +44,16 @@ const ImgUpload = ({
             onClickRegister();
           }}
         >
-          {img ? "회원가입" : "프로필 사진 없이 회원가입"}
+          {profileImg ? "회원가입" : "프로필 사진 없이 회원가입"}
         </CustomBtn>
       </CustomCenter>
     </CustomCenter>
   );
 };
+
+const ImgArea = styled.div`
+  width: 20rem;
+`;
 
 const CustomCenter = styled(Center)`
   flex-direction: column;
