@@ -8,6 +8,7 @@ backend/.idea/
 backend/.vscode/
 backend/node_modules/
 backend/build/
+backend/public/
 backend/temp/
 
 my-app
