@@ -6,6 +6,7 @@ export const BasicButton = styled.button`
   border-radius: 2px;
   cursor: pointer;
   font-size: 1rem;
+  transition: 0.2s;
 `;
 
 export const CustomButton = styled(BasicButton)`

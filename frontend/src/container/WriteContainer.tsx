@@ -7,10 +7,10 @@ import Router from "next/router";
 import { CategoryState } from "store/types/CategoryType";
 import { getCategoryAsync } from "store/actions/CategoryAction";
 import { NotificationManager } from "react-notifications";
+import { uploadAsync } from "store/actions/UploadAction";
 
 const WriteContainer = () => {
   const dispatch = useDispatch();
-  const contentInput = useRef<any>();
   const [title, setTitle] = useState<string>("");
   const [intro, setIntro] = useState<string>("");
   const [content, setContent] = useState<string>("");
@@ -24,6 +24,9 @@ const WriteContainer = () => {
   } = useSelector((state: RootState) => state.postReducer);
   const { getCategoryData, getCategoryErr } = useSelector(
     (state: RootState) => state.CategoryReducer
+  );
+  const { uploadData, uploadDataErr } = useSelector(
+    (state: RootState) => state.UploadReducer
   );
 
   const [select, setSelect] = useState<boolean>(false);
@@ -62,12 +65,6 @@ const WriteContainer = () => {
     [categories]
   );
 
-  // useEffect(() => {
-  //   if (contentInput.current?.getInstance()) {
-  //     console.log(contentInput.current.getInstance());
-  //   }
-  // }, [contentInput]);
-
   const handleCreatePost = () => {
     const previewImg = getPreviewImg();
     if (previewImg) {
@@ -84,6 +81,13 @@ const WriteContainer = () => {
     }
   };
 
+  const uploadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("img upload");
+    if (e.target.files && e.target.files.length) {
+      dispatch(uploadAsync.request({ files: e.target.files[0] }));
+    }
+  };
+
   const onClickWrite = () => {
     if (!title || !intro || !content || !categories) {
       console.log("빈칸을 채워주세요");
@@ -97,10 +101,16 @@ const WriteContainer = () => {
   }, [getCategoryData, getCategoryErr]);
 
   useEffect(() => {
+    if (uploadData) {
+      setContent((prev) => prev + "![](" + uploadData.data.files[0] + ")");
+    }
+  }, [uploadData]);
+
+  useEffect(() => {
     if (createPostData) {
       NotificationManager.success("글 작성 성공", "글작성", 1500);
     } else if (createPostErr) {
-      NotificationManager.success("글 작성 실패", "글작성", 1500);
+      NotificationManager.error("글 작성 실패", "글작성", 1500);
     }
   }, [createPostData, createPostErr]);
 
@@ -125,7 +135,7 @@ const WriteContainer = () => {
       setSelect={setSelect}
       deleteCategory={deleteCategory}
       selectedCategory={selectedCategory}
-      contentInput={contentInput}
+      uploadImg={uploadImg}
     />
   );
 };

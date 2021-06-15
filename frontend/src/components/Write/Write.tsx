@@ -3,14 +3,8 @@ import styled from "styled-components";
 import { CategoryState } from "store/types/CategoryType";
 import { Center, CustomBtn } from "components/common/Basic/Basic";
 import MDEditor from "@uiw/react-md-editor";
-import dynamic from "next/dynamic";
-import { MutableRefObject } from "react";
-const PostEditor = dynamic(
-  () => import("components/common/CustomEditor/CustomEditor"),
-  {
-    ssr: false,
-  }
-);
+import { RiDeleteBin5Line } from "react-icons/Ri";
+import { AiFillFolderOpen } from "react-icons/Ai";
 
 interface WriteProps {
   title: string;
@@ -27,7 +21,7 @@ interface WriteProps {
   setSelect: React.Dispatch<React.SetStateAction<boolean>>;
   deleteCategory: (string) => void;
   selectedCategory: (string) => void;
-  contentInput: MutableRefObject<undefined>;
+  uploadImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Write = ({
@@ -45,7 +39,7 @@ const Write = ({
   setSelect,
   deleteCategory,
   selectedCategory,
-  contentInput,
+  uploadImg,
 }: WriteProps) => {
   return (
     <WriteStyle>
@@ -70,39 +64,50 @@ const Write = ({
         />
       </Introduction>
       <Categories>
-        <CategorySelect>
-          <CategorySelectNow>
-            <span onClick={() => setSelect((prev) => !prev)}>카테고리 ▽</span>
-          </CategorySelectNow>
-          <SelectCategoryForm>
-            {select &&
-              selectCategory?.map((item, key) => (
-                <SelectCategoriesForm
-                  onClick={() => {
-                    selectedCategory(item.category);
-                  }}
-                  key={key}
-                >
-                  {item.category}
-                </SelectCategoriesForm>
-              ))}
-          </SelectCategoryForm>
-        </CategorySelect>
-        <SelectedCategory>
-          {categories.map((item, key) => (
-            <Category key={key}>
-              <span>{item}</span>
-              <Delete onClick={() => deleteCategory(item)}>✖️</Delete>
-            </Category>
-          ))}
-        </SelectedCategory>
+        <div style={{ width: "60%", display: "flex" }}>
+          <CategorySelect>
+            <CategorySelectNow>
+              <span onClick={() => setSelect((prev) => !prev)}>카테고리 ▽</span>
+            </CategorySelectNow>
+            <SelectCategoryForm>
+              {select &&
+                selectCategory?.map((item, key) => (
+                  <SelectCategoriesForm
+                    key={key}
+                    onClick={() => {
+                      selectedCategory(item.category);
+                    }}
+                  >
+                    {item.category}
+                  </SelectCategoriesForm>
+                ))}
+            </SelectCategoryForm>
+          </CategorySelect>
+          <SelectedCategory>
+            {categories.map((item, key) => (
+              <Category key={key}>
+                <span>{item}</span>
+                <Delete onClick={() => deleteCategory(item)}></Delete>
+              </Category>
+            ))}
+          </SelectedCategory>
+        </div>
+        <div>
+          <FileUploadLabel htmlFor="file">
+            <span>사진선택</span>
+            <FileIcon />
+          </FileUploadLabel>
+          <FileInput
+            type="file"
+            id="file"
+            accept="image/png image/jpeg image/jpg"
+            onChange={(e) => {
+              uploadImg(e);
+            }}
+          />
+        </div>
       </Categories>
       <Content>
-        {/* <PostEditor
-          value={content}
-          onChange={setContent}
-          useRef={contentInput}
-        /> */}
         <MDEditor value={content} onChange={setContent} height={"99%"} />
       </Content>
       <Center>
@@ -111,6 +116,22 @@ const Write = ({
     </WriteStyle>
   );
 };
+
+const FileIcon = styled(AiFillFolderOpen)`
+  font-size: 1.5rem !important;
+  margin-left: 1rem;
+`;
+
+const FileInput = styled.input`
+  display: none;
+`;
+
+const FileUploadLabel = styled.label`
+  cursor: pointer;
+  display: flex;
+  font-size: 1.3rem;
+  align-items: center;
+`;
 
 const WriteStyle = styled.div`
   display: flex;
@@ -131,6 +152,7 @@ const CategorySelect = styled.div`
 const Categories = styled.div`
   margin-top: 1rem;
   display: flex;
+  justify-content: space-between;
 `;
 
 const SelectCategoriesForm = styled.div`
@@ -148,6 +170,7 @@ const SelectCategoriesForm = styled.div`
 `;
 
 const Category = styled.div`
+  cursor: pointer;
   display: flex;
   color: #343434;
   align-items: center;
@@ -157,12 +180,18 @@ const Category = styled.div`
   height: 100%;
   border: 1px solid #343434;
   border-radius: 3px;
+  transition: 0.2s;
+  &:hover {
+    background: #343434;
+    color: white;
+  }
 `;
 
-const Delete = styled.span`
+const Delete = styled(RiDeleteBin5Line)`
   font-size: 0.7rem;
   margin-left: 0.5rem;
   cursor: pointer;
+  transition: 0.2s;
 `;
 
 const SelectedCategory = styled.div`
@@ -189,6 +218,7 @@ const Btn = styled(CustomBtn)`
   margin-bottom: 1rem;
   font-weight: bold;
   width: 50%;
+  cursor: pointer;
 `;
 
 const Introduction = styled.div`

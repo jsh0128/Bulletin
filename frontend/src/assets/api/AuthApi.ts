@@ -8,12 +8,13 @@ import { IGetInfoResponse, ILoginResponse } from "util/types/Response";
 import { SERVER } from "../../config/config.json";
 import { Response } from "util/types/Response";
 import customAxios from "lib/CustomAxios";
+import { sha512 } from "js-sha512";
 
 const AuthApi = {
   login: async ({ email, pw }: LoginPayload) => {
     const body = {
       email,
-      password: pw,
+      password: sha512(pw),
     };
     const { data }: AxiosResponse<ILoginResponse> = await axios.post(
       `${SERVER}/auth/signin`,
@@ -32,7 +33,7 @@ const AuthApi = {
     const body = {
       name,
       email,
-      password: password,
+      password: sha512(password),
       profileImg,
       certCode: authCode,
     };

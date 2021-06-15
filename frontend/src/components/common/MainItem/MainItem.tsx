@@ -62,7 +62,7 @@ const MainItemStyle = styled.div`
 `;
 
 const ContentDiv = styled.div`
-  padding: 0.5rem 0.8rem 0.5rem 0.8rem;
+  padding: 0 0.8rem 0.5rem 0.8rem;
   display: flex;
   flex-direction: column;
 `;

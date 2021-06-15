@@ -1,17 +1,15 @@
 import { Center, CustomBtn, CustomImg } from "components/common/Basic/Basic";
 import { AiFillFolderOpen } from "react-icons/Ai";
-import { BiUserPin } from "react-icons/Bi";
+import { BiUser } from "react-icons/Bi";
 import styled from "styled-components";
 
 interface ImgUploadProps {
-  img?: string;
   profileImg: string | ArrayBuffer | null;
   onClickImgUpload: (File) => void;
   onClickRegister: () => void;
 }
 
 const ImgUpload = ({
-  img,
   profileImg,
   onClickImgUpload,
   onClickRegister,
@@ -23,7 +21,9 @@ const ImgUpload = ({
           <CustomImg style={{ height: "100%" }} src={profileImg.toString()} />
         </ImgArea>
       ) : (
-        <>{img ? <img src={img} /> : <UserImgIcon />}</>
+        <ImgIconArea>
+          <UserImgIcon />
+        </ImgIconArea>
       )}
       <CustomCenter>
         <FileUploadLabel htmlFor="file">
@@ -53,14 +53,23 @@ const ImgUpload = ({
 
 const ImgArea = styled.div`
   width: 20rem;
+  height: 20rem;
+`;
+
+const ImgIconArea = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 5rem;
 `;
 
 const CustomCenter = styled(Center)`
   flex-direction: column;
 `;
 
-const UserImgIcon = styled(BiUserPin)`
-  font-size: 30rem;
+const UserImgIcon = styled(BiUser)`
+  font-size: 20rem;
 `;
 
 const FileIcon = styled(AiFillFolderOpen)`
@@ -74,6 +83,7 @@ const FileInput = styled.input`
 `;
 
 const FileUploadLabel = styled.label`
+  margin-top: 1rem;
   cursor: pointer;
   display: flex;
   font-size: 1.3rem;

@@ -7,7 +7,6 @@ import {
   logout,
   mailAuthAsync,
   registerAsync,
-  REGISTER_SUCCESS,
 } from "store/actions/UserAction";
 import { RootState } from "store/reducers";
 import { NotificationManager } from "react-notifications";
@@ -90,31 +89,47 @@ const HeaderContainer = () => {
   }, [id, password, name, mailAuthCode, profile, profileImg]);
 
   // 로그인 데이터 통신 후
-  const Login = useCallback(() => {
+  const onLoginSuccess = useCallback(() => {
     setLoading(true);
-    if (data.token && !loginErr) {
+    if (data.token) {
       localStorage.setItem("access_token", data.token);
-      tryGetInfo();
+      dispatch(getInfoAsync.request());
       setModal(false);
     } else if (loginErr) {
-      ErrorHandler(loginErr?.response.status);
+      loginErrorHandler(loginErr?.response.status);
     }
   }, [data, loginErr]);
 
   // 로그인 에러 처리
-  const ErrorHandler = (error) => {
+  const loginErrorHandler = (error) => {
     switch (error) {
       case 400:
         break;
       case 401:
-        NotificationManager.error("id 또는 비밀번호가 다름.", "틀림!", 1500);
+        NotificationManager.error("id 또는 비밀번호가 다름.", "LOGIN", 1500);
         break;
       case 404:
-        NotificationManager.error("사용자를 찾을 수 없음", "틀림!", 1500);
+        NotificationManager.error("사용자를 찾을 수 없음", "LOGIN", 1500);
         break;
       default:
-        NotificationManager.error("서버 오류", "틀림!", 1500);
+        NotificationManager.error("서버 오류", "LOGIN", 1500);
         break;
+    }
+  };
+
+  const registerErrorHandler = (error) => {
+    if (error) {
+      switch (error.response?.status) {
+        case 400:
+          NotificationManager.warning("메일 인증 안함", "회원가입 실패", 1500);
+          return;
+        case 409:
+          NotificationManager.warning("중복된 회원", "회원가입 실패", 1500);
+          return;
+        default:
+          NotificationManager.warning("회원가입 실패", "서버오류", 1500);
+          return;
+      }
     }
   };
 
@@ -125,11 +140,6 @@ const HeaderContainer = () => {
         email: id,
       })
     );
-  };
-
-  // 정보 받기
-  const tryGetInfo = () => {
-    dispatch(getInfoAsync.request());
   };
 
   // 로그아웃
@@ -152,9 +162,11 @@ const HeaderContainer = () => {
   // state로 회원가입 페이지 변경
   const ChangeRegisterPage = () => {
     if (!id || !password || !name || !checkPassword) {
-      NotificationManager.warning("빈칸이 있어", "채워줘!", 1500);
+      NotificationManager.warning("빈칸이 있어", "REGISTER", 1500);
     } else if (password !== checkPassword) {
-      NotificationManager.warning("비밀번호가 일치하지 않아", "틀림!", 1500);
+      NotificationManager.warning("비밀번호가 일치하지 않아", "REGISTER", 1500);
+    } else if (password.length < 8) {
+      NotificationManager.warning("비밀번호는 8자리 이상", "REGISTER", 1500);
     } else {
       setRegisterPage(true);
     }
@@ -179,26 +191,12 @@ const HeaderContainer = () => {
   }, [uploadData]);
 
   useEffect(() => {
-    Login();
+    onLoginSuccess();
   }, [data, loginErr]);
 
   useEffect(() => {
-    if (registerRes) {
-      NotificationManager.success("회원가입 성공", "채워줘", 1500);
-    } else if (registerErr) {
-      switch (registerErr.response?.status) {
-        case 400:
-          NotificationManager.warning("메일 인증 안함", "회원가입 실패", 1500);
-          return;
-        case 409:
-          NotificationManager.warning("중복된 회원", "회원가입 실패", 1500);
-          return;
-        default:
-          NotificationManager.warning("회원가입 실패", "서버오류", 1500);
-          return;
-      }
-    }
-  }, [registerRes, registerErr]);
+    registerErrorHandler(registerErr);
+  }, [registerErr]);
 
   useEffect(() => {
     if (userError?.response.status === 500) {
@@ -223,8 +221,15 @@ const HeaderContainer = () => {
   }, [mailSendErr, mailRes]);
 
   useEffect(() => {
+    if (userData) NotificationManager.success("로그인 성공", "LOGIN", 1500);
+    else if (mailRes) NotificationManager.success("전송 성공", "MAIL", 1500);
+    else if (registerRes)
+      NotificationManager.success("회원가입 성공", "REGISTER", 1500);
+  }, [userData, mailRes, registerRes]);
+
+  useEffect(() => {
     if (localStorage.getItem("access_token")) {
-      tryGetInfo();
+      dispatch(getInfoAsync.request());
     }
     setModal(false);
   }, []);
