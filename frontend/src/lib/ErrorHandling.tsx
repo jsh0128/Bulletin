@@ -152,6 +152,9 @@ const ErrorHandling = () => {
   useEffect(() => {
     if (mailSendErr) {
       switch (mailSendErr.response?.status) {
+        case 409:
+          NotificationManager.error("중복 회원", "MAIL", 1500);
+          break;
         default:
           NotificationManager.error("서버 오류", "MAIL", 1500);
           break;

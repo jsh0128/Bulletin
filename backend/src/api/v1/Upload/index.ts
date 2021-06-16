@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
     cb(null, "./public/");
   },
   filename: (_req, file, cb) => {
-    cb(null, `${file.fieldname}-${uuidv4()}-${encodeURI(file.originalname)}`);
+    cb(null, `${file.fieldname}-${uuidv4()}-${file.originalname}`);
   },
 });
 
