@@ -29,13 +29,9 @@ const GetPostContainer = () => {
   const { userData } = useSelector((state: RootState) => state.userReducer);
   const {
     getCommentData,
-    getCommentErr,
     modifyCommentData,
-    modifyCommentErr,
     createCommentData,
-    createCommentErr,
     deleteCommentData,
-    deleteCommentErr,
   } = useSelector((state: RootState) => state.commentReducer);
 
   // 포스트 삭제 함수
@@ -93,51 +89,23 @@ const GetPostContainer = () => {
     }
   }, [data]);
 
-  useEffect(() => {
-    switch (getPostErr?.response.status) {
-      case 404:
-        NotificationManager.error("404 Not found", "찾을 수 없음", 1500);
-        history.push("/");
-        break;
-    }
-  }, [getPostErr]);
-
   // 댓글 가져온 후 핸들링
   useEffect(() => {
     setCommentData(getCommentData && getCommentData.data);
-    if (getCommentErr) {
-      NotificationManager.error("서버 오류입니다", "SERVER ERROR", 1500);
-    }
-    console.log("댓글 데이터 " + getCommentData, "댓글 오류 " + getCommentErr);
-  }, [getCommentData, getCommentErr]);
+  }, [getCommentData]);
 
-  // 포스트 삭제 후 핸들링
-  useEffect(() => {
-    if (deletePostData) {
-      NotificationManager.error("글 삭제 성공", "글 삭제", 1500);
-    }
-    if (deletePostErr) {
-      NotificationManager.error("서버 오류입니다", "SERVER ERROR", 1500);
-    }
-  }, [deletePostData, deletePostErr]);
-
-  // 댓글 만든 후 데이터 핸들링
   useEffect(() => {
     if (createCommentData && createCommentData?.status === 200) {
       dispatch(getCommentAsync.request({ post_idx: Number(query.idx) }));
-    } else if (createCommentErr) {
-      NotificationManager.error("서버 오류입니다", "SERVER ERROR", 1500);
     }
-  }, [createCommentData, createCommentErr]);
+  }, [createCommentData]);
 
   // 댓글 삭제 후 데이터 핸들링
   useEffect(() => {
     if (deleteCommentData && deleteCommentData?.status === 200) {
       dispatch(getCommentAsync.request({ post_idx: Number(query.idx) }));
-    } else if (deleteCommentErr) {
-      NotificationManager.error("서버 오류입니다", "SERVER ERROR", 1500);
     }
-  }, [deleteCommentData, deleteCommentErr]);
+  }, [deleteCommentData]);
 
   return (
     <GetPost

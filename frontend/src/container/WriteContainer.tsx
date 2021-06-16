@@ -7,7 +7,7 @@ import Router from "next/router";
 import { CategoryState } from "store/types/CategoryType";
 import { getCategoryAsync } from "store/actions/CategoryAction";
 import { NotificationManager } from "react-notifications";
-import { uploadAsync } from "store/actions/UploadAction";
+import { UPLOAD, uploadAsync } from "store/actions/UploadAction";
 
 const WriteContainer = () => {
   const dispatch = useDispatch();
@@ -16,18 +16,13 @@ const WriteContainer = () => {
   const [content, setContent] = useState<string>("");
   const [categories, setCategories] = useState<string[]>([]);
   const [selectCategory, setSelectCategory] = useState<CategoryState[]>();
-  const {
-    createPostData,
-    createPostErr,
-    modifyPostData,
-    modifyPostErr,
-  } = useSelector((state: RootState) => state.postReducer);
+  const { modifyPostData } = useSelector(
+    (state: RootState) => state.postReducer
+  );
   const { getCategoryData, getCategoryErr } = useSelector(
     (state: RootState) => state.CategoryReducer
   );
-  const { uploadData, uploadDataErr } = useSelector(
-    (state: RootState) => state.UploadReducer
-  );
+  const { uploadData } = useSelector((state: RootState) => state.UploadReducer);
 
   const [select, setSelect] = useState<boolean>(false);
 
@@ -82,7 +77,7 @@ const WriteContainer = () => {
   };
 
   const uploadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("img upload");
+    console.log("uploadImg");
     if (e.target.files && e.target.files.length) {
       dispatch(uploadAsync.request({ files: e.target.files[0] }));
     }
@@ -97,6 +92,13 @@ const WriteContainer = () => {
   };
 
   useEffect(() => {
+    setTitle("");
+    setIntro("");
+    setContent("");
+    setCategories([]);
+  }, []);
+
+  useEffect(() => {
     setSelectCategory(getCategoryData?.res);
   }, [getCategoryData, getCategoryErr]);
 
@@ -105,14 +107,6 @@ const WriteContainer = () => {
       setContent((prev) => prev + "![](" + uploadData.data.files[0] + ")");
     }
   }, [uploadData]);
-
-  useEffect(() => {
-    if (createPostData) {
-      NotificationManager.success("글 작성 성공", "글작성", 1500);
-    } else if (createPostErr) {
-      NotificationManager.error("글 작성 실패", "글작성", 1500);
-    }
-  }, [createPostData, createPostErr]);
 
   useEffect(() => {
     setSelect(false);

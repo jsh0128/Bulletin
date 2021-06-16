@@ -24,6 +24,7 @@ const HeaderContainer = () => {
   const [registerPage, setRegisterPage] = useState<boolean>(false);
   const [profileImg, setProfileImg] = useState<string | ArrayBuffer | null>();
   const [profile, setProfile] = useState<File | null>();
+  const [uploadHeader, setUploadHeader] = useState<boolean>(false);
 
   const {
     data,
@@ -37,9 +38,7 @@ const HeaderContainer = () => {
     loginCheck,
   } = useSelector((state: RootState) => state.userReducer);
 
-  const { uploadData, uploadDataErr } = useSelector(
-    (state: RootState) => state.UploadReducer
-  );
+  const { uploadData } = useSelector((state: RootState) => state.UploadReducer);
 
   const dispatch = useDispatch();
 
@@ -73,8 +72,10 @@ const HeaderContainer = () => {
 
   // 회원가입
   const onClickRegister = useCallback(() => {
-    if (profileImg) {
+    if (profileImg && profile) {
+      console.log("onClickRegister");
       dispatch(uploadAsync.request({ files: profile }));
+      setUploadHeader(true);
     } else {
       dispatch(
         registerAsync.request({
@@ -86,7 +87,7 @@ const HeaderContainer = () => {
       );
       setModal(false);
     }
-  }, [id, password, name, mailAuthCode, profile, profileImg]);
+  }, [id, password, name, mailAuthCode, profile, profileImg, setUploadHeader]);
 
   // 로그인 데이터 통신 후
   const onLoginSuccess = useCallback(() => {
@@ -95,43 +96,10 @@ const HeaderContainer = () => {
       localStorage.setItem("access_token", data.token);
       dispatch(getInfoAsync.request());
       setModal(false);
-    } else if (loginErr) {
-      loginErrorHandler(loginErr?.response.status);
     }
-  }, [data, loginErr]);
+  }, [data]);
 
   // 로그인 에러 처리
-  const loginErrorHandler = (error) => {
-    switch (error) {
-      case 400:
-        break;
-      case 401:
-        NotificationManager.error("id 또는 비밀번호가 다름.", "LOGIN", 1500);
-        break;
-      case 404:
-        NotificationManager.error("사용자를 찾을 수 없음", "LOGIN", 1500);
-        break;
-      default:
-        NotificationManager.error("서버 오류", "LOGIN", 1500);
-        break;
-    }
-  };
-
-  const registerErrorHandler = (error) => {
-    if (error) {
-      switch (error.response?.status) {
-        case 400:
-          NotificationManager.warning("메일 인증 안함", "회원가입 실패", 1500);
-          return;
-        case 409:
-          NotificationManager.warning("중복된 회원", "회원가입 실패", 1500);
-          return;
-        default:
-          NotificationManager.warning("회원가입 실패", "서버오류", 1500);
-          return;
-      }
-    }
-  };
 
   // 메일 인증코드 보내기
   const onClickMailCodeSend = () => {
@@ -174,7 +142,7 @@ const HeaderContainer = () => {
 
   // 데이터 보내기
   useEffect(() => {
-    if (uploadData?.data.files) {
+    if (uploadData?.data.files && uploadHeader) {
       dispatch(
         registerAsync.request({
           email: id,
@@ -184,19 +152,14 @@ const HeaderContainer = () => {
           profileImg: uploadData.data.files[0],
         })
       );
+      setUploadHeader(false);
       setModal(false);
-    } else if (uploadDataErr) {
-      console.log(uploadDataErr);
     }
   }, [uploadData]);
 
   useEffect(() => {
     onLoginSuccess();
   }, [data, loginErr]);
-
-  useEffect(() => {
-    registerErrorHandler(registerErr);
-  }, [registerErr]);
 
   useEffect(() => {
     if (userError?.response.status === 500) {
@@ -213,19 +176,8 @@ const HeaderContainer = () => {
   }, [modal, selectedAuth]);
 
   useEffect(() => {
-    if (mailRes) {
-      NotificationManager.success("전송 성공", "Mail", 1500);
-    } else if (mailSendErr) {
-      NotificationManager.error("전송 실패", "Mail", 1500);
-    }
-  }, [mailSendErr, mailRes]);
-
-  useEffect(() => {
-    if (userData) NotificationManager.success("로그인 성공", "LOGIN", 1500);
-    else if (mailRes) NotificationManager.success("전송 성공", "MAIL", 1500);
-    else if (registerRes)
-      NotificationManager.success("회원가입 성공", "REGISTER", 1500);
-  }, [userData, mailRes, registerRes]);
+    console.log("");
+  }, []);
 
   useEffect(() => {
     if (localStorage.getItem("access_token")) {

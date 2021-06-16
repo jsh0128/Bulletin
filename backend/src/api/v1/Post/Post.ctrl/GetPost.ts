@@ -46,7 +46,7 @@ export default async (request: Request, response: Response) => {
 
       if (!userFind) {
         console.log("존재하지 않는 유저입니다");
-        handleResponse(response, 404, "존재하지 않는 유저입니다");
+        handleResponse(response, 403, "존재하지 않는 유저입니다");
         return;
       }
 

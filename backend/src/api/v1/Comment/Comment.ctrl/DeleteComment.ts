@@ -16,7 +16,7 @@ export default async (request: AuthRequest, response: Response) => {
 
     if (!comment_idx) {
       console.log("comment idx가 없습니다.");
-      handleResponse(response, 405, "comment idx가 없습니다.");
+      handleResponse(response, 404, "comment idx가 없습니다.");
       return;
     }
 

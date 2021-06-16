@@ -3,9 +3,9 @@ import { AppContext, AppProps } from "next/app";
 import { Center, GlobalStyled, MaxWidth, theme } from "styles/globals";
 import wrapper from "store/configureStore";
 import "react-notifications/lib/notifications.css";
-import { NotificationContainer } from "react-notifications";
 import withReduxSaga from "next-redux-saga";
-import { getInfoAsync } from "store/actions/UserAction";
+import React from "react";
+import ErrorHandling from "lib/ErrorHandling";
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -18,7 +18,7 @@ function App({ Component, pageProps }: AppProps) {
           <GlobalStyled />
         </DefaultTemplate>
       </Center>
-      <NotificationContainer />
+      <ErrorHandling />
     </>
   );
 }

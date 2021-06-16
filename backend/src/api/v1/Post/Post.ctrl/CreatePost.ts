@@ -31,7 +31,7 @@ export default async (request: AuthRequest, response: Response) => {
           console.log("존재하지 않는 카테고리가 있습니다.");
           return handleResponse(
             response,
-            405,
+            404,
             "존재하지 않는 카테고리가 있습니다."
           );
         }

@@ -1,5 +1,5 @@
 import MainContainer from "container/MainContainer";
-import { getPostAsync, GET_POST_SUCCESS } from "store/actions/PostAction";
+import { getPostAsync } from "store/actions/PostAction";
 import { RootState } from "store/reducers";
 
 const Home = () => {

@@ -8,6 +8,7 @@ import {
   modifyCategoryAsync,
 } from "store/actions/CategoryAction";
 import { getPostAsync } from "store/actions/PostAction";
+import { UPLOAD } from "store/actions/UploadAction";
 import { RootState } from "store/reducers";
 import { CategoryState } from "store/types/CategoryType";
 import Update from "util/enums/Update";
@@ -107,17 +108,9 @@ const MainContainer = () => {
     }
   }, [createCategoryData, deleteCategoryData, modifyCategoryData]);
 
-  useEffect(() => {}, [modifyCategoryData, modifyCategoryErr]);
-
-  useEffect(() => {}, [createCategoryErr, deleteCategoryErr]);
-
   useEffect(() => {
     setCategory(getCategoryData?.res);
   }, [getCategoryData, getCategoryErr]);
-
-  useEffect(() => {}, [getPostCategoryData, getPostCategoryErr]);
-
-  useEffect(() => {}, [data, getPostErr]);
 
   return (
     <>
