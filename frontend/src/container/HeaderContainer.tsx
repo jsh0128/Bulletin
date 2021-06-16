@@ -186,7 +186,10 @@ const HeaderContainer = () => {
     setModal(false);
   }, []);
 
-  useEffect(() => {}, [id, password, selectedAuth]);
+  try {
+  } catch (err) {
+    console.log(err);
+  }
 
   return (
     <Header
