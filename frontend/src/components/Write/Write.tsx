@@ -72,23 +72,26 @@ const Write = ({
             <SelectCategoryForm>
               {select &&
                 selectCategory?.map((item, key) => (
-                  <SelectCategoriesForm
-                    key={key}
-                    onClick={() => {
-                      selectedCategory(item.category);
-                    }}
-                  >
-                    {item.category}
-                  </SelectCategoriesForm>
+                  <div key={key}>
+                    <SelectCategoriesForm
+                      onClick={() => {
+                        selectedCategory(item.category);
+                      }}
+                    >
+                      {item.category}
+                    </SelectCategoriesForm>
+                  </div>
                 ))}
             </SelectCategoryForm>
           </CategorySelect>
           <SelectedCategory>
             {categories.map((item, key) => (
-              <Category key={key}>
-                <span>{item}</span>
-                <Delete onClick={() => deleteCategory(item)}></Delete>
-              </Category>
+              <div key={key}>
+                <Category>
+                  <span>{item}</span>
+                  <Delete onClick={() => deleteCategory(item)}></Delete>
+                </Category>
+              </div>
             ))}
           </SelectedCategory>
         </div>
@@ -108,7 +111,7 @@ const Write = ({
         </div>
       </Categories>
       <Content>
-        <MDEditor value={content} onChange={setContent} height={"99%"} />
+        <MDEditor value={content} onChange={setContent} height={650} />
       </Content>
       <Center>
         <Btn onClick={onClickWrite}>글쓰기</Btn>

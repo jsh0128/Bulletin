@@ -32,7 +32,7 @@ export default async (request: Request, response: Response) => {
     const mailOption = {
       from: GMAIL_ID,
       to: email,
-      subject: "[블로그 제목] 이메일 인증 코드",
+      subject: "[BLASH] 이메일 인증 코드",
       html: `<html>
       <body>
         <div>

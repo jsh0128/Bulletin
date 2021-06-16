@@ -1,4 +1,4 @@
-import React from "react";
+import React, { KeyboardEvent } from "react";
 import styled from "styled-components";
 import Register from "./Register";
 import Login from "./Login";
@@ -26,6 +26,7 @@ interface AuthModalProps {
   profileImg: string | ArrayBuffer | null;
   onClickImgUpload: (File) => void;
   ChangeRegisterPage: () => void;
+  keyDownEvent: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const AuthModal = ({
@@ -51,6 +52,7 @@ const AuthModal = ({
   profileImg,
   onClickImgUpload,
   ChangeRegisterPage,
+  keyDownEvent,
 }: AuthModalProps) => {
   return (
     <>
@@ -76,9 +78,10 @@ const AuthModal = ({
             profileImg={profileImg}
             onClickImgUpload={onClickImgUpload}
             ChangeRegisterPage={ChangeRegisterPage}
+            keyDownEvent={keyDownEvent}
           />
         )}
-        {selectedAuth === false && (
+        {!selectedAuth && (
           <Login
             id={id}
             setId={setId}
@@ -87,6 +90,7 @@ const AuthModal = ({
             onClickLogin={onClickLogin}
             setSelectedAuth={setSelectedAuth}
             loading={loading}
+            keyDownEvent={keyDownEvent}
           />
         )}
       </AuthModalArea>

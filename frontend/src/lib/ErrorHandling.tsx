@@ -133,10 +133,14 @@ const ErrorHandling = () => {
         case 400:
           break;
         case 401:
-          NotificationManager.error("id 또는 비밀번호가 다름.", "LOGIN", 1500);
+          NotificationManager.error(
+            "id 또는 비밀번호가 다릅니다",
+            "LOGIN",
+            1500
+          );
           break;
         case 404:
-          NotificationManager.error("사용자를 찾을 수 없음", "LOGIN", 1500);
+          NotificationManager.error("사용자를 찾을 수 없습니다", "LOGIN", 1500);
           break;
         default:
           NotificationManager.error("서버 오류", "LOGIN", 1500);
@@ -169,10 +173,10 @@ const ErrorHandling = () => {
     if (registerErr) {
       switch (registerErr.response?.status) {
         case 400:
-          NotificationManager.error("메일 인증을 해주세요.", "REGISTER", 1500);
+          NotificationManager.error("메일 인증을 해주세요", "REGISTER", 1500);
           break;
         case 409:
-          NotificationManager.error("중복되는 회원입니다.", "REGISTER", 1500);
+          NotificationManager.error("중복되는 회원입니다", "REGISTER", 1500);
           break;
         default:
           NotificationManager.error("서버 오류", "REGISTER", 1500);
@@ -196,13 +200,13 @@ const ErrorHandling = () => {
       switch (deleteCommentErr.response?.status) {
         case 403:
           NotificationManager.error(
-            "현재 로그인 한 유저와 댓글을 작성한 유저가 다릅니다.",
+            "현재 로그인 한 유저와 댓글을 작성한 유저가 다릅니다",
             "COMMENT",
             1500
           );
           break;
         case 404:
-          NotificationManager.error("없는 댓글입니다.", "COMMENT", 1500);
+          NotificationManager.error("없는 댓글입니다", "COMMENT", 1500);
           break;
         default:
           NotificationManager.error("서버 오류", "COMMENT", 1500);
@@ -215,7 +219,7 @@ const ErrorHandling = () => {
     if (getCommentErr) {
       switch (getCommentErr.response?.status) {
         case 404:
-          NotificationManager.error("찾을 수 없는 글입니다.", "COMMENT", 1500);
+          NotificationManager.error("찾을 수 없는 글입니다", "COMMENT", 1500);
           break;
         default:
           NotificationManager.error("서버 오류", "COMMENT", 1500);
@@ -242,7 +246,7 @@ const ErrorHandling = () => {
       switch (modifyCommentErr.response?.status) {
         case 403:
           NotificationManager.error(
-            "현재 로그인 한 유저와 댓글을 작성한 유저가 다릅니다.",
+            "현재 로그인 한 유저와 댓글을 작성한 유저가 다릅니다",
             "COMMENT",
             1500
           );

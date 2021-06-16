@@ -1,5 +1,5 @@
 import Header from "components/common/Header";
-import { useCallback, useEffect, useState } from "react";
+import { KeyboardEvent, useCallback, useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import {
   getInfoAsync,
@@ -26,17 +26,9 @@ const HeaderContainer = () => {
   const [profile, setProfile] = useState<File | null>();
   const [uploadHeader, setUploadHeader] = useState<boolean>(false);
 
-  const {
-    data,
-    loginErr,
-    registerRes,
-    registerErr,
-    mailSendErr,
-    mailRes,
-    userError,
-    userData,
-    loginCheck,
-  } = useSelector((state: RootState) => state.userReducer);
+  const { data, loginErr, userError, userData, loginCheck } = useSelector(
+    (state: RootState) => state.userReducer
+  );
 
   const { uploadData } = useSelector((state: RootState) => state.UploadReducer);
 
@@ -45,7 +37,7 @@ const HeaderContainer = () => {
   // 로그인 함수
   const onClickLogin = async () => {
     if (!id || !password) {
-      NotificationManager.warning("빈칸이 있어", "채워", 1500);
+      NotificationManager.warning("빈칸을 채워주세요", "LOGIN", 1500);
     } else {
       dispatch(loginAsync.request({ email: id, pw: password }));
       setLoading(false);
@@ -140,6 +132,18 @@ const HeaderContainer = () => {
     }
   };
 
+  const keyDownEvent = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" || e.key === "NumpadEnter") {
+      if (!selectedAuth) {
+        onClickLogin();
+      } else if (selectedAuth) {
+        ChangeRegisterPage();
+      }
+    } else if (e.key === "Escape") {
+      setModal(false);
+    }
+  };
+
   // 데이터 보내기
   useEffect(() => {
     if (uploadData?.data.files && uploadHeader) {
@@ -176,15 +180,13 @@ const HeaderContainer = () => {
   }, [modal, selectedAuth]);
 
   useEffect(() => {
-    console.log("");
-  }, []);
-
-  useEffect(() => {
     if (localStorage.getItem("access_token")) {
       dispatch(getInfoAsync.request());
     }
     setModal(false);
   }, []);
+
+  useEffect(() => {}, [id, password, selectedAuth]);
 
   return (
     <Header
@@ -214,6 +216,7 @@ const HeaderContainer = () => {
       profileImg={profileImg}
       onClickImgUpload={onClickImgUpload}
       ChangeRegisterPage={ChangeRegisterPage}
+      keyDownEvent={keyDownEvent}
     />
   );
 };

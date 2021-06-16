@@ -16,7 +16,11 @@ interface GetPostProps {
   commentData: CommentState[];
   comment: string;
   setComment: React.Dispatch<React.SetStateAction<string>>;
-  HandleComment: (type: Update, comment_idx?: number) => void;
+  HandleComment: (
+    type: Update,
+    changeName?: string,
+    comment_idx?: number
+  ) => void;
 }
 
 const GetPost = ({
@@ -46,7 +50,9 @@ const GetPost = ({
               value={comment}
               onChange={(e) => setComment(e.target.value)}
             />
-            <CheckIcon onClick={() => HandleComment(Update.CREATE)} />
+            <CommentWriteBtn onClick={() => HandleComment(Update.CREATE)}>
+              작성
+            </CommentWriteBtn>
           </CommentWriteArea>
           {commentData &&
             commentData?.map((item, key) => (
@@ -82,29 +88,32 @@ const PostArea = styled.div<{ userData: boolean }>`
   align-items: ${(props: any) => (props.userData ? "none" : "center")};
 `;
 
+const CommentWriteBtn = styled(CustomButton)`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background: #242424;
+  color: white;
+  padding: 0.1rem 2rem;
+  &:hover {
+    background: #3d3d3d;
+  }
+`;
+
 const CustomMarkdownRender = styled(MDEditor.Markdown)`
   & img {
     width: 100%;
   }
 `;
 
-const CheckIcon = styled(AiOutlineCheckCircle)`
-  position: absolute;
-  font-size: 1.5rem;
-  transition: 0.2s;
-  right: 0;
-  cursor: pointer;
-  &:hover {
-    color: green;
-  }
-`;
-
 const CommentWriteArea = styled.div`
-  margin-top: 1rem;
+  position: relative;
+  margin-top: 0.5rem;
+  padding-bottom: 2rem;
   display: flex;
-  align-items: center;
   position: relative;
   margin-bottom: 1.1rem;
+  flex-direction: column;
 `;
 
 const CommentArea = styled.div`
@@ -112,12 +121,17 @@ const CommentArea = styled.div`
   margin-top: 1rem;
 `;
 
-const WriteComment = styled(BasicInput)`
-  width: 100%;
-  height: 2rem;
-  font-size: 1.3rem;
+const WriteComment = styled.textarea`
+  width: 98%;
+  height: 7rem;
+  font-size: 1rem;
+  padding-top: 0.5rem;
+  padding-left: 1rem;
+  left: 0;
+  top: 0;
   border: none;
-  border-bottom: 1px solid #707070;
+  border: 1px solid#DEDEDE;
+  border-radius: 3px;
 `;
 
 const CommentTitle = styled.h3`

@@ -1,4 +1,5 @@
 import { CustomBtn, CustomInput } from "components/common/Basic/Basic";
+import { KeyboardEvent } from "react";
 import styled from "styled-components";
 import { AuthType, CustomSpan, Inputs } from "../../AuthStyle";
 
@@ -17,6 +18,7 @@ interface RegisterWriteInfoProps {
   onClickMailCodeSend: () => void;
   setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
   ChangeRegisterPage: () => void;
+  keyDownEvent: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const RegisterWriteInfo = ({
@@ -34,6 +36,7 @@ const RegisterWriteInfo = ({
   onClickMailCodeSend,
   setRegisterPage,
   ChangeRegisterPage,
+  keyDownEvent,
 }: RegisterWriteInfoProps) => {
   return (
     <Forms>
@@ -49,22 +52,26 @@ const RegisterWriteInfo = ({
           <EmailCertBtn onClick={onClickMailCodeSend}>인증</EmailCertBtn>
         </EmailForm>
         <CustomInput
+          onKeyDown={keyDownEvent}
           placeholder="인증 번호"
           value={mailAuthCode}
           onChange={(e) => setMailAuthCode(e.target.value)}
         />
         <CustomInput
+          onKeyDown={keyDownEvent}
           placeholder="이름"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <CustomInput
+          onKeyDown={keyDownEvent}
           placeholder="비밀번호"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <CustomInput
+          onKeyDown={keyDownEvent}
           placeholder="비밀번호 확인"
           type="password"
           value={checkPassword}

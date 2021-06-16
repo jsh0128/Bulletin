@@ -1,4 +1,5 @@
 import { CustomInput, CustomBtn } from "components/common/Basic/Basic";
+import { KeyboardEvent } from "react";
 import styled from "styled-components";
 import { Inputs, AuthType, CustomSpan } from "../AuthStyle";
 
@@ -10,6 +11,7 @@ interface LoginProps {
   onClickLogin: () => void;
   setSelectedAuth: React.Dispatch<React.SetStateAction<boolean>>;
   loading: boolean;
+  keyDownEvent: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const Login = ({
@@ -20,6 +22,7 @@ const Login = ({
   onClickLogin,
   setSelectedAuth,
   loading,
+  keyDownEvent,
 }: LoginProps) => {
   return (
     <>
@@ -28,12 +31,14 @@ const Login = ({
           <AuthType>로그인</AuthType>
           <Inputs>
             <CustomInput
+              onKeyDown={keyDownEvent}
               placeholder="이메일"
               onChange={(e) => setId(e.target.value)}
               value={id}
             />
             <CustomInput
               placeholder="비밀번호"
+              onKeyDown={keyDownEvent}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

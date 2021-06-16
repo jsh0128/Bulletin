@@ -3,6 +3,7 @@ import styled from "styled-components";
 import AuthModal from "./AuthModal";
 import Link from "next/link";
 import Logo from "../../../assets/img/Logo.png";
+import { KeyboardEvent } from "react";
 
 interface HeaderProps {
   id: string;
@@ -36,6 +37,7 @@ interface HeaderProps {
   profileImg: string | ArrayBuffer | null;
   onClickImgUpload: (File) => void;
   ChangeRegisterPage: () => void;
+  keyDownEvent: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const Header = ({
@@ -65,6 +67,7 @@ const Header = ({
   profileImg,
   onClickImgUpload,
   ChangeRegisterPage,
+  keyDownEvent,
 }: HeaderProps) => {
   const router = useRouter();
   return (
@@ -128,6 +131,7 @@ const Header = ({
           profileImg={profileImg}
           onClickImgUpload={onClickImgUpload}
           ChangeRegisterPage={ChangeRegisterPage}
+          keyDownEvent={keyDownEvent}
         />
       )}
     </HeaderArea>

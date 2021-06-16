@@ -68,20 +68,19 @@ const Category = ({
           )}
           {category &&
             category?.map((item, key) => (
-              <>
+              <div key={key}>
                 {item.category === selectedCategory ? (
-                  <SelectedCategory key={key}>
+                  <SelectedCategory>
                     <span>{item.category}</span>
                   </SelectedCategory>
                 ) : (
                   <CategoryItem
                     onClick={() => onClickCategoryPost(item.idx, item.category)}
-                    key={key}
                   >
                     <span>{item.category}</span>
                   </CategoryItem>
                 )}
-              </>
+              </div>
             ))}
         </div>
         {is_admin && (

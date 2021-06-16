@@ -1,4 +1,5 @@
 // import styled from "styled-components";
+import { KeyboardEvent } from "react";
 import ImgUpload from "./ImgUpload";
 import RegisterWriteInfo from "./RegisterWriteInfo";
 
@@ -21,6 +22,7 @@ interface RegisterProps {
   profileImg: string | ArrayBuffer | null;
   onClickImgUpload: (File) => void;
   ChangeRegisterPage: () => void;
+  keyDownEvent: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const Register = ({
@@ -42,6 +44,7 @@ const Register = ({
   profileImg,
   onClickImgUpload,
   ChangeRegisterPage,
+  keyDownEvent,
 }: RegisterProps) => {
   return (
     <>
@@ -67,6 +70,7 @@ const Register = ({
           onClickMailCodeSend={onClickMailCodeSend}
           setRegisterPage={setRegisterPage}
           ChangeRegisterPage={ChangeRegisterPage}
+          keyDownEvent={keyDownEvent}
         />
       )}
     </>
