@@ -172,6 +172,7 @@ const ErrorHandling = () => {
 
   useEffect(() => {
     if (changeInfoErr) {
+      console.log(changeInfoErr);
       switch (changeInfoErr.response?.status) {
         case 404:
           NotificationManager.error("찾을 수 없는 회원", "CHANGE_INFO", 1500);

@@ -84,6 +84,9 @@ export const userReducer = createReducer<IUserState>(userInitialState, {
   }),
   [USER_INFO]: (state, action) => ({
     ...state,
+    userData: null,
+    userError: null,
+    loginCheck: false,
   }),
   [USER_INFO_SUCCESS]: (state, action) => ({
     ...state,
@@ -104,6 +107,7 @@ export const userReducer = createReducer<IUserState>(userInitialState, {
   }),
   [MODIFY_INFO]: (state, action) => ({
     ...state,
+    changeInfoData: null,
     changeInfoErr: null,
   }),
   [MODIFY_INFO_SUCCESS]: (state, action) => ({

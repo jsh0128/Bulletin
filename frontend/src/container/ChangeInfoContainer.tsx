@@ -1,7 +1,11 @@
 import ChangeInfo from "components/ChangeInfo";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getInfoAsync, modifyInfoAsync } from "store/actions/UserAction";
+import {
+  getInfoAsync,
+  modifyInfoAsync,
+  MODIFY_INFO_FAILURE,
+} from "store/actions/UserAction";
 import { RootState } from "store/reducers";
 import { NotificationManager } from "react-notifications";
 import { uploadAsync } from "store/actions/UploadAction";
@@ -11,8 +15,8 @@ const ChangeInfoContainer = () => {
   const router = useRouter();
 
   const [name, setName] = useState<string>("");
-  const [pw, setPw] = useState<string | null>();
-  const [checkPw, setCheckPw] = useState<string | null>();
+  const [pw, setPw] = useState<string | null>("");
+  const [checkPw, setCheckPw] = useState<string | null>("");
   const [profileImg, setProfileImg] = useState<string | ArrayBuffer | null>();
   const [profileUploadImg, setProfileUploadImg] = useState<File | null>();
   const [basicProfileImg, setBasicProfileImg] = useState<string | null>("");
@@ -44,7 +48,7 @@ const ChangeInfoContainer = () => {
         dispatch(
           modifyInfoAsync.request({
             name: name,
-            password: pw,
+            password: pw === "" ? null : pw,
             profile_img: null,
           })
         );
@@ -54,7 +58,7 @@ const ChangeInfoContainer = () => {
         dispatch(
           modifyInfoAsync.request({
             name: name,
-            password: pw,
+            password: pw === "" ? null : pw,
             profile_img: basicProfileImg,
           })
         );
@@ -103,17 +107,21 @@ const ChangeInfoContainer = () => {
   useEffect(() => {
     if (changeInfoData) {
       router.push("/");
+      dispatch({
+        type: MODIFY_INFO_FAILURE,
+        changeInfoData: null,
+        changeInfoErr: null,
+      });
       dispatch(getInfoAsync.request());
     }
   }, [changeInfoData]);
 
   useEffect(() => {
     if (uploadData) {
-      console.log(uploadData.data.files[0]);
       dispatch(
         modifyInfoAsync.request({
           name: name,
-          password: pw,
+          password: pw === "" ? null : pw,
           profile_img: uploadData.data.files[0],
         })
       );

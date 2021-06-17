@@ -65,7 +65,7 @@ const AuthApi = {
   changeInfo: async ({ name, password, profile_img }: ChangeInfoPayload) => {
     const body = {
       name: name,
-      password: sha512(password),
+      password: password ? sha512(password) : null,
       profile_img: profile_img,
     };
     const { data }: AxiosResponse<Response> = await customAxios.post(
