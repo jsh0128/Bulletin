@@ -1,5 +1,6 @@
 import {
   CertMailPayload,
+  ChangeInfoPayload,
   RegisterPayload,
 } from "assets/types/AuthPayLoadTypes";
 import { AxiosError } from "axios";
@@ -44,6 +45,16 @@ export const getInfoAsync = createAsyncAction(
   USER_INFO_SUCCESS,
   USER_INFO_FAILURE
 )<void, IGetInfoResponse, AxiosError>();
+
+export const MODIFY_INFO = "user/MODIFY_INFO" as const;
+export const MODIFY_INFO_SUCCESS = "user/MODIFY_INFO_SUCCESS" as const;
+export const MODIFY_INFO_FAILURE = "user/MODIFY_INFO_FAILURE" as const;
+
+export const modifyInfoAsync = createAsyncAction(
+  MODIFY_INFO,
+  MODIFY_INFO_SUCCESS,
+  MODIFY_INFO_FAILURE
+)<ChangeInfoPayload, Response, AxiosError>();
 
 export const logout = () => ({
   type: USER_INFO_FAILURE,

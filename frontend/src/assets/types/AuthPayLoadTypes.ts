@@ -14,3 +14,9 @@ export type RegisterPayload = {
 export type CertMailPayload = {
   email: string;
 };
+
+export type ChangeInfoPayload = {
+  name: string;
+  password?: string;
+  profile_img?: string;
+};

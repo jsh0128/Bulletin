@@ -9,6 +9,8 @@ import {
   MAIL_AUTH,
   getInfoAsync,
   USER_INFO,
+  modifyInfoAsync,
+  MODIFY_INFO,
 } from "../actions/UserAction";
 import createAsyncSaga from "lib/createAsyncSaga";
 
@@ -20,9 +22,15 @@ export const mailAuthSaga = createAsyncSaga(mailAuthAsync, AuthApi.certMail);
 
 export const userInfoSaga = createAsyncSaga(getInfoAsync, AuthApi.getInfo);
 
+export const modifyInfoSaga = createAsyncSaga(
+  modifyInfoAsync,
+  AuthApi.changeInfo
+);
+
 export function* authSaga() {
   yield takeEvery(LOGIN, loginSaga);
   yield takeEvery(REGISTER, registerSaga);
   yield takeEvery(MAIL_AUTH, mailAuthSaga);
   yield takeEvery(USER_INFO, userInfoSaga);
+  yield takeEvery(MODIFY_INFO, modifyInfoSaga);
 }

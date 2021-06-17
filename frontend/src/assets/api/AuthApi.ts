@@ -1,5 +1,6 @@
 import {
   CertMailPayload,
+  ChangeInfoPayload,
   LoginPayload,
   RegisterPayload,
 } from "assets/types/AuthPayLoadTypes";
@@ -58,6 +59,15 @@ const AuthApi = {
   getInfo: async () => {
     const { data }: AxiosResponse<IGetInfoResponse> = await customAxios.get(
       `${SERVER}/auth/getInfo`
+    );
+    console.log(data);
+    return data;
+  },
+  changeInfo: async ({ name, password, profile_img }: ChangeInfoPayload) => {
+    const body = { name, password, profile_img };
+    const { data }: AxiosResponse<Response> = await customAxios.post(
+      `${SERVER}/auth/changeInfo`,
+      body
     );
     return data;
   },

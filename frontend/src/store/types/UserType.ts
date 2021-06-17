@@ -17,4 +17,6 @@ export interface IUserState {
   } | null;
   loginCheck: boolean;
   userError: AxiosError | null;
+  changeInfoData: Response | null;
+  changeInfoErr: AxiosError | null;
 }

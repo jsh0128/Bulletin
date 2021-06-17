@@ -34,13 +34,9 @@ const MainContainer = () => {
     getCategoryData,
     getCategoryErr,
     createCategoryData,
-    createCategoryErr,
     modifyCategoryData,
-    modifyCategoryErr,
     deleteCategoryData,
-    deleteCategoryErr,
     getPostCategoryData,
-    getPostCategoryErr,
   } = useSelector((state: RootState) => state.CategoryReducer);
 
   const onClickCategoryPost = (idx: number, category: string) => {

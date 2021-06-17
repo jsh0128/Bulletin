@@ -1,3 +1,4 @@
+import { BiUser } from "react-icons/Bi";
 import styled from "styled-components";
 
 export const BasicButton = styled.button`
@@ -27,13 +28,14 @@ export const BasicInput = styled.input`
 `;
 
 export const CustomImg = styled.img`
-  max-width: 100%;
   width: 100%;
   height: 170px;
   object-fit: cover;
 `;
 
-export const Write = styled.input``;
+export const UserImgIcon = styled(BiUser)`
+  font-size: 20rem;
+`;
 
 export const ModalBackground = styled.div`
   background: #0000009b;

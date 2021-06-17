@@ -186,11 +186,6 @@ const HeaderContainer = () => {
     setModal(false);
   }, []);
 
-  try {
-  } catch (err) {
-    console.log(err);
-  }
-
   return (
     <Header
       id={id}

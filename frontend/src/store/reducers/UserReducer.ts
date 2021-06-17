@@ -13,6 +13,9 @@ import {
   USER_INFO,
   USER_INFO_SUCCESS,
   USER_INFO_FAILURE,
+  MODIFY_INFO,
+  MODIFY_INFO_SUCCESS,
+  MODIFY_INFO_FAILURE,
 } from "../actions/UserAction";
 
 const userInitialState: IUserState = {
@@ -27,6 +30,8 @@ const userInitialState: IUserState = {
   userData: null,
   loginCheck: false,
   userError: null,
+  changeInfoData: null,
+  changeInfoErr: null,
 };
 
 export const userReducer = createReducer<IUserState>(userInitialState, {
@@ -84,7 +89,7 @@ export const userReducer = createReducer<IUserState>(userInitialState, {
     userData: {
       name: action.payload.data.name,
       email: action.payload.data.email,
-      profileImg: action.payload.data.profile,
+      profileImg: action.payload.data.profile_img,
       is_admin: action.payload.data.is_admin,
     },
     loginCheck: true,
@@ -95,5 +100,19 @@ export const userReducer = createReducer<IUserState>(userInitialState, {
     userData: null,
     loginCheck: false,
     userError: action.payload,
+  }),
+  [MODIFY_INFO]: (state, action) => ({
+    ...state,
+    changeInfoErr: null,
+  }),
+  [MODIFY_INFO_SUCCESS]: (state, action) => ({
+    ...state,
+    changeInfoData: action.payload,
+    changeInfoErr: null,
+  }),
+  [MODIFY_INFO_FAILURE]: (state, action) => ({
+    ...state,
+    changeInfoData: null,
+    changeInfoErr: action.payload,
   }),
 });

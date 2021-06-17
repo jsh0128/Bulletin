@@ -1,6 +1,11 @@
-import { Center, CustomBtn, CustomImg } from "components/common/Basic/Basic";
+import {
+  Center,
+  CustomBtn,
+  CustomImg,
+  UserImgIcon,
+} from "components/common/Basic/Basic";
 import { AiFillFolderOpen } from "react-icons/Ai";
-import { BiUser } from "react-icons/Bi";
+// import { BiUser } from "react-icons/Bi";
 import styled from "styled-components";
 
 interface ImgUploadProps {
@@ -25,19 +30,19 @@ const ImgUpload = ({
           <UserImgIcon />
         </ImgIconArea>
       )}
+      <FileUploadLabel htmlFor="file">
+        <span>사진선택</span>
+        <FileIcon />
+      </FileUploadLabel>
+      <FileInput
+        type="file"
+        id="file"
+        accept="image/png image/jpeg image/jpg"
+        onChange={(e) => {
+          onClickImgUpload(e);
+        }}
+      />
       <CustomCenter>
-        <FileUploadLabel htmlFor="file">
-          <span>사진선택</span>
-          <FileIcon />
-        </FileUploadLabel>
-        <FileInput
-          type="file"
-          id="file"
-          accept="image/png image/jpeg image/jpg"
-          onChange={(e) => {
-            onClickImgUpload(e);
-          }}
-        />
         <CustomBtn
           onClick={() => {
             console.log("onClickRegister");
@@ -66,10 +71,6 @@ const ImgIconArea = styled.div`
 
 const CustomCenter = styled(Center)`
   flex-direction: column;
-`;
-
-const UserImgIcon = styled(BiUser)`
-  font-size: 20rem;
 `;
 
 const FileIcon = styled(AiFillFolderOpen)`

@@ -13,6 +13,8 @@ const ErrorHandling = () => {
     mailSendErr,
     userError,
     registerErr,
+    changeInfoErr,
+    changeInfoData,
   } = useSelector((state: RootState) => state.userReducer);
   const { uploadData, uploadDataErr } = useSelector(
     (state: RootState) => state.UploadReducer
@@ -51,13 +53,19 @@ const ErrorHandling = () => {
       NotificationManager.success("이미지 업로드 성공", "UPLOAD", 1500);
   }, [uploadData]);
 
+  useEffect(() => {
+    if (changeInfoData)
+      NotificationManager.success("회원정보 변경 성공", "CHANGE_INFO", 1500);
+  }, [changeInfoData]);
+
   // 회원
   useEffect(() => {
     if (mailRes) NotificationManager.success("메일 전송 성공", "MAIL", 1500);
   }, [mailRes]);
 
   useEffect(() => {
-    if (userData) NotificationManager.success("로그인 성공", "LOGIN", 1500);
+    if (userData)
+      NotificationManager.success("정보 불러오기 성공", "INFORMATION", 1500);
   }, [userData]);
 
   useEffect(() => {
@@ -161,6 +169,19 @@ const ErrorHandling = () => {
       }
     }
   }, [mailSendErr]);
+
+  useEffect(() => {
+    if (changeInfoErr) {
+      switch (changeInfoErr.response?.status) {
+        case 404:
+          NotificationManager.error("찾을 수 없는 회원", "CHANGE_INFO", 1500);
+          break;
+        default:
+          NotificationManager.error("서버 오류", "CHANGE_INFO", 1500);
+          break;
+      }
+    }
+  }, [changeInfoErr]);
 
   useEffect(() => {
     if (userError) {
