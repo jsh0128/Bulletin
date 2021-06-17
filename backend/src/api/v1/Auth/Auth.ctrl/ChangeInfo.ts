@@ -6,9 +6,10 @@ import AuthRequest from "../../../../types/AuthRequest";
 
 export default async (request: AuthRequest, response: Response) => {
   try {
-    const user: User = request.user;
+    const { user } = request;
     const { password, profile_img, name } = request.body;
     const userRepository: Repository<User> = getRepository(User);
+    console.log(user);
     const findUser = await userRepository.findOne({
       where: { email: user.email },
     });
@@ -17,10 +18,11 @@ export default async (request: AuthRequest, response: Response) => {
       return handleResponse(response, 404, "사용자를 찾을 수 없습니다");
     }
 
-    const changeUser: User = new User();
-    changeUser.name = name;
-    changeUser.password = password;
-    changeUser.profile_img = profile_img;
+    user.password = password;
+    user.name = name;
+    user.password = password ? password : user.password;
+    user.profile_img = profile_img;
+    userRepository.save(user);
 
     return handleResponse(response, 200, "프로필을 변경하였습니다.");
   } catch (err) {

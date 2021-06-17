@@ -45,18 +45,19 @@ export const validateAuth = async (request: Request) => {
   const access_token = request.headers["token"];
   if (!access_token) {
     handleResponse(response, 404, "토큰을 찾을 수 없습니다");
-  }
-  try {
-    const decodeToken: any = await verifyToken(access_token);
+  } else {
+    try {
+      const decodeToken: any = await verifyToken(access_token);
 
-    const userRepository: Repository<User> = getRepository(User);
-    const user: User = await userRepository.findOne({
-      where: { email: decodeToken.email },
-    });
+      const userRepository: Repository<User> = getRepository(User);
+      const user: User = await userRepository.findOne({
+        where: { email: decodeToken.email },
+      });
 
-    return user;
-  } catch (err) {
-    console.log(err);
-    throw err;
+      return user;
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
   }
 };
