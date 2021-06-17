@@ -5,8 +5,9 @@ import { PostState } from "store/types/PostType";
 import styled from "styled-components";
 import Update from "util/enums/Update";
 import Category from "./Category";
+
 interface MainProps {
-  data: { res: PostState[] | PostState | null };
+  data: PostState[];
   category: CategoryState[] | null;
   selectedCategory: string;
   onClickCategoryPost: (idx: number, category: string) => void;
@@ -23,6 +24,8 @@ interface MainProps {
   update: string;
   setUpdate: React.Dispatch<React.SetStateAction<string>>;
   setChangeName: React.Dispatch<React.SetStateAction<string>>;
+  searchInput: string;
+  setSearchInput: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Main = ({
@@ -39,6 +42,8 @@ const Main = ({
   update,
   setUpdate,
   setChangeName,
+  searchInput,
+  setSearchInput,
 }: MainProps) => {
   return (
     <MainArea>
@@ -59,14 +64,18 @@ const Main = ({
             setChangeName={setChangeName}
           />
           <SearchArea>
-            <SearchInput placeholder="검색" />
+            <SearchInput
+              placeholder="검색"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+            />
           </SearchArea>
         </Right>
       </RightArea>
       <ItemsStyled>
-        {Array.isArray(data?.res) &&
-          data &&
-          data?.res.map((item, key) => <MainItem key={key} data={item} />)}
+        {data &&
+          Array.isArray(data) &&
+          data?.map((item, key) => <MainItem key={key} data={item} />)}
       </ItemsStyled>
     </MainArea>
   );
@@ -77,10 +86,6 @@ const MainArea = styled.div`
   justify-content: space-between;
   width: 100%;
   margin-top: 1rem;
-  /* @media screen and (max-width: 1200px) {
-    flex-direction: column;
-    align-items: center;
-  } */
 `;
 
 const CategoryModify = styled.div`

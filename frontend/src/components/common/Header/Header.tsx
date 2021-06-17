@@ -84,6 +84,9 @@ const Header = ({
             <RightSpan>
               {userData?.is_admin && <Link href="/write">글쓰기</Link>}
               <AuthSpan onClick={Logout}>로그아웃</AuthSpan>
+              <Link href="/changeinfo">
+                <AuthSpan>프로필 변경</AuthSpan>
+              </Link>
             </RightSpan>
           ) : (
             <>
@@ -164,7 +167,6 @@ const LogoStyle = styled.span`
 `;
 
 const AuthSpan = styled.span`
-  margin-right: 0.5rem;
   margin-left: 0.5rem;
 `;
 

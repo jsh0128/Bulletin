@@ -8,14 +8,16 @@ import {
   modifyCategoryAsync,
 } from "store/actions/CategoryAction";
 import { getPostAsync } from "store/actions/PostAction";
-import { UPLOAD } from "store/actions/UploadAction";
 import { RootState } from "store/reducers";
 import { CategoryState } from "store/types/CategoryType";
+import { PostState } from "store/types/PostType";
 import Update from "util/enums/Update";
 import Main from "../components/Main";
+import { debounce, throttle } from "lodash";
 
 const MainContainer = () => {
   const dispatch = useDispatch();
+  const [dataList, setDataList] = useState<PostState[]>();
   const [category, setCategory] = useState<CategoryState[]>();
   const [selected, setSelected] = useState<number>(0);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
@@ -23,10 +25,10 @@ const MainContainer = () => {
   const [categoryModal, setCategoryModal] = useState<boolean>(false);
   const [update, setUpdate] = useState<string>("");
   const [changeName, setChangeName] = useState<string>("");
+  const [searchInput, setSearchInput] = useState<string>("");
+  const [searchData, setSearchData] = useState<PostState[]>();
 
-  const { data, getPostErr } = useSelector(
-    (state: RootState) => state.postReducer
-  );
+  const { data } = useSelector((state: RootState) => state.postReducer);
 
   const { userData } = useSelector((state: RootState) => state.userReducer);
 
@@ -43,11 +45,13 @@ const MainContainer = () => {
     setSelected(1);
     setSelectedCategory(category);
     dispatch(getPostCategoryAsync.request({ category: idx }));
+    setSearchInput("");
   };
 
   const onClickSelectedAll = () => {
     setSelected(0);
     setSelectedCategory("");
+    setSearchInput("");
     dispatch(getPostAsync.request({}));
   };
 
@@ -84,9 +88,12 @@ const MainContainer = () => {
         return;
       case Update.DELETE:
         onClickDeleteCategory(category);
-
         return;
     }
+  };
+
+  const Search = () => {
+    console.log("123123");
   };
 
   useEffect(() => {
@@ -105,26 +112,59 @@ const MainContainer = () => {
   }, [createCategoryData, deleteCategoryData, modifyCategoryData]);
 
   useEffect(() => {
-    setCategory(getCategoryData?.res);
+    if (searchInput && (data || getPostCategoryData)) {
+      setDataList(
+        Array.isArray(searchData) &&
+          searchData.filter(
+            (object) =>
+              object.title.toLowerCase().includes(searchInput.toLowerCase()) ||
+              object.introduction
+                .toLowerCase()
+                .includes(searchInput.toLowerCase())
+          )
+      );
+    } else if (data || getPostCategoryData) {
+      if (selected) {
+        setDataList(
+          Array.isArray(getPostCategoryData?.res) && getPostCategoryData?.res
+        );
+        setSearchData(
+          Array.isArray(getPostCategoryData?.res) && getPostCategoryData?.res
+        );
+      } else {
+        setDataList(Array.isArray(data?.res) && data?.res);
+        setSearchData(Array.isArray(data?.res) && data?.res);
+      }
+    }
+  }, [searchInput, data, getPostCategoryData, searchData]);
+
+  useEffect(() => {
+    if (getCategoryData) setCategory(getCategoryData?.res);
   }, [getCategoryData, getCategoryErr]);
 
   return (
     <>
-      <Main
-        data={selected ? getPostCategoryData : data}
-        category={category}
-        selectedCategory={selectedCategory}
-        onClickCategoryPost={onClickCategoryPost}
-        onClickSelectedAll={onClickSelectedAll}
-        is_admin={userData?.is_admin}
-        updateCategory={updateCategory}
-        categoryModal={categoryModal}
-        setCategoryModal={setCategoryModal}
-        setCreateCategory={setCreateCategory}
-        update={update}
-        setUpdate={setUpdate}
-        setChangeName={setChangeName}
-      />
+      {data || getPostCategoryData ? (
+        <Main
+          data={dataList}
+          category={category}
+          selectedCategory={selectedCategory}
+          onClickCategoryPost={onClickCategoryPost}
+          onClickSelectedAll={onClickSelectedAll}
+          is_admin={userData?.is_admin}
+          updateCategory={updateCategory}
+          categoryModal={categoryModal}
+          setCategoryModal={setCategoryModal}
+          setCreateCategory={setCreateCategory}
+          update={update}
+          setUpdate={setUpdate}
+          setChangeName={setChangeName}
+          searchInput={searchInput}
+          setSearchInput={setSearchInput}
+        />
+      ) : (
+        <span>...Loading</span>
+      )}
     </>
   );
 };
