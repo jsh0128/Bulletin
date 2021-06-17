@@ -110,7 +110,7 @@ const WriteContainer = () => {
 
   useEffect(() => {
     setSelect(false);
-    dispatch(getCategoryAsync.request({}));
+    dispatch(getCategoryAsync.request());
   }, []);
 
   return (
