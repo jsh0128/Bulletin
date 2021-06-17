@@ -65,7 +65,6 @@ const HeaderContainer = () => {
   // 회원가입
   const onClickRegister = useCallback(() => {
     if (profileImg && profile) {
-      console.log("onClickRegister");
       dispatch(uploadAsync.request({ files: profile }));
       setUploadHeader(true);
     } else {
@@ -84,7 +83,7 @@ const HeaderContainer = () => {
   // 로그인 데이터 통신 후
   const onLoginSuccess = useCallback(() => {
     setLoading(true);
-    if (data.token) {
+    if (data && data.token) {
       localStorage.setItem("access_token", data.token);
       dispatch(getInfoAsync.request());
       setModal(false);

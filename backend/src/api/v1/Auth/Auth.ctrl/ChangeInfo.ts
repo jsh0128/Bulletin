@@ -9,7 +9,6 @@ export default async (request: AuthRequest, response: Response) => {
     const { user } = request;
     const { password, profile_img, name } = request.body;
     const userRepository: Repository<User> = getRepository(User);
-    console.log(user);
     const findUser = await userRepository.findOne({
       where: { email: user.email },
     });

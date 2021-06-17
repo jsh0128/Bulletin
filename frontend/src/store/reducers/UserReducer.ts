@@ -49,6 +49,7 @@ export const userReducer = createReducer<IUserState>(userInitialState, {
   }),
   [LOGIN_FAILURE]: (state, action) => ({
     ...state,
+    data: null,
     loginErr: action.payload,
   }),
   [REGISTER]: (state, action) => ({
