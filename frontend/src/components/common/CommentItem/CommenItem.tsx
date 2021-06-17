@@ -32,7 +32,7 @@ const CommentItem = ({
       <ImgArea>
         {commentData.user_profile_img ? (
           <CustomImg
-            style={{ width: "3rem", height: "3rem" }}
+            style={{ width: "3rem", height: "3rem", borderRadius: "4px" }}
             src={commentData.user_profile_img}
           />
         ) : (
