@@ -12,7 +12,7 @@ export const getCategoryAsync = createAsyncAction(
   GET_CATEGORY,
   GET_CATEGORY_SUCCESS,
   GET_CATEGORY_FAILURE
-)<{}, { res: { category: string; idx: number }[] | null }, AxiosError>();
+)<void, { res: { category: string; idx: number }[] | null }, AxiosError>();
 
 export const GET_POST_CATEGORY = "category/GET_POST_CATEGORY" as const;
 export const GET_POST_CATEGORY_SUCCESS = "category/GET_POST_CATEGORY_SUCCESS" as const;

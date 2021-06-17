@@ -15,14 +15,7 @@ import {
   MODIFY_CATEGORY_FAILURE,
   MODIFY_CATEGORY_SUCCESS,
 } from "store/actions/CategoryAction";
-import {
-  ICategoryReducer,
-  ICreateCategoryState,
-  IDeleteCategoryState,
-  IGetCategoryState,
-  IGetPostCategoryState,
-  IModifyCategoryState,
-} from "store/types/CategoryType";
+import { ICategoryReducer } from "store/types/CategoryType";
 import { createReducer } from "typesafe-actions";
 
 const categoryInitialState: ICategoryReducer = {

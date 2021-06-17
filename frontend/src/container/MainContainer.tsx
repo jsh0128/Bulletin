@@ -98,7 +98,7 @@ const MainContainer = () => {
 
   useEffect(() => {
     dispatch(getPostAsync.request({}));
-    dispatch(getCategoryAsync.request({}));
+    dispatch(getCategoryAsync.request());
   }, []);
 
   useEffect(() => {
@@ -107,7 +107,7 @@ const MainContainer = () => {
       (deleteCategoryData && deleteCategoryData?.status === 200) ||
       (modifyCategoryData && modifyCategoryData?.status === 200)
     ) {
-      dispatch(getCategoryAsync.request({}));
+      dispatch(getCategoryAsync.request());
     }
   }, [createCategoryData, deleteCategoryData, modifyCategoryData]);
 
