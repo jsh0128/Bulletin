@@ -17,7 +17,6 @@ export default async (request: AuthRequest, response: Response) => {
       return handleResponse(response, 404, "사용자를 찾을 수 없습니다");
     }
 
-    user.password = password;
     user.name = name;
     user.password = password ? password : user.password;
     user.profile_img = profile_img;
