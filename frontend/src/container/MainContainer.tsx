@@ -13,7 +13,7 @@ import { CategoryState } from "store/types/CategoryType";
 import { PostState } from "store/types/PostType";
 import Update from "util/enums/Update";
 import Main from "../components/Main";
-import { debounce, throttle } from "lodash";
+import Loading from "components/common/Loading/Loading";
 
 const MainContainer = () => {
   const dispatch = useDispatch();
@@ -163,7 +163,7 @@ const MainContainer = () => {
           setSearchInput={setSearchInput}
         />
       ) : (
-        <span>...Loading</span>
+        <Loading />
       )}
     </>
   );

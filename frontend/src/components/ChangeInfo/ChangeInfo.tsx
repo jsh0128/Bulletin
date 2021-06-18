@@ -35,25 +35,30 @@ const ChangeInfo = ({
   onClickResetImg,
   onClickChangeInfo,
 }: ChangeInfoProps) => {
+  const selectImg = () => {
+    if (profileImg) {
+      return (
+        <div style={{ height: "8rem", width: "8rem" }}>
+          <CustomImg style={{ height: "100%" }} src={profileImg.toString()} />
+        </div>
+      );
+    } else if (basicProfileImg) {
+      return (
+        <div style={{ height: "8rem", width: "8rem" }}>
+          <CustomImg style={{ height: "100%" }} src={basicProfileImg} />
+        </div>
+      );
+    } else {
+      return <CustomUserIcon />;
+    }
+  };
+
   return (
     <CustomCenter>
       <div>
         <ChangeInfoInputs>
           <ChangeInfoArea>
-            {basicProfileImg ? (
-              <div style={{ height: "8rem", width: "8rem" }}>
-                <CustomImg style={{ height: "100%" }} src={basicProfileImg} />
-              </div>
-            ) : profileImg ? (
-              <div style={{ height: "8rem", width: "8rem" }}>
-                <CustomImg
-                  style={{ height: "100%" }}
-                  src={profileImg.toString()}
-                />
-              </div>
-            ) : (
-              <CustomUserIcon />
-            )}
+            {selectImg()}
             <FileUploadLabel htmlFor="file">
               <span>사진선택</span>
               <FileIcon />

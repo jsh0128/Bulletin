@@ -76,6 +76,7 @@ const ChangeInfoContainer = () => {
 
   const onClickImgUpload = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
+      console.log("1312323");
       let reader = new FileReader();
       if (e.target.files && e.target.files.length) {
         let file = e.target.files[0];

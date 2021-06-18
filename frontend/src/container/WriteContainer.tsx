@@ -6,8 +6,7 @@ import Write from "../components/Write";
 import Router from "next/router";
 import { CategoryState } from "store/types/CategoryType";
 import { getCategoryAsync } from "store/actions/CategoryAction";
-import { NotificationManager } from "react-notifications";
-import { UPLOAD, uploadAsync } from "store/actions/UploadAction";
+import { uploadAsync } from "store/actions/UploadAction";
 
 const WriteContainer = () => {
   const dispatch = useDispatch();

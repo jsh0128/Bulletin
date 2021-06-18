@@ -15,6 +15,7 @@ import {
 } from "store/actions/CommentActions";
 import { CommentState } from "store/types/CommentType";
 import Update from "util/enums/Update";
+import Loading from "components/common/Loading/Loading";
 
 const GetPostContainer = () => {
   const [postData, setPostData] = useState<PostState>();
@@ -108,16 +109,22 @@ const GetPostContainer = () => {
   }, [createCommentData, modifyCommentData, deleteCommentData]);
 
   return (
-    <GetPost
-      onClickDelete={onClickDelete}
-      data={postData}
-      userData={userData ? userData.is_admin : null}
-      userEmail={userData ? userData.email : null}
-      commentData={commentData}
-      comment={comment}
-      setComment={setComment}
-      HandleComment={HandleComment}
-    />
+    <>
+      {postData ? (
+        <GetPost
+          onClickDelete={onClickDelete}
+          data={postData}
+          userData={userData ? userData.is_admin : null}
+          userEmail={userData ? userData.email : null}
+          commentData={commentData}
+          comment={comment}
+          setComment={setComment}
+          HandleComment={HandleComment}
+        />
+      ) : (
+        <Loading />
+      )}
+    </>
   );
 };
 export default GetPostContainer;
