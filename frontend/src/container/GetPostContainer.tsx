@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { deletePostAsync, getPostAsync } from "store/actions/PostAction";
 import { RootState } from "store/reducers";
 import { PostState } from "store/types/PostType";
-import { NotificationManager } from "react-notifications";
+
+import { toast } from "react-toastify";
+
 import Router from "next/router";
 import {
   createCommentAsync,
@@ -45,9 +47,9 @@ const GetPostContainer = () => {
 
   const onClickCreateComment = useCallback(() => {
     if (!userData) {
-      NotificationManager.warning("로그인 후 이용 가능합니다", "COMMENT", 1500);
+      toast.warning("로그인 후 이용 가능합니다");
     } else if (!comment) {
-      NotificationManager.warning("내용을 입력하세요", "COMMENT", 1500);
+      toast.warning("내용을 입력하세요");
     } else {
       dispatch(
         createCommentAsync.request({

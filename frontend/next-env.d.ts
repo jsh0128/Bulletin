@@ -1,7 +1,6 @@
 /// <reference types="next" />
 /// <reference types="next/types/global" />
 declare module "*.mdx";
-declare module "react-notifications";
 declare module "*.jpg";
 declare module "*.svg" {
   import React = require("react");

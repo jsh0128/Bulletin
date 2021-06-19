@@ -2,10 +2,10 @@ import DefaultTemplate from "components/common/DefaultTemplate";
 import { AppContext, AppProps } from "next/app";
 import { Center, GlobalStyled, MaxWidth, theme } from "styles/globals";
 import wrapper from "store/configureStore";
-import "react-notifications/lib/notifications.css";
 import withReduxSaga from "next-redux-saga";
 import React from "react";
 import ErrorHandling from "lib/ErrorHandling";
+import "react-toastify/dist/ReactToastify.css";
 
 function App({ Component, pageProps }: AppProps) {
   return (

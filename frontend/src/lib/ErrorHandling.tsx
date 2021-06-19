@@ -1,9 +1,8 @@
-import "react-notifications/lib/notifications.css";
-import { NotificationContainer } from "react-notifications";
-import { NotificationManager } from "react-notifications";
 import { useSelector } from "react-redux";
 import { RootState } from "store/reducers";
 import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+
 const ErrorHandling = () => {
   const {
     mailRes,
@@ -49,76 +48,63 @@ const ErrorHandling = () => {
   } = useSelector((state: RootState) => state.postReducer);
 
   useEffect(() => {
-    if (uploadData)
-      NotificationManager.success("이미지 업로드 성공", "UPLOAD", 1500);
+    if (uploadData) toast.success("이미지 업로드 성공");
   }, [uploadData]);
 
   useEffect(() => {
-    if (changeInfoData)
-      NotificationManager.success("회원정보 변경 성공", "CHANGE_INFO", 1500);
+    if (changeInfoData) toast.success("회원정보 변경 성공");
   }, [changeInfoData]);
 
   // 회원
   useEffect(() => {
-    if (mailRes) NotificationManager.success("메일 전송 성공", "MAIL", 1500);
+    if (mailRes) toast.success("메일 전송 성공");
   }, [mailRes]);
 
   useEffect(() => {
-    if (userData)
-      NotificationManager.success("정보 불러오기 성공", "INFORMATION", 1500);
+    if (userData) toast.success("정보 불러오기 성공");
   }, [userData]);
 
   useEffect(() => {
-    if (registerRes)
-      NotificationManager.success("회원가입 생성 성공", "REGISTER", 1500);
+    if (registerRes) toast.success("회원가입 생성 성공");
   }, [registerRes]);
 
   // 글
   useEffect(() => {
-    if (modifyPostData)
-      NotificationManager.success("글 수정 성공", "POST", 1500);
+    if (modifyPostData) toast.success("글 수정 성공");
   }, [modifyPostData]);
 
   useEffect(() => {
-    if (createPostData)
-      NotificationManager.success("글 생성 성공", "POST", 1500);
+    if (createPostData) toast.success("글 생성 성공");
   }, [createPostData]);
 
   useEffect(() => {
-    if (deletePostData)
-      NotificationManager.success("글 삭제 성공", "POST", 1500);
+    if (deletePostData) toast.success("글 삭제 성공");
   }, [deletePostData]);
 
   // 카테고리
   useEffect(() => {
-    if (createCategoryData)
-      NotificationManager.success("카테고리 생성 성공", "CATEGORY", 1500);
+    if (createCategoryData) toast.success("카테고리 생성 성공");
   }, [createCategoryData]);
 
   useEffect(() => {
-    if (deleteCategoryData)
-      NotificationManager.success("카테고리 삭제 성공", "CATEGORY", 1500);
+    if (deleteCategoryData) toast.success("카테고리 삭제 성공");
   }, [deleteCategoryData]);
 
   useEffect(() => {
-    if (modifyCategoryData)
-      NotificationManager.success("카테고리 수정 성공", "CATEGORY", 1500);
+    if (modifyCategoryData) toast.success("카테고리 수정 성공");
   }, [modifyCategoryData]);
 
   // 댓글
   useEffect(() => {
-    if (deleteCommentData)
-      NotificationManager.success("댓글 삭제 성공", "COMMENT", 1500);
+    if (deleteCommentData) toast.success("댓글 삭제 성공");
   }, [deleteCommentData]);
 
   useEffect(() => {
-    if (modifyCommentData)
-      NotificationManager.success("댓글 수정 성공", "COMMENT", 1500);
+    if (modifyCommentData) toast.success("댓글 수정 성공");
   }, [modifyCommentData]);
 
   useEffect(() => {
-    if (createCommentData)
-      NotificationManager.success("댓글 생성 성공", "COMMENT", 1500);
+    if (createCommentData) toast.success("댓글 생성 성공");
   }, [createCommentData]);
 
   // 에러처리
@@ -126,10 +112,10 @@ const ErrorHandling = () => {
     if (createPostErr) {
       switch (createPostErr.response?.status) {
         case 404:
-          NotificationManager.error("존재하지 않는 카테고리", "POST", 1500);
+          toast.error("존재하지 않는 카테고리");
           break;
         default:
-          NotificationManager.error("서버 오류", "POST", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -141,17 +127,13 @@ const ErrorHandling = () => {
         case 400:
           break;
         case 401:
-          NotificationManager.error(
-            "id 또는 비밀번호가 다릅니다",
-            "LOGIN",
-            1500
-          );
+          toast.error("id 또는 비밀번호가 다릅니다");
           break;
         case 404:
-          NotificationManager.error("사용자를 찾을 수 없습니다", "LOGIN", 1500);
+          toast.error("사용자를 찾을 수 없습니다");
           break;
         default:
-          NotificationManager.error("서버 오류", "LOGIN", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -161,10 +143,10 @@ const ErrorHandling = () => {
     if (mailSendErr) {
       switch (mailSendErr.response?.status) {
         case 409:
-          NotificationManager.error("중복 회원", "MAIL", 1500);
+          toast.error("중복 회원");
           break;
         default:
-          NotificationManager.error("서버 오류", "MAIL", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -175,10 +157,10 @@ const ErrorHandling = () => {
       console.log(changeInfoErr);
       switch (changeInfoErr.response?.status) {
         case 404:
-          NotificationManager.error("찾을 수 없는 회원", "CHANGE_INFO", 1500);
+          toast.error("찾을 수 없는 회원");
           break;
         default:
-          NotificationManager.error("서버 오류", "CHANGE_INFO", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -188,7 +170,7 @@ const ErrorHandling = () => {
     if (userError) {
       switch (userError.response?.status) {
         default:
-          NotificationManager.error("서버 오류", "LOGIN", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -198,13 +180,13 @@ const ErrorHandling = () => {
     if (registerErr) {
       switch (registerErr.response?.status) {
         case 400:
-          NotificationManager.error("메일 인증을 해주세요", "REGISTER", 1500);
+          toast.error("메일 인증을 해주세요");
           break;
         case 409:
-          NotificationManager.error("중복되는 회원입니다", "REGISTER", 1500);
+          toast.error("중복되는 회원입니다");
           break;
         default:
-          NotificationManager.error("서버 오류", "REGISTER", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -214,7 +196,7 @@ const ErrorHandling = () => {
     if (createCommentErr) {
       switch (createCommentErr.response?.status) {
         default:
-          NotificationManager.error("서버 오류", "COMMENT", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -224,17 +206,13 @@ const ErrorHandling = () => {
     if (deleteCommentErr) {
       switch (deleteCommentErr.response?.status) {
         case 403:
-          NotificationManager.error(
-            "현재 로그인 한 유저와 댓글을 작성한 유저가 다릅니다",
-            "COMMENT",
-            1500
-          );
+          toast.error("현재 로그인 한 유저와 댓글을 작성한 유저가 다릅니다");
           break;
         case 404:
-          NotificationManager.error("없는 댓글입니다", "COMMENT", 1500);
+          toast.error("없는 댓글입니다");
           break;
         default:
-          NotificationManager.error("서버 오류", "COMMENT", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -244,10 +222,10 @@ const ErrorHandling = () => {
     if (getCommentErr) {
       switch (getCommentErr.response?.status) {
         case 404:
-          NotificationManager.error("찾을 수 없는 글입니다", "COMMENT", 1500);
+          toast.error("찾을 수 없는 글입니다");
           break;
         default:
-          NotificationManager.error("서버 오류", "COMMENT", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -257,10 +235,10 @@ const ErrorHandling = () => {
     if (uploadDataErr) {
       switch (uploadDataErr.response?.status) {
         case 404:
-          NotificationManager.error("사진을 전송해 주세요", "UPLOAD", 1500);
+          toast.error("사진을 전송해 주세요");
           break;
         default:
-          NotificationManager.error("서버 오류", "LOGIN", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -270,14 +248,10 @@ const ErrorHandling = () => {
     if (modifyCommentErr) {
       switch (modifyCommentErr.response?.status) {
         case 403:
-          NotificationManager.error(
-            "현재 로그인 한 유저와 댓글을 작성한 유저가 다릅니다",
-            "COMMENT",
-            1500
-          );
+          toast.error("현재 로그인 한 유저와 댓글을 작성한 유저가 다릅니다");
           break;
         default:
-          NotificationManager.error("서버 오류", "COMMENT", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -287,10 +261,10 @@ const ErrorHandling = () => {
     if (createCategoryErr) {
       switch (createCategoryErr.response?.status) {
         case 409:
-          NotificationManager.error("이미 있는 카테고리", "CATEGORY", 1500);
+          toast.error("이미 있는 카테고리");
           break;
         default:
-          NotificationManager.error("서버 오류", "CATEGORY", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -300,10 +274,10 @@ const ErrorHandling = () => {
     if (deleteCategoryErr) {
       switch (deleteCategoryErr.response?.status) {
         case 404:
-          NotificationManager.error("없는 카테고리", "CATEGORY", 1500);
+          toast.error("없는 카테고리");
           break;
         default:
-          NotificationManager.error("서버 오류", "CATEGORY", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -313,7 +287,7 @@ const ErrorHandling = () => {
     if (getCategoryErr) {
       switch (getCategoryErr.response?.status) {
         default:
-          NotificationManager.error("서버 오류", "CATEGORY", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -323,10 +297,10 @@ const ErrorHandling = () => {
     if (getPostCategoryErr) {
       switch (getPostCategoryErr.response?.status) {
         case 404:
-          NotificationManager.error("없는 카테고리", "CATEGORY", 1500);
+          toast.error("없는 카테고리");
           break;
         default:
-          NotificationManager.error("서버 오류", "LOGIN", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -336,10 +310,10 @@ const ErrorHandling = () => {
     if (modifyCategoryErr) {
       switch (modifyCategoryErr.response?.status) {
         case 404:
-          NotificationManager.error("없는 카테고리", "CATEGORY", 1500);
+          toast.error("없는 카테고리");
           break;
         default:
-          NotificationManager.error("서버 오류", "CATEGORY", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -349,10 +323,10 @@ const ErrorHandling = () => {
     if (deletePostErr) {
       switch (deletePostErr.response?.status) {
         case 404:
-          NotificationManager.error("존재 하지 않는 글", "POST", 1500);
+          toast.error("존재 하지 않는 글");
           break;
         default:
-          NotificationManager.error("서버 오류", "POST", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -362,13 +336,13 @@ const ErrorHandling = () => {
     if (getPostErr) {
       switch (getPostErr.response?.status) {
         case 403:
-          NotificationManager.error("존재 하지 않는 유저", "POST", 1500);
+          toast.error("존재 하지 않는 유저");
           break;
         case 404:
-          NotificationManager.error("존재 하지 않는 글", "POST", 1500);
+          toast.error("존재 하지 않는 글");
           break;
         default:
-          NotificationManager.error("서버 오류", "POST", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
@@ -378,19 +352,19 @@ const ErrorHandling = () => {
     if (modifyPostErr) {
       switch (modifyPostErr.response?.status) {
         case 404:
-          NotificationManager.error("존재 하지 않는 글", "POST", 1500);
+          toast.error("존재 하지 않는 글");
           break;
         case 405:
-          NotificationManager.error("존재 하지 않는 카테고리", "POST", 1500);
+          toast.error("존재 하지 않는 카테고리");
           break;
         default:
-          NotificationManager.error("서버 오류", "POST", 1500);
+          toast.error("서버 오류");
           break;
       }
     }
   }, [modifyPostErr]);
 
-  return <NotificationContainer />;
+  return <ToastContainer />;
 };
 
 export default ErrorHandling;

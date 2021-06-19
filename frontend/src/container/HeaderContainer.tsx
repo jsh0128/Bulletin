@@ -9,10 +9,12 @@ import {
   registerAsync,
 } from "store/actions/UserAction";
 import { RootState } from "store/reducers";
-import { NotificationManager } from "react-notifications";
+import { toast } from "react-toastify";
 import { uploadAsync } from "store/actions/UploadAction";
+import { useRouter } from "next/router";
 
 const HeaderContainer = () => {
+  const router = useRouter();
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [checkPassword, setCheckPassword] = useState<string>("");
@@ -37,7 +39,7 @@ const HeaderContainer = () => {
   // 로그인 함수
   const onClickLogin = async () => {
     if (!id || !password) {
-      NotificationManager.warning("빈칸을 채워주세요", "LOGIN", 1500);
+      toast.warning("빈칸을 채워주세요");
     } else {
       dispatch(loginAsync.request({ email: id, pw: password }));
       setLoading(false);
@@ -103,6 +105,7 @@ const HeaderContainer = () => {
 
   // 로그아웃
   const Logout = () => {
+    router.push("/");
     localStorage.removeItem("access_token");
     dispatch(logout());
   };
@@ -121,11 +124,11 @@ const HeaderContainer = () => {
   // state로 회원가입 페이지 변경
   const ChangeRegisterPage = () => {
     if (!id || !password || !name || !checkPassword) {
-      NotificationManager.warning("빈칸이 있어", "REGISTER", 1500);
+      toast.warning("빈칸이 있어");
     } else if (password !== checkPassword) {
-      NotificationManager.warning("비밀번호가 일치하지 않아", "REGISTER", 1500);
+      toast.warning("비밀번호가 일치하지 않아");
     } else if (password.length < 8) {
-      NotificationManager.warning("비밀번호는 8자리 이상", "REGISTER", 1500);
+      toast.warning("비밀번호는 8자리 이상");
     } else {
       setRegisterPage(true);
     }

@@ -7,7 +7,7 @@ import {
   MODIFY_INFO_FAILURE,
 } from "store/actions/UserAction";
 import { RootState } from "store/reducers";
-import { NotificationManager } from "react-notifications";
+import { toast } from "react-toastify";
 import { uploadAsync } from "store/actions/UploadAction";
 import { useRouter } from "next/router";
 
@@ -31,13 +31,9 @@ const ChangeInfoContainer = () => {
 
   const onClickChangeInfo = useCallback(() => {
     if (pw !== checkPw) {
-      NotificationManager.warning(
-        "비밀번호가 일치하지 않습니다",
-        "CHANGE_INFO",
-        1500
-      );
+      toast.warning("비밀번호가 일치하지 않습니다");
     } else if (!name) {
-      NotificationManager.warning("이름을 채워주세요", "CHANGE_INFO", 1500);
+      toast.warning("이름을 채워주세요");
     } else {
       // 프로필 사진을 변경했을때
       if (profileImg) {
@@ -91,6 +87,8 @@ const ChangeInfoContainer = () => {
     },
     [profileUploadImg, setProfileImg, profileImg]
   );
+
+  console.log();
 
   const onClickResetImg = useCallback(() => {
     setProfileImg(null);
