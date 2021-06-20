@@ -20,7 +20,8 @@
     "nodemailer-smtp-transport": "^2.7.4",
     "nodemon": "^2.0.7",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "0.2.31"
+    "typeorm": "0.2.31",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/node": "^8.0.29",
