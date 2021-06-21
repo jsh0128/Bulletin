@@ -92,10 +92,6 @@ const MainContainer = () => {
     }
   };
 
-  const Search = () => {
-    console.log("123123");
-  };
-
   useEffect(() => {
     dispatch(getPostAsync.request({}));
     dispatch(getCategoryAsync.request());

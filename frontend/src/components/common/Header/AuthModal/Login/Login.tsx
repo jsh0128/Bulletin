@@ -46,6 +46,7 @@ const Login = ({
           </Inputs>
           <Inputs>
             <CustomBtn onClick={onClickLogin}>로그인</CustomBtn>
+
             <CustomSpan onClick={() => setSelectedAuth(true)}>
               회원가입 Let's get it~
             </CustomSpan>

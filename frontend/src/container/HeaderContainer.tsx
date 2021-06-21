@@ -193,10 +193,6 @@ const HeaderContainer = () => {
     setModal(false);
   }, []);
 
-  useEffect(() => {
-    console.log(mailLoading);
-  }, [mailLoading]);
-
   return (
     <Header
       id={id}

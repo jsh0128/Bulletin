@@ -154,7 +154,6 @@ const ErrorHandling = () => {
 
   useEffect(() => {
     if (changeInfoErr) {
-      console.log(changeInfoErr);
       switch (changeInfoErr.response?.status) {
         case 404:
           toast.error("찾을 수 없는 회원");
@@ -342,6 +341,7 @@ const ErrorHandling = () => {
           toast.error("존재 하지 않는 글");
           break;
         default:
+          console.log(getPostErr);
           toast.error("서버 오류");
           break;
       }

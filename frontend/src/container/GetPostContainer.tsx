@@ -20,12 +20,13 @@ import Update from "util/enums/Update";
 import Loading from "components/common/Loading/Loading";
 
 const GetPostContainer = () => {
+  const { query } = useRouter();
+  const dispatch = useDispatch();
+
   const [postData, setPostData] = useState<PostState>();
   const [comment, setComment] = useState<string>("");
   const [commentData, setCommentData] = useState<CommentState[]>();
 
-  const { query } = useRouter();
-  const dispatch = useDispatch();
   const { data } = useSelector((state: RootState) => state.postReducer);
   const { userData } = useSelector((state: RootState) => state.userReducer);
   const {
@@ -38,6 +39,7 @@ const GetPostContainer = () => {
   // 포스트 삭제 함수
   const onClickDelete = () => {
     Router.push("/");
+    dispatch(getPostAsync.request({}));
     dispatch(deletePostAsync.request({ post_idx: Number(query.idx) }));
   };
 

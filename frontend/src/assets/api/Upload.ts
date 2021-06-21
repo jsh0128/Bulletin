@@ -5,7 +5,6 @@ import { IUploadResponse } from "util/types/UploadResponse";
 
 const UploadApi = {
   upload: async ({ files }: UploadPayload) => {
-    console.log("UploadApi " + files);
     const formData = new FormData();
     formData.append("files", files);
 
