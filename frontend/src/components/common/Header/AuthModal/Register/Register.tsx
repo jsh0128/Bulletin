@@ -23,6 +23,7 @@ interface RegisterProps {
   onClickImgUpload: (File) => void;
   ChangeRegisterPage: () => void;
   keyDownEvent: (e: KeyboardEvent<HTMLInputElement>) => void;
+  mailLoading: boolean;
 }
 
 const Register = ({
@@ -45,6 +46,7 @@ const Register = ({
   onClickImgUpload,
   ChangeRegisterPage,
   keyDownEvent,
+  mailLoading,
 }: RegisterProps) => {
   return (
     <>
@@ -71,6 +73,7 @@ const Register = ({
           setRegisterPage={setRegisterPage}
           ChangeRegisterPage={ChangeRegisterPage}
           keyDownEvent={keyDownEvent}
+          mailLoading={mailLoading}
         />
       )}
     </>

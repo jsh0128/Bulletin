@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createPostAsync } from "store/actions/PostAction";
 import { RootState } from "store/reducers";
@@ -7,6 +7,7 @@ import Router from "next/router";
 import { CategoryState } from "store/types/CategoryType";
 import { getCategoryAsync } from "store/actions/CategoryAction";
 import { uploadAsync } from "store/actions/UploadAction";
+import { getInfoAsync } from "store/actions/UserAction";
 
 const WriteContainer = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const WriteContainer = () => {
     (state: RootState) => state.CategoryReducer
   );
   const { uploadData } = useSelector((state: RootState) => state.UploadReducer);
+  const { userData } = useSelector((state: RootState) => state.userReducer);
 
   const [select, setSelect] = useState<boolean>(false);
 
@@ -95,6 +97,8 @@ const WriteContainer = () => {
     setIntro("");
     setContent("");
     setCategories([]);
+    setSelect(false);
+    dispatch(getCategoryAsync.request());
   }, []);
 
   useEffect(() => {
@@ -108,9 +112,14 @@ const WriteContainer = () => {
   }, [uploadData]);
 
   useEffect(() => {
-    setSelect(false);
-    dispatch(getCategoryAsync.request());
-  }, []);
+    if (!userData) {
+      dispatch(getInfoAsync.request());
+    } else {
+      if (!userData.is_admin) {
+        Router.push("/");
+      }
+    }
+  }, [userData]);
 
   return (
     <Write

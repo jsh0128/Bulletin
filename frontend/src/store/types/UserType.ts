@@ -8,6 +8,7 @@ export interface IUserState {
   registerErr: AxiosError | null;
   registerRes: number | null;
   mailSendErr: AxiosError | null;
+  mailLoading: boolean;
   mailRes: number | null;
   userData: {
     name: string;

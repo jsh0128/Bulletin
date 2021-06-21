@@ -28,9 +28,14 @@ const HeaderContainer = () => {
   const [profile, setProfile] = useState<File | null>();
   const [uploadHeader, setUploadHeader] = useState<boolean>(false);
 
-  const { data, loginErr, userError, userData, loginCheck } = useSelector(
-    (state: RootState) => state.userReducer
-  );
+  const {
+    data,
+    loginErr,
+    userError,
+    userData,
+    loginCheck,
+    mailLoading,
+  } = useSelector((state: RootState) => state.userReducer);
 
   const { uploadData } = useSelector((state: RootState) => state.UploadReducer);
 
@@ -188,6 +193,10 @@ const HeaderContainer = () => {
     setModal(false);
   }, []);
 
+  useEffect(() => {
+    console.log(mailLoading);
+  }, [mailLoading]);
+
   return (
     <Header
       id={id}
@@ -217,6 +226,7 @@ const HeaderContainer = () => {
       onClickImgUpload={onClickImgUpload}
       ChangeRegisterPage={ChangeRegisterPage}
       keyDownEvent={keyDownEvent}
+      mailLoading={mailLoading}
     />
   );
 };

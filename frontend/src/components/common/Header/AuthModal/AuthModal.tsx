@@ -27,6 +27,7 @@ interface AuthModalProps {
   onClickImgUpload: (File) => void;
   ChangeRegisterPage: () => void;
   keyDownEvent: (e: KeyboardEvent<HTMLInputElement>) => void;
+  mailLoading: boolean;
 }
 
 const AuthModal = ({
@@ -53,6 +54,7 @@ const AuthModal = ({
   onClickImgUpload,
   ChangeRegisterPage,
   keyDownEvent,
+  mailLoading,
 }: AuthModalProps) => {
   return (
     <>
@@ -79,6 +81,7 @@ const AuthModal = ({
             onClickImgUpload={onClickImgUpload}
             ChangeRegisterPage={ChangeRegisterPage}
             keyDownEvent={keyDownEvent}
+            mailLoading={mailLoading}
           />
         )}
         {!selectedAuth && (

@@ -23,6 +23,7 @@ const userInitialState: IUserState = {
   data: {
     token: "",
   },
+  mailLoading: false,
   registerErr: null,
   registerRes: null,
   mailSendErr: null,
@@ -70,16 +71,19 @@ export const userReducer = createReducer<IUserState>(userInitialState, {
   [MAIL_AUTH]: (state, action) => ({
     ...state,
     mailRes: null,
+    mailLoading: true,
     registerErr: null,
   }),
   [MAIL_AUTH_SUCCESS]: (state, action) => ({
     ...state,
     mailRes: action.payload.status,
+    mailLoading: false,
     registerErr: null,
   }),
   [MAIL_AUTH_FAILURE]: (state, action) => ({
     ...state,
     mailRes: null,
+    mailLoading: false,
     registerErr: action.payload,
   }),
   [USER_INFO]: (state, action) => ({

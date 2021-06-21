@@ -38,6 +38,7 @@ interface HeaderProps {
   onClickImgUpload: (File) => void;
   ChangeRegisterPage: () => void;
   keyDownEvent: (e: KeyboardEvent<HTMLInputElement>) => void;
+  mailLoading: boolean;
 }
 
 const Header = ({
@@ -68,6 +69,7 @@ const Header = ({
   onClickImgUpload,
   ChangeRegisterPage,
   keyDownEvent,
+  mailLoading,
 }: HeaderProps) => {
   const router = useRouter();
   return (
@@ -135,6 +137,7 @@ const Header = ({
           onClickImgUpload={onClickImgUpload}
           ChangeRegisterPage={ChangeRegisterPage}
           keyDownEvent={keyDownEvent}
+          mailLoading={mailLoading}
         />
       )}
     </HeaderArea>
