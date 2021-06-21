@@ -4,7 +4,7 @@ import {
   CustomImg,
   UserImgIcon,
 } from "components/common/Basic/Basic";
-import { AiFillFolderOpen } from "react-icons/Ai";
+import { AiFillFolderOpen } from "react-icons/ai";
 // import { BiUser } from "react-icons/Bi";
 import styled from "styled-components";
 

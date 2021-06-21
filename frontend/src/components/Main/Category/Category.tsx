@@ -8,7 +8,7 @@ import {
   CustomInput,
   ModalBackground,
 } from "components/common/Basic/Basic";
-import { AiOutlineCheckCircle } from "react-icons/Ai";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 import { RiDeleteBin2Line } from "react-icons/Ri";
 import { BsPencilSquare } from "react-icons/Bs";
 

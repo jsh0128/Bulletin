@@ -5,7 +5,7 @@ import {
   CustomInput,
   UserImgIcon,
 } from "components/common/Basic/Basic";
-import { AiFillFolderOpen } from "react-icons/Ai";
+import { AiFillFolderOpen } from "react-icons/ai";
 import styled from "styled-components";
 
 interface ChangeInfoProps {

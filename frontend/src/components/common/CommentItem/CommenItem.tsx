@@ -1,7 +1,7 @@
 import { CommentState } from "store/types/CommentType";
 import styled from "styled-components";
 import { Center } from "styles/globals";
-import { AiOutlineUser } from "react-icons/Ai";
+import { AiOutlineUser } from "react-icons/ai";
 import TimeCounting from "time-counting";
 import Update from "util/enums/Update";
 import { CustomImg, CustomInput } from "../Basic/Basic";

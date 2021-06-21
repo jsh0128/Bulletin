@@ -4,7 +4,7 @@ import { CategoryState } from "store/types/CategoryType";
 import { Center, CustomBtn } from "components/common/Basic/Basic";
 import MDEditor from "@uiw/react-md-editor";
 import { RiDeleteBin5Line } from "react-icons/Ri";
-import { AiFillFolderOpen } from "react-icons/Ai";
+import { AiFillFolderOpen } from "react-icons/ai";
 
 interface WriteProps {
   title: string;

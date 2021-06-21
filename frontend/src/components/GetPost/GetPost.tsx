@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { CustomButton, BasicInput } from "components/common/Basic/Basic";
 import { CommentState } from "store/types/CommentType";
 import CommentItem from "components/common/CommentItem";
-import { AiOutlineCheckCircle } from "react-icons/Ai";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 import Update from "util/enums/Update";
 
 interface GetPostProps {

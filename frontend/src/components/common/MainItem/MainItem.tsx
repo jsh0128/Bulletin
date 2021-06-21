@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { AiOutlineClockCircle } from "react-icons/Ai";
+import { AiOutlineClockCircle } from "react-icons/ai";
 import { PostState } from "store/types/PostType";
 import Link from "next/link";
 import TimeCounting from "time-counting";
