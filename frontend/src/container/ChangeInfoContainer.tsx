@@ -72,7 +72,6 @@ const ChangeInfoContainer = () => {
 
   const onClickImgUpload = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      console.log("1312323");
       let reader = new FileReader();
       if (e.target.files && e.target.files.length) {
         let file = e.target.files[0];
@@ -87,8 +86,6 @@ const ChangeInfoContainer = () => {
     },
     [profileUploadImg, setProfileImg, profileImg]
   );
-
-  console.log();
 
   const onClickResetImg = useCallback(() => {
     setProfileImg(null);
@@ -129,7 +126,6 @@ const ChangeInfoContainer = () => {
 
   useEffect(() => {
     if (userData) {
-      console.log(userData);
       setBasicProfileImg(userData.profileImg);
       setName(userData.name);
     }

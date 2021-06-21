@@ -154,7 +154,6 @@ const ErrorHandling = () => {
 
   useEffect(() => {
     if (changeInfoErr) {
-      console.log(changeInfoErr);
       switch (changeInfoErr.response?.status) {
         case 404:
           toast.error("찾을 수 없는 회원");

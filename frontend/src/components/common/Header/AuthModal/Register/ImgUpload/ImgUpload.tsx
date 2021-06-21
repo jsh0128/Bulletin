@@ -45,7 +45,6 @@ const ImgUpload = ({
       <CustomCenter>
         <CustomBtn
           onClick={() => {
-            console.log("onClickRegister");
             onClickRegister();
           }}
         >

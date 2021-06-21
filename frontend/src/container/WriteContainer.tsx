@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createPostAsync } from "store/actions/PostAction";
+import { createPostAsync, getPostAsync } from "store/actions/PostAction";
 import { RootState } from "store/reducers";
 import Write from "../components/Write";
 import Router from "next/router";
@@ -8,6 +8,7 @@ import { CategoryState } from "store/types/CategoryType";
 import { getCategoryAsync } from "store/actions/CategoryAction";
 import { uploadAsync } from "store/actions/UploadAction";
 import { getInfoAsync } from "store/actions/UserAction";
+import { toast } from "react-toastify";
 
 const WriteContainer = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const WriteContainer = () => {
 
   const getPreviewImg = useCallback(() => {
     if (!content.includes("](")) {
-      console.log("이미지를 등록해주세요");
+      toast.warning("이미지를 등록해주세요");
       return false;
     } else {
       const startIdx = content.indexOf("](") + 2;
@@ -43,7 +44,7 @@ const WriteContainer = () => {
       setSelect(false);
       for (let i in categories) {
         if (categories[i] === category) {
-          console.log("중복 카테고리 불가");
+          toast.warning("중복 카테고리 불가");
           return;
         }
       }
@@ -64,6 +65,7 @@ const WriteContainer = () => {
   const handleCreatePost = () => {
     const previewImg = getPreviewImg();
     if (previewImg) {
+      dispatch(getPostAsync.request());
       dispatch(
         createPostAsync.request({
           title: title,
@@ -78,7 +80,6 @@ const WriteContainer = () => {
   };
 
   const uploadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("uploadImg");
     if (e.target.files && e.target.files.length) {
       dispatch(uploadAsync.request({ files: e.target.files[0] }));
     }
@@ -86,7 +87,7 @@ const WriteContainer = () => {
 
   const onClickWrite = () => {
     if (!title || !intro || !content || !categories) {
-      console.log("빈칸을 채워주세요");
+      toast.warning("빈 칸을 채워주세요");
     } else {
       handleCreatePost();
     }
