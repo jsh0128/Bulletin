@@ -17,11 +17,6 @@ export default async (request: Request, response: Response) => {
       where: { email: email },
     });
 
-    if (overEmail) {
-      return handleResponse(response, 409, "중복 회원");
-    }
-    // 중복되는 메일 있는지 확인
-
     const sendMailOption = nodemailer.createTransport({
       service: "naver",
       host: "smtp.naver.com",
