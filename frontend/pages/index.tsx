@@ -12,7 +12,7 @@ const Home = () => {
 
 Home.getInitialProps = async (ctx) => {
   const { store } = ctx;
-  await store.dispatch(getPostAsync.request());
+  await store.dispatch(getPostAsync.request({}));
 
   return;
 };

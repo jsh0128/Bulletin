@@ -2,8 +2,6 @@ import { CustomInput, CustomBtn } from "components/common/Basic/Basic";
 import { KeyboardEvent } from "react";
 import styled from "styled-components";
 import { Inputs, AuthType, CustomSpan } from "../AuthStyle";
-import GoogleLogin from "react-google-login";
-import { OAUTH_CLIENT_ID } from "config/config.json";
 
 interface LoginProps {
   id: string;
@@ -52,7 +50,6 @@ const Login = ({
             <CustomSpan onClick={() => setSelectedAuth(true)}>
               회원가입 Let's get it~
             </CustomSpan>
-            <CustomOAuth clientId={OAUTH_CLIENT_ID} />
           </Inputs>
         </Forms>
       ) : (
@@ -61,12 +58,6 @@ const Login = ({
     </>
   );
 };
-
-const CustomOAuth = styled(GoogleLogin)`
-  width: 90%;
-  margin-top: 1rem;
-  border-radius: 10rem;
-`;
 
 const Forms = styled.div`
   display: flex;

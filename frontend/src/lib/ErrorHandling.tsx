@@ -341,6 +341,7 @@ const ErrorHandling = () => {
           toast.error("존재 하지 않는 글");
           break;
         default:
+          console.log(getPostErr);
           toast.error("서버 오류");
           break;
       }

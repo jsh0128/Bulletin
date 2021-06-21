@@ -36,14 +36,10 @@ const GetPostContainer = () => {
     deleteCommentData,
   } = useSelector((state: RootState) => state.commentReducer);
 
-  const { deletePostData } = useSelector(
-    (state: RootState) => state.postReducer
-  );
-
   // 포스트 삭제 함수
   const onClickDelete = () => {
     Router.push("/");
-    dispatch(getPostAsync.request());
+    dispatch(getPostAsync.request({}));
     dispatch(deletePostAsync.request({ post_idx: Number(query.idx) }));
   };
 

@@ -65,7 +65,7 @@ const WriteContainer = () => {
   const handleCreatePost = () => {
     const previewImg = getPreviewImg();
     if (previewImg) {
-      dispatch(getPostAsync.request());
+      dispatch(getPostAsync.request({}));
       dispatch(
         createPostAsync.request({
           title: title,

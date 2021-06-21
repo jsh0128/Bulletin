@@ -52,7 +52,7 @@ const MainContainer = () => {
     setSelected(0);
     setSelectedCategory("");
     setSearchInput("");
-    dispatch(getPostAsync.request());
+    dispatch(getPostAsync.request({}));
   };
 
   const onClickCreateCategory = () => {
@@ -93,7 +93,7 @@ const MainContainer = () => {
   };
 
   useEffect(() => {
-    dispatch(getPostAsync.request());
+    dispatch(getPostAsync.request({}));
     dispatch(getCategoryAsync.request());
   }, []);
 
