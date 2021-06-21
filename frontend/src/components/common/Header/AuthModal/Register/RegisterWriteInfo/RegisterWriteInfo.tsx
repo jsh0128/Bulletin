@@ -1,7 +1,8 @@
-import { CustomBtn, CustomInput } from "components/common/Basic/Basic";
-import { KeyboardEvent } from "react";
+import { CustomBtn, CustomInput, Center } from "components/common/Basic/Basic";
+import React, { KeyboardEvent } from "react";
 import styled from "styled-components";
 import { AuthType, CustomSpan, Inputs } from "../../AuthStyle";
+import ReactLoading from "react-loading";
 
 interface RegisterWriteInfoProps {
   id: string;
@@ -19,6 +20,7 @@ interface RegisterWriteInfoProps {
   setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
   ChangeRegisterPage: () => void;
   keyDownEvent: (e: KeyboardEvent<HTMLInputElement>) => void;
+  mailLoading: boolean;
 }
 
 const RegisterWriteInfo = ({
@@ -37,6 +39,7 @@ const RegisterWriteInfo = ({
   setRegisterPage,
   ChangeRegisterPage,
   keyDownEvent,
+  mailLoading,
 }: RegisterWriteInfoProps) => {
   return (
     <Forms>
@@ -49,7 +52,18 @@ const RegisterWriteInfo = ({
             onChange={(e) => setId(e.target.value)}
             style={{ width: "72%", margin: "0" }}
           />
-          <EmailCertBtn onClick={onClickMailCodeSend}>인증</EmailCertBtn>
+          {mailLoading ? (
+            <LoadingArea>
+              <EmailLoading
+                type="bars"
+                width={"50%"}
+                height={"50%"}
+                color="black"
+              />
+            </LoadingArea>
+          ) : (
+            <EmailCertBtn onClick={onClickMailCodeSend}>인증</EmailCertBtn>
+          )}
         </EmailForm>
         <CustomInput
           onKeyDown={keyDownEvent}
@@ -118,6 +132,20 @@ const EmailCertBtn = styled.button`
   &:focus {
     outline: none;
   }
+`;
+
+const EmailLoading = styled(ReactLoading)`
+  margin-bottom: 5px;
+`;
+
+const LoadingArea = styled(Center)`
+  width: calc(20% - 2px);
+  height: 48px;
+  border: 1px solid #707070;
+  color: #9c9c9c;
+  border-radius: 3px;
+  background: white;
+  pointer-events: none;
 `;
 
 const Forms = styled.div`
