@@ -6,8 +6,8 @@ import TimeCounting from "time-counting";
 import Update from "util/enums/Update";
 import { CustomImg, CustomInput } from "../Basic/Basic";
 import { useState } from "react";
-import { GiCancel } from "react-icons/Gi";
-import { BsCapslock } from "react-icons/Bs";
+import { GiCancel } from "react-icons/gi";
+import { BsCapslock } from "react-icons/bs";
 
 interface CommentItemProps {
   commentData: CommentState;

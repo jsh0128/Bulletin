@@ -1,16 +1,13 @@
 import { CategoryState } from "store/types/CategoryType";
 import styled from "styled-components";
 import Update from "util/enums/Update";
-import { GiCancel } from "react-icons/Gi";
 import {
-  BasicInput,
   CustomBtn,
   CustomInput,
   ModalBackground,
 } from "components/common/Basic/Basic";
-import { AiOutlineCheckCircle } from "react-icons/ai";
-import { RiDeleteBin2Line } from "react-icons/Ri";
-import { BsPencilSquare } from "react-icons/Bs";
+import { RiDeleteBin2Line } from "react-icons/ri";
+import { BsPencilSquare } from "react-icons/bs";
 
 interface CategoryProps {
   category: CategoryState[] | null;

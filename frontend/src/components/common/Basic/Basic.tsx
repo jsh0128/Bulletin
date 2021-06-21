@@ -1,4 +1,4 @@
-import { BiUser } from "react-icons/Bi";
+import { BiUser } from "react-icons/bi";
 import styled from "styled-components";
 
 export const BasicButton = styled.button`

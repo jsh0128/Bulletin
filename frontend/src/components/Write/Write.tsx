@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { CategoryState } from "store/types/CategoryType";
 import { Center, CustomBtn } from "components/common/Basic/Basic";
 import MDEditor from "@uiw/react-md-editor";
-import { RiDeleteBin5Line } from "react-icons/Ri";
+import { RiDeleteBin5Line } from "react-icons/ri";
 import { AiFillFolderOpen } from "react-icons/ai";
 
 interface WriteProps {
