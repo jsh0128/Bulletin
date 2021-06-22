@@ -13,7 +13,7 @@ const MainItem = ({ data }: MainItemProps) => {
   return (
     <MainItemStyle>
       <Link href={`/post/${data.idx}`}>
-        <a>
+        <CustomA>
           <CustomImg src={data.preview_image} />
           <ContentDiv>
             <TitleStyle>{data.title}</TitleStyle>
@@ -26,11 +26,16 @@ const MainItem = ({ data }: MainItemProps) => {
               </CreateTimeStyle>
             </Bottom>
           </ContentDiv>
-        </a>
+        </CustomA>
       </Link>
     </MainItemStyle>
   );
 };
+
+const CustomA = styled.a`
+  background: whitesmoke;
+  border-radius: 1rem;
+`;
 
 const CreateTimeStyle = styled.div`
   display: flex;
@@ -49,9 +54,9 @@ const MainItemStyle = styled.div`
   display: flex;
   margin-bottom: 1rem;
   flex-direction: column;
-  background-color: whitesmoke;
   padding-bottom: 5px;
   border-radius: 1rem;
+  height: 20rem;
   /* @media screen and (max-width: 1200px) {
     width: calc(50% - 2rem);
   }
@@ -103,6 +108,7 @@ const Bottom = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 0.5rem;
+  padding-bottom: 0.5rem;
 `;
 
 export default MainItem;

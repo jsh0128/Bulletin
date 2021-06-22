@@ -134,7 +134,6 @@ const SendIcon = styled(BsCapslock)`
   transition: 0.2s;
   cursor: pointer;
   &:hover {
-    /* font-size: 100rem; */
     color: #707070;
   }
 `;
