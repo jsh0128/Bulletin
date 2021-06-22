@@ -13,8 +13,6 @@ const GithubAuthContainer = () => {
       ignoreQueryPrefix: true,
     });
 
-    console.log(code);
-
     dispatch(githubAuthAsync.request({ code: String(code) }));
     Router.push("/");
   }, []);
