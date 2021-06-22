@@ -100,6 +100,8 @@ const ChangeInfoContainer = () => {
     }
   }, []);
 
+  useEffect(() => {}, []);
+
   useEffect(() => {
     if (changeInfoData) {
       router.push("/");
@@ -128,6 +130,11 @@ const ChangeInfoContainer = () => {
     if (userData) {
       setBasicProfileImg(userData.profileImg);
       setName(userData.name);
+      console.log(userData.is_github);
+      if (userData.is_github) {
+        toast.warning("Github 로그인은 정보를 바꿀 수 없습니다.");
+        router.push("/");
+      }
     }
   }, [userData]);
 

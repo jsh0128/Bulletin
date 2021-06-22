@@ -23,7 +23,7 @@ const AuthApi = {
       body
     );
 
-    return { token: data.data };
+    return data.data;
   },
 
   register: async ({
@@ -82,8 +82,7 @@ const AuthApi = {
       "/auth/githubAuth",
       body
     );
-    console.log(data);
-    return { token: data };
+    return data;
   },
 };
 export default AuthApi;

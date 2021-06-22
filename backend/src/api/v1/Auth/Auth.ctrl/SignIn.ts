@@ -21,6 +21,8 @@ export default async (request: Request, response: Response) => {
       where: { email: email, password: password },
     });
 
+    console.log(email, password);
+
     if (!userInfo) {
       handleResponse(
         response,

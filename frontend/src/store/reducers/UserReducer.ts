@@ -39,17 +39,17 @@ const userInitialState: IUserState = {
 export const userReducer = createReducer<IUserState>(userInitialState, {
   [LOGIN]: (state, action) => ({
     ...state,
-    data: null,
+    token: null,
     loginErr: null,
   }),
   [LOGIN_SUCCESS]: (state, action) => ({
     ...state,
+    token: action.payload,
     loginErr: null,
-    token: action.payload.token,
   }),
   [LOGIN_FAILURE]: (state, action) => ({
     ...state,
-    data: null,
+    token: null,
     loginErr: action.payload,
   }),
   [REGISTER]: (state, action) => ({
@@ -126,20 +126,17 @@ export const userReducer = createReducer<IUserState>(userInitialState, {
   }),
   [GITHUB_AUTH]: (state, action) => ({
     ...state,
-    data: null,
+    token: null,
     loginErr: null,
   }),
-  [GITHUB_AUTH_SUCCESS]: (state, action) => (
-    console.log(action.payload.token.data),
-    {
-      ...state,
-      token: action.payload.token.data,
-      loginErr: null,
-    }
-  ),
+  [GITHUB_AUTH_SUCCESS]: (state, action) => ({
+    ...state,
+    token: action.payload.data,
+    loginErr: null,
+  }),
   [GITHUB_AUTH_FAILURE]: (state, action) => ({
     ...state,
-    data: null,
+    token: null,
     loginErr: action.payload,
   }),
 });

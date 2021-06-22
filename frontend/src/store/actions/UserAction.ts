@@ -69,7 +69,7 @@ export const githubAuthAsync = createAsyncAction(
   GITHUB_AUTH,
   GITHUB_AUTH_SUCCESS,
   GITHUB_AUTH_FAILURE
-)<GithubAuthPayload, { token: string }, AxiosError>();
+)<GithubAuthPayload, Response, AxiosError>();
 
 export const logout = () => ({
   type: USER_INFO_FAILURE,
