@@ -4,6 +4,7 @@ import { CategoryState } from "store/types/CategoryType";
 import { PostState } from "store/types/PostType";
 import styled from "styled-components";
 import Update from "util/enums/Update";
+import Link from "next/link";
 import Category from "./Category";
 
 interface MainProps {
@@ -46,38 +47,47 @@ const Main = ({
   setSearchInput,
 }: MainProps) => {
   return (
-    <MainArea>
-      <RightArea>
-        <Right>
-          <Category
-            category={category}
-            selectedCategory={selectedCategory}
-            onClickCategoryPost={onClickCategoryPost}
-            onClickSelectedAll={onClickSelectedAll}
-            is_admin={is_admin}
-            updateCategory={updateCategory}
-            categoryModal={categoryModal}
-            setCategoryModal={setCategoryModal}
-            setCreateCategory={setCreateCategory}
-            update={update}
-            setUpdate={setUpdate}
-            setChangeName={setChangeName}
-          />
-          <SearchArea>
-            <SearchInput
-              placeholder="검색"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
+    <div>
+      <MainArea>
+        <RightArea>
+          <Right>
+            <Category
+              category={category}
+              selectedCategory={selectedCategory}
+              onClickCategoryPost={onClickCategoryPost}
+              onClickSelectedAll={onClickSelectedAll}
+              is_admin={is_admin}
+              updateCategory={updateCategory}
+              categoryModal={categoryModal}
+              setCategoryModal={setCategoryModal}
+              setCreateCategory={setCreateCategory}
+              update={update}
+              setUpdate={setUpdate}
+              setChangeName={setChangeName}
             />
-          </SearchArea>
-        </Right>
-      </RightArea>
-      <ItemsStyled>
-        {data &&
-          Array.isArray(data) &&
-          data?.map((item, key) => <MainItem key={key} data={item} />)}
-      </ItemsStyled>
-    </MainArea>
+            <SearchArea>
+              <SearchInput
+                placeholder="검색"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+              />
+            </SearchArea>
+          </Right>
+        </RightArea>
+        <ItemsStyled>
+          {data &&
+            Array.isArray(data) &&
+            data?.map((item, key) => <MainItem key={key} data={item} />)}
+        </ItemsStyled>
+      </MainArea>
+      <CustomFooter>
+        <Link href="https://github.com/jsh0128">
+          <a style={{ color: "#494949" }}>
+            © 2021. jsh0128. All rights reserved.
+          </a>
+        </Link>
+      </CustomFooter>
+    </div>
   );
 };
 
@@ -85,7 +95,16 @@ const MainArea = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  min-height: calc(100vh - 10.5rem);
   margin-top: 1rem;
+`;
+
+const CustomFooter = styled.footer`
+  border-top: 1px solid #c7c7c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2rem;
 `;
 
 const ItemsStyled = styled.div`
