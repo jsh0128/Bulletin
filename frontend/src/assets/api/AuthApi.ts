@@ -22,7 +22,8 @@ const AuthApi = {
       `${SERVER}/auth/signin`,
       body
     );
-    return { token: data.data.token };
+
+    return { token: data.data };
   },
 
   register: async ({
@@ -75,22 +76,14 @@ const AuthApi = {
     );
     return data;
   },
-  githubLogin: async ({ code }: GithubAuthPayload) => {
+  githubAuth: async ({ code }: GithubAuthPayload) => {
     const body = { code };
     const { data }: AxiosResponse<ILoginResponse> = await customAxios.post(
-      "/auth/githubLogin",
+      "/auth/githubAuth",
       body
     );
-
-    return { token: data.data.token };
-  },
-  githubRegister: async ({ code }: GithubAuthPayload) => {
-    const body = { code };
-    const { data }: AxiosResponse<Response> = await customAxios.post(
-      "/auth/githubRegister",
-      body
-    );
-    return data;
+    console.log(data);
+    return { token: data };
   },
 };
 export default AuthApi;

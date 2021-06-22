@@ -49,13 +49,13 @@ const Login = ({
             />
           </Inputs>
           <Inputs>
+            <CustomBtn onClick={onClickLogin}>로그인</CustomBtn>
             <a href={GITHUB_URL} style={{ width: "100%" }}>
-              <CustomBtn onClick={onClickLogin}>로그인</CustomBtn>
+              <GithubLoginBtn>
+                <GithubIcon />
+                <span>Github Login</span>
+              </GithubLoginBtn>
             </a>
-            <GithubLoginBtn>
-              <GithubIcon />
-              <span>Github Login</span>
-            </GithubLoginBtn>
             <CustomSpan onClick={() => setSelectedAuth(true)}>
               회원가입 Let's get it~
             </CustomSpan>

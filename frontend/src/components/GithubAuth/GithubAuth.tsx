@@ -1,4 +1,8 @@
 const GithubAuth = () => {
-  return <div>GithubLogin중..</div>;
+  return (
+    <div>
+      <span>Github Login중..</span>
+    </div>
+  );
 };
 export default GithubAuth;

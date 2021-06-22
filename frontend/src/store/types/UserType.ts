@@ -2,9 +2,7 @@ import { AxiosError } from "axios";
 
 export interface IUserState {
   loginErr: AxiosError | null;
-  data: {
-    token: string;
-  };
+  token: string | null;
   registerErr: AxiosError | null;
   registerRes: number | null;
   mailSendErr: AxiosError | null;

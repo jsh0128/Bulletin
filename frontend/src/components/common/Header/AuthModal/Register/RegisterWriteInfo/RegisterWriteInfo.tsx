@@ -20,7 +20,6 @@ interface RegisterWriteInfoProps {
   mailAuthCode: string;
   setMailAuthCode: React.Dispatch<React.SetStateAction<string>>;
   onClickMailCodeSend: () => void;
-  setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
   ChangeRegisterPage: () => void;
   keyDownEvent: (e: KeyboardEvent<HTMLInputElement>) => void;
   mailLoading: boolean;
@@ -41,7 +40,6 @@ const RegisterWriteInfo = ({
   mailAuthCode,
   setMailAuthCode,
   onClickMailCodeSend,
-  setRegisterPage,
   ChangeRegisterPage,
   keyDownEvent,
   mailLoading,
@@ -99,9 +97,9 @@ const RegisterWriteInfo = ({
       </Inputs>
       <Inputs>
         <a href={GITHUB_URL} style={{ width: "100%" }}>
-          <GithubLoginBtn onClick={() => Router.push("")}>
+          <GithubLoginBtn>
             <GithubIcon />
-            <span>Github Register</span>
+            <span>Github Login</span>
           </GithubLoginBtn>
         </a>
         <CustomBtn

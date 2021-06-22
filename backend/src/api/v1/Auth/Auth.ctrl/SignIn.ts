@@ -40,9 +40,7 @@ export default async (request: Request, response: Response) => {
       );
 
       console.log("로그인 성공하셨습니다");
-      handleResponse(response, 200, "로그인 성공하셨습니다", {
-        token,
-      });
+      handleResponse(response, 200, "로그인 성공하셨습니다", token);
       return;
     }
   } catch {

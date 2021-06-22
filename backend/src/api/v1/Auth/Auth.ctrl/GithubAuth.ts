@@ -8,7 +8,6 @@ import { createToken } from "../../../../lib/jwtToken";
 export default async (request: Request, response: Response) => {
   try {
     const { code } = request.body;
-
     const userRepository: Repository<User> = getRepository(User);
 
     const githubResponse = await axios.post(
