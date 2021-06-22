@@ -3,6 +3,9 @@ import React, { KeyboardEvent } from "react";
 import styled from "styled-components";
 import { AuthType, CustomSpan, Inputs } from "../../AuthStyle";
 import ReactLoading from "react-loading";
+import { AiFillGithub } from "react-icons/ai";
+import { CLIENT_KEY } from "config/config.json";
+import Router from "next/router";
 
 interface RegisterWriteInfoProps {
   id: string;
@@ -93,6 +96,15 @@ const RegisterWriteInfo = ({
         />
       </Inputs>
       <Inputs>
+        <a
+          href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_KEY}&redirect_uri=http://localhost:3000/githubauth`}
+          style={{ width: "100%" }}
+        >
+          <GithubLoginBtn onClick={() => Router.push("")}>
+            <GithubIcon />
+            <span>Github Register</span>
+          </GithubLoginBtn>
+        </a>
         <CustomBtn
           onClick={() => {
             ChangeRegisterPage();
@@ -107,6 +119,18 @@ const RegisterWriteInfo = ({
     </Forms>
   );
 };
+
+const GithubLoginBtn = styled(CustomBtn)`
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const GithubIcon = styled(AiFillGithub)`
+  margin-right: 1rem;
+  font-size: 1.5rem;
+`;
 
 const EmailForm = styled.div`
   display: flex;

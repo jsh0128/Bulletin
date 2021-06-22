@@ -1,7 +1,7 @@
 import {
   CertMailPayload,
   ChangeInfoPayload,
-  GithubLoginPayload,
+  GithubAuthPayload,
   LoginPayload,
   RegisterPayload,
 } from "assets/types/AuthPayLoadTypes";
@@ -75,12 +75,22 @@ const AuthApi = {
     );
     return data;
   },
-  githubLogin: async ({ code }: GithubLoginPayload) => {
+  githubLogin: async ({ code }: GithubAuthPayload) => {
     const body = { code };
     const { data }: AxiosResponse<ILoginResponse> = await customAxios.post(
       "/auth/githubLogin",
       body
     );
+
+    return { token: data.data.token };
+  },
+  githubRegister: async ({ code }: GithubAuthPayload) => {
+    const body = { code };
+    const { data }: AxiosResponse<Response> = await customAxios.post(
+      "/auth/githubRegister",
+      body
+    );
+    return data;
   },
 };
 export default AuthApi;

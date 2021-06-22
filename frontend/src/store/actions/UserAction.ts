@@ -1,11 +1,16 @@
 import {
   CertMailPayload,
   ChangeInfoPayload,
+  GithubAuthPayload,
   RegisterPayload,
 } from "assets/types/AuthPayLoadTypes";
 import { AxiosError } from "axios";
 import { createAsyncAction } from "typesafe-actions";
-import { IGetInfoResponse, Response } from "util/types/Response";
+import {
+  IGetInfoResponse,
+  ILoginResponse,
+  Response,
+} from "util/types/Response";
 
 export const LOGIN = "user/LOGIN" as const;
 export const LOGIN_SUCCESS = "user/LOGIN_SUCCESS" as const;
@@ -55,6 +60,26 @@ export const modifyInfoAsync = createAsyncAction(
   MODIFY_INFO_SUCCESS,
   MODIFY_INFO_FAILURE
 )<ChangeInfoPayload, Response, AxiosError>();
+
+export const GITHUB_LOGIN = "GITHUB_LOGIN" as const;
+export const GITHUB_LOGIN_SUCCESS = "GITHUB_LOGIN_SUCCESS" as const;
+export const GITHUB_LOGIN_FAILURE = "GITHUB_LOGIN_FAILURE" as const;
+
+export const githubLoginAsync = createAsyncAction(
+  GITHUB_LOGIN,
+  GITHUB_LOGIN_SUCCESS,
+  GITHUB_LOGIN_FAILURE
+)<GithubAuthPayload, { token: string }, AxiosError>();
+
+export const GITHUB_REGISTER = "GITHUB_REGISTER" as const;
+export const GITHUB_REGISTER_SUCCESS = "GITHUB_REGISTER_SUCCESS" as const;
+export const GITHUB_REGISTER_FAILURE = "GITHUB_REGISTER_FAILURE" as const;
+
+export const githubRegisterAsync = createAsyncAction(
+  GITHUB_REGISTER,
+  GITHUB_REGISTER_SUCCESS,
+  GITHUB_REGISTER_FAILURE
+)<GithubAuthPayload, Response, AxiosError>();
 
 export const logout = () => ({
   type: USER_INFO_FAILURE,

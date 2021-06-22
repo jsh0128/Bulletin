@@ -12,6 +12,7 @@ import { RootState } from "store/reducers";
 import { toast } from "react-toastify";
 import { uploadAsync } from "store/actions/UploadAction";
 import { useRouter } from "next/router";
+import { CLIENT_KEY } from "config/config.json";
 
 const HeaderContainer = () => {
   const router = useRouter();
@@ -187,6 +188,7 @@ const HeaderContainer = () => {
   }, [modal, selectedAuth]);
 
   useEffect(() => {
+    console.log(CLIENT_KEY);
     if (localStorage.getItem("access_token")) {
       dispatch(getInfoAsync.request());
     }

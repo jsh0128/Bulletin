@@ -16,6 +16,12 @@ import {
   MODIFY_INFO,
   MODIFY_INFO_SUCCESS,
   MODIFY_INFO_FAILURE,
+  GITHUB_LOGIN,
+  GITHUB_LOGIN_SUCCESS,
+  GITHUB_LOGIN_FAILURE,
+  GITHUB_REGISTER,
+  GITHUB_REGISTER_SUCCESS,
+  GITHUB_REGISTER_FAILURE,
 } from "../actions/UserAction";
 
 const userInitialState: IUserState = {
@@ -38,13 +44,13 @@ const userInitialState: IUserState = {
 export const userReducer = createReducer<IUserState>(userInitialState, {
   [LOGIN]: (state, action) => ({
     ...state,
+    data: null,
     loginErr: null,
   }),
   [LOGIN_SUCCESS]: (state, action) => ({
     ...state,
     loginErr: null,
     data: {
-      ...state.data,
       token: action.payload.token,
     },
   }),
@@ -124,5 +130,35 @@ export const userReducer = createReducer<IUserState>(userInitialState, {
     ...state,
     changeInfoData: null,
     changeInfoErr: action.payload,
+  }),
+  [GITHUB_LOGIN]: (state, action) => ({
+    ...state,
+    data: null,
+    loginErr: null,
+  }),
+  [GITHUB_LOGIN_SUCCESS]: (state, action) => ({
+    ...state,
+    data: action.payload.token,
+    loginErr: null,
+  }),
+  [GITHUB_LOGIN_FAILURE]: (state, action) => ({
+    ...state,
+    data: null,
+    loginErr: action.payload,
+  }),
+  [GITHUB_REGISTER]: (state, action) => ({
+    ...state,
+    registerRes: null,
+    registerErr: null,
+  }),
+  [GITHUB_REGISTER_SUCCESS]: (state, action) => ({
+    ...state,
+    registerRes: action.payload.status,
+    registerErr: null,
+  }),
+  [GITHUB_REGISTER_FAILURE]: (state, action) => ({
+    ...state,
+    registerRes: null,
+    registerErr: action.payload,
   }),
 });
