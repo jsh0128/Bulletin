@@ -3,9 +3,7 @@ import { KeyboardEvent } from "react";
 import styled from "styled-components";
 import { Inputs, AuthType, CustomSpan } from "../AuthStyle";
 import { AiFillGithub } from "react-icons/ai";
-import { CLIENT_KEY } from "config/config.json";
-
-const GITHUB_URL = `https://github.com/login/oauth/authorize?client_id=${CLIENT_KEY}&redirect_uri=http://localhost:3000/githubauth`;
+import { GITHUB_URL } from "config/config.json";
 
 interface LoginProps {
   id: string;

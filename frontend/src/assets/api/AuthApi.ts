@@ -78,6 +78,7 @@ const AuthApi = {
   },
   githubAuth: async ({ code }: GithubAuthPayload) => {
     const body = { code };
+    console.log(code);
     const { data }: AxiosResponse<ILoginResponse> = await customAxios.post(
       "/auth/githubAuth",
       body
