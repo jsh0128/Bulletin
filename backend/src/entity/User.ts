@@ -15,8 +15,9 @@ export default class User {
   @Column({
     length: 255,
     select: false,
+    nullable: true,
   })
-  password!: string;
+  password: string;
   // 비밀번호
 
   @Column({
@@ -25,6 +26,9 @@ export default class User {
   })
   profile_img: string;
   // 프로필 사진
+
+  @Column({ default: false })
+  is_github: boolean;
 
   @Column({ default: false })
   is_admin: boolean;

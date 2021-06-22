@@ -31,6 +31,7 @@ interface HeaderProps {
     email: string;
     profileImg: string;
     is_admin: boolean;
+    is_github: boolean;
   };
   registerPage: boolean;
   setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -86,9 +87,11 @@ const Header = ({
             <RightSpan>
               {userData?.is_admin && <Link href="/write">글쓰기</Link>}
               <AuthSpan onClick={Logout}>로그아웃</AuthSpan>
-              <Link href="/changeinfo">
-                <AuthSpan>프로필 변경</AuthSpan>
-              </Link>
+              {!userData?.is_github && (
+                <Link href="/changeinfo">
+                  <AuthSpan>프로필 변경</AuthSpan>
+                </Link>
+              )}
             </RightSpan>
           ) : (
             <>

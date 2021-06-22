@@ -88,14 +88,6 @@ const MainArea = styled.div`
   margin-top: 1rem;
 `;
 
-const CategoryModify = styled.div`
-  margin-top: 3rem;
-  display: flex;
-`;
-
-const CategoryBtn = styled(BasicButton)`
-  padding: 0 0.6rem;
-`;
 const ItemsStyled = styled.div`
   display: flex;
   width: 80%;

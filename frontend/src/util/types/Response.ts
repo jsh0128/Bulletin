@@ -6,11 +6,6 @@ export type Response = {
 export interface ILoginResponse extends Response {
   data: {
     token: string;
-    sendUserInfo: {
-      email: string;
-      name: string;
-      profile_Img: string | null;
-    };
   };
 }
 
@@ -19,5 +14,7 @@ export interface IGetInfoResponse extends Response {
     email: string;
     name: string;
     profile_Img: string | null;
+    is_github: boolean;
+    is_admin: boolean;
   };
 }

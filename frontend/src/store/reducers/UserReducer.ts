@@ -99,6 +99,7 @@ export const userReducer = createReducer<IUserState>(userInitialState, {
       email: action.payload.data.email,
       profileImg: action.payload.data.profile_img,
       is_admin: action.payload.data.is_admin,
+      is_github: action.payload.data.is_github,
     },
     loginCheck: true,
     userError: null,

@@ -20,6 +20,7 @@ export default async (request: Request, response: Response) => {
     const userInfo = await userRepository.findOne({
       where: { email: email, password: password },
     });
+
     if (!userInfo) {
       handleResponse(
         response,
@@ -34,17 +35,13 @@ export default async (request: Request, response: Response) => {
         userInfo.email,
         userInfo.name,
         userInfo.profile_img,
-        userInfo.is_admin
+        userInfo.is_admin,
+        userInfo.is_github
       );
-      const sendUserInfo = {
-        email: userInfo.email,
-        name: userInfo.name,
-        profile_Img: userInfo.profile_img,
-      };
+
       console.log("로그인 성공하셨습니다");
       handleResponse(response, 200, "로그인 성공하셨습니다", {
         token,
-        sendUserInfo,
       });
       return;
     }
