@@ -97,38 +97,6 @@ const Span = styled.span`
   font-weight: 200;
 `;
 
-const ImgContainer = styled.div`
-  width: 100%;
-  background-color: #e4e4e4;
-`;
-
-const ImgRatio = styled.div`
-  position: relative;
-  padding-top: 56.25%; /* 1:1 ratio */
-  overflow: hidden;
-`;
-const ImgCenter = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  -webkit-transform: translate(50%, 50%);
-  -ms-transform: translate(50%, 50%);
-  transform: translate(50%, 50%);
-`;
-
-const Img = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  max-width: 100%;
-  height: auto;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-`;
-
 const Bottom = styled.div`
   width: 100%;
   display: flex;
