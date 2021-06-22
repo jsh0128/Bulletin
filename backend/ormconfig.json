@@ -5,6 +5,7 @@
   "username": "root",
   "password": "jj030128",
   "database": "bulletin",
+  "charset": "utf8mb4_unicode_ci",
   "synchronize": true,
   "logging": false,
   "entities": ["src/entity/**/*.ts"],
