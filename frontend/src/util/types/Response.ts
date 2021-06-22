@@ -4,7 +4,9 @@ export type Response = {
 };
 
 export interface ILoginResponse extends Response {
-  token: string;
+  data: {
+    token: string;
+  };
 }
 
 export interface IGetInfoResponse extends Response {

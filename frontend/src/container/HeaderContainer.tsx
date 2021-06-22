@@ -91,7 +91,6 @@ const HeaderContainer = () => {
   const onLoginSuccess = useCallback(() => {
     setLoading(true);
     if (token) {
-      console.log(token);
       localStorage.setItem("access_token", token);
       dispatch(getInfoAsync.request());
       setModal(false);
