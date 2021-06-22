@@ -2,6 +2,10 @@ import { CustomInput, CustomBtn } from "components/common/Basic/Basic";
 import { KeyboardEvent } from "react";
 import styled from "styled-components";
 import { Inputs, AuthType, CustomSpan } from "../AuthStyle";
+import { AiFillGithub } from "react-icons/ai";
+import { CLIENT_KEY } from "config/config.json";
+
+const GITHUB_URL = `https://github.com/login/oauth/authorize?client_id=${CLIENT_KEY}&redirect_uri=http://localhost:3000/githubauth`;
 
 interface LoginProps {
   id: string;
@@ -46,7 +50,12 @@ const Login = ({
           </Inputs>
           <Inputs>
             <CustomBtn onClick={onClickLogin}>로그인</CustomBtn>
-
+            <a href={GITHUB_URL} style={{ width: "100%" }}>
+              <GithubLoginBtn>
+                <GithubIcon />
+                <span>Github Login</span>
+              </GithubLoginBtn>
+            </a>
             <CustomSpan onClick={() => setSelectedAuth(true)}>
               회원가입 Let's get it~
             </CustomSpan>
@@ -66,4 +75,17 @@ const Forms = styled.div`
   justify-content: space-around;
   width: 100%;
 `;
+
+const GithubLoginBtn = styled(CustomBtn)`
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const GithubIcon = styled(AiFillGithub)`
+  margin-right: 1rem;
+  font-size: 1.5rem;
+`;
+
 export default Login;

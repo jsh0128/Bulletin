@@ -16,13 +16,14 @@ import {
   MODIFY_INFO,
   MODIFY_INFO_SUCCESS,
   MODIFY_INFO_FAILURE,
+  GITHUB_AUTH,
+  GITHUB_AUTH_SUCCESS,
+  GITHUB_AUTH_FAILURE,
 } from "../actions/UserAction";
 
 const userInitialState: IUserState = {
   loginErr: null,
-  data: {
-    token: "",
-  },
+  token: null,
   mailLoading: false,
   registerErr: null,
   registerRes: null,
@@ -38,15 +39,13 @@ const userInitialState: IUserState = {
 export const userReducer = createReducer<IUserState>(userInitialState, {
   [LOGIN]: (state, action) => ({
     ...state,
+    data: null,
     loginErr: null,
   }),
   [LOGIN_SUCCESS]: (state, action) => ({
     ...state,
     loginErr: null,
-    data: {
-      ...state.data,
-      token: action.payload.token,
-    },
+    token: action.payload.token,
   }),
   [LOGIN_FAILURE]: (state, action) => ({
     ...state,
@@ -99,6 +98,7 @@ export const userReducer = createReducer<IUserState>(userInitialState, {
       email: action.payload.data.email,
       profileImg: action.payload.data.profile_img,
       is_admin: action.payload.data.is_admin,
+      is_github: action.payload.data.is_github,
     },
     loginCheck: true,
     userError: null,
@@ -123,5 +123,23 @@ export const userReducer = createReducer<IUserState>(userInitialState, {
     ...state,
     changeInfoData: null,
     changeInfoErr: action.payload,
+  }),
+  [GITHUB_AUTH]: (state, action) => ({
+    ...state,
+    data: null,
+    loginErr: null,
+  }),
+  [GITHUB_AUTH_SUCCESS]: (state, action) => (
+    console.log(action.payload.token.data),
+    {
+      ...state,
+      token: action.payload.token.data,
+      loginErr: null,
+    }
+  ),
+  [GITHUB_AUTH_FAILURE]: (state, action) => ({
+    ...state,
+    data: null,
+    loginErr: action.payload,
   }),
 });

@@ -70,7 +70,6 @@ const Register = ({
           mailAuthCode={mailAuthCode}
           setMailAuthCode={setMailAuthCode}
           onClickMailCodeSend={onClickMailCodeSend}
-          setRegisterPage={setRegisterPage}
           ChangeRegisterPage={ChangeRegisterPage}
           keyDownEvent={keyDownEvent}
           mailLoading={mailLoading}

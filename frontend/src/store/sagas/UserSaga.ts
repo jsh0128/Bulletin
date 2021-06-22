@@ -11,6 +11,8 @@ import {
   USER_INFO,
   modifyInfoAsync,
   MODIFY_INFO,
+  githubAuthAsync,
+  GITHUB_AUTH,
 } from "../actions/UserAction";
 import createAsyncSaga from "lib/createAsyncSaga";
 
@@ -27,10 +29,16 @@ export const modifyInfoSaga = createAsyncSaga(
   AuthApi.changeInfo
 );
 
+export const githubAuthSaga = createAsyncSaga(
+  githubAuthAsync,
+  AuthApi.githubAuth
+);
+
 export function* authSaga() {
   yield takeEvery(LOGIN, loginSaga);
   yield takeEvery(REGISTER, registerSaga);
   yield takeEvery(MAIL_AUTH, mailAuthSaga);
   yield takeEvery(USER_INFO, userInfoSaga);
   yield takeEvery(MODIFY_INFO, modifyInfoSaga);
+  yield takeEvery(GITHUB_AUTH, githubAuthSaga);
 }

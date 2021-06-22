@@ -29,7 +29,7 @@ const HeaderContainer = () => {
   const [uploadHeader, setUploadHeader] = useState<boolean>(false);
 
   const {
-    data,
+    token,
     loginErr,
     userError,
     userData,
@@ -90,12 +90,13 @@ const HeaderContainer = () => {
   // 로그인 데이터 통신 후
   const onLoginSuccess = useCallback(() => {
     setLoading(true);
-    if (data && data.token) {
-      localStorage.setItem("access_token", data.token);
+    if (token) {
+      console.log(token);
+      localStorage.setItem("access_token", token);
       dispatch(getInfoAsync.request());
       setModal(false);
     }
-  }, [data]);
+  }, [token]);
 
   // 로그인 에러 처리
 
@@ -170,7 +171,7 @@ const HeaderContainer = () => {
 
   useEffect(() => {
     onLoginSuccess();
-  }, [data, loginErr]);
+  }, [token, loginErr]);
 
   useEffect(() => {
     if (userError?.response.status === 500) {

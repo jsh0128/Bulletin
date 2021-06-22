@@ -20,3 +20,7 @@ export type ChangeInfoPayload = {
   password?: string;
   profile_img?: string;
 };
+
+export type GithubAuthPayload = {
+  code: string;
+};

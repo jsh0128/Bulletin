@@ -8,6 +8,12 @@ export default async (request: Request, response: Response) => {
   try {
     const { email, name, password, profileImg, certCode } = request.body;
 
+    if (!password) {
+      return response
+        .status(401)
+        .json({ status: 401, message: "비밀번호 입력해 주세요" });
+    }
+
     const userRepository: Repository<User> = getRepository(User);
     const emailRepository: Repository<CertEmail> = getRepository(CertEmail);
 
