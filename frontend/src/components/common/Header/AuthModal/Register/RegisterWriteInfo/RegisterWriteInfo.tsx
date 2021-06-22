@@ -26,6 +26,8 @@ interface RegisterWriteInfoProps {
   mailLoading: boolean;
 }
 
+const GITHUB_URL = `https://github.com/login/oauth/authorize?client_id=${CLIENT_KEY}&redirect_uri=http://localhost:3000/githubauth`;
+
 const RegisterWriteInfo = ({
   id,
   setId,
@@ -96,10 +98,7 @@ const RegisterWriteInfo = ({
         />
       </Inputs>
       <Inputs>
-        <a
-          href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_KEY}&redirect_uri=http://localhost:3000/githubauth`}
-          style={{ width: "100%" }}
-        >
+        <a href={GITHUB_URL} style={{ width: "100%" }}>
           <GithubLoginBtn onClick={() => Router.push("")}>
             <GithubIcon />
             <span>Github Register</span>

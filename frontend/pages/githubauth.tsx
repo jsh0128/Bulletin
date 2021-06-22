@@ -1,4 +1,6 @@
+import GithubAuthContainer from "container/GithubAuthContainer";
+
 const GithubAuth = () => {
-  return <div></div>;
+  return <GithubAuthContainer />;
 };
 export default GithubAuth;

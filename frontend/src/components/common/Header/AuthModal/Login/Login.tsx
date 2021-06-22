@@ -5,6 +5,8 @@ import { Inputs, AuthType, CustomSpan } from "../AuthStyle";
 import { AiFillGithub } from "react-icons/ai";
 import { CLIENT_KEY } from "config/config.json";
 
+const GITHUB_URL = `https://github.com/login/oauth/authorize?client_id=${CLIENT_KEY}&redirect_uri=http://localhost:3000/githubauth`;
+
 interface LoginProps {
   id: string;
   setId: React.Dispatch<React.SetStateAction<string>>;
@@ -47,10 +49,7 @@ const Login = ({
             />
           </Inputs>
           <Inputs>
-            <a
-              href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_KEY}&redirect_uri=http://localhost:3000/auth`}
-              style={{ width: "100%" }}
-            >
+            <a href={GITHUB_URL} style={{ width: "100%" }}>
               <CustomBtn onClick={onClickLogin}>로그인</CustomBtn>
             </a>
             <GithubLoginBtn>
