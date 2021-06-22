@@ -4,8 +4,7 @@ import styled from "styled-components";
 import { AuthType, CustomSpan, Inputs } from "../../AuthStyle";
 import ReactLoading from "react-loading";
 import { AiFillGithub } from "react-icons/ai";
-import { CLIENT_KEY } from "config/config.json";
-import Router from "next/router";
+import { GITHUB_URL } from "config/config.json";
 
 interface RegisterWriteInfoProps {
   id: string;
@@ -24,8 +23,6 @@ interface RegisterWriteInfoProps {
   keyDownEvent: (e: KeyboardEvent<HTMLInputElement>) => void;
   mailLoading: boolean;
 }
-
-const GITHUB_URL = `https://github.com/login/oauth/authorize?client_id=${CLIENT_KEY}&redirect_uri=http://localhost:3000/githubauth`;
 
 const RegisterWriteInfo = ({
   id,
