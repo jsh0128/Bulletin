@@ -27,6 +27,7 @@ const ChangeInfoContainer = () => {
   const { userData, changeInfoData } = useSelector(
     (state: RootState) => state.userReducer
   );
+  const [flag, setFlag] = useState<boolean>(false);
   const { uploadData } = useSelector((state: RootState) => state.UploadReducer);
 
   const onClickChangeInfo = useCallback(() => {
@@ -36,6 +37,7 @@ const ChangeInfoContainer = () => {
       toast.warning("이름을 채워주세요");
     } else {
       // 프로필 사진을 변경했을때
+      setFlag(true);
       if (profileImg) {
         dispatch(uploadAsync.request({ files: profileUploadImg }));
       }
@@ -48,6 +50,7 @@ const ChangeInfoContainer = () => {
             profile_img: null,
           })
         );
+        router.push("/");
       }
       // 프로필 사진 변경을 하지 않았을 때
       else {
@@ -58,6 +61,7 @@ const ChangeInfoContainer = () => {
             profile_img: basicProfileImg,
           })
         );
+        router.push("/");
       }
     }
   }, [
@@ -100,29 +104,24 @@ const ChangeInfoContainer = () => {
     }
   }, []);
 
-  useEffect(() => {}, []);
-
   useEffect(() => {
     if (changeInfoData) {
-      router.push("/");
-      dispatch({
-        type: MODIFY_INFO_FAILURE,
-        changeInfoData: null,
-        changeInfoErr: null,
-      });
       dispatch(getInfoAsync.request());
     }
   }, [changeInfoData]);
 
   useEffect(() => {
     if (uploadData) {
-      dispatch(
-        modifyInfoAsync.request({
-          name: name,
-          password: pw === "" ? null : pw,
-          profile_img: uploadData.data.files[0],
-        })
-      );
+      if (flag) {
+        dispatch(
+          modifyInfoAsync.request({
+            name: name,
+            password: pw === "" ? null : pw,
+            profile_img: uploadData.data.files[0],
+          })
+        );
+        router.push("/");
+      }
     }
   }, [uploadData]);
 
@@ -130,6 +129,7 @@ const ChangeInfoContainer = () => {
     if (userData) {
       setBasicProfileImg(userData.profileImg);
       setName(userData.name);
+      console.log("프로필");
       if (userData.is_github) {
         toast.warning("Github 로그인은 정보를 바꿀 수 없습니다.");
         router.push("/");

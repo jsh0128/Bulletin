@@ -56,7 +56,6 @@ const MainItemStyle = styled.div`
   flex-direction: column;
   padding-bottom: 5px;
   border-radius: 1rem;
-  height: 20rem;
   /* @media screen and (max-width: 1200px) {
     width: calc(50% - 2rem);
   }
