@@ -55,7 +55,7 @@ export default async (request: Request, response: Response) => {
     } else {
       const user: User = new User();
       user.email = data.html_url;
-      user.name = data.name;
+      user.name = data.login;
       user.is_github = true;
       user.profile_img = data.avatar_url;
       user.password = null;
@@ -64,7 +64,7 @@ export default async (request: Request, response: Response) => {
 
       const token: string = createToken(
         data.html_url,
-        data.name,
+        data.login,
         data.avatar_url,
         false,
         true
