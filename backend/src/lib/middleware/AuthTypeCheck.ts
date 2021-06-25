@@ -42,12 +42,16 @@ export const validateUser = async (
   }
 };
 export const validateAuth = async (request: Request) => {
-  const access_token = request.headers["token"];
+  const access_token = request.headers["authorization"];
+  console.log(access_token);
   if (!access_token) {
     handleResponse(response, 404, "토큰을 찾을 수 없습니다");
   } else {
+    const bearer = access_token.split(" ");
+    const bearerToken = bearer[1];
+
     try {
-      const decodeToken: any = await verifyToken(access_token);
+      const decodeToken: any = await verifyToken(bearerToken);
 
       const userRepository: Repository<User> = getRepository(User);
       const user: User = await userRepository.findOne({

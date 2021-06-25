@@ -12,7 +12,7 @@ const addToken = (config: AxiosRequestConfig) => {
   const token = localStorage.getItem("access_token");
 
   if (token) {
-    config.headers["token"] = token;
+    config.headers["authorization"] = `Bearer ${token}`;
   }
 
   return config;
