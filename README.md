@@ -1,6 +1,6 @@
 ## Frontend
 
-Next, Redux, Redux-Saga, TypeScript, Storybook,
+React, Next, Redux, Redux-Saga, TypeScript
 
 ## Backend
 
