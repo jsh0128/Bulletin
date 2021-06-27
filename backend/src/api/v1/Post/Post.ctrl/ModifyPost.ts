@@ -9,24 +9,30 @@ export default async (request: Request, response: Response) => {
   try {
     const { title, content, post_idx, categories } = request.body;
 
+    console.log(categories);
+
     const postRepository: Repository<Post> = getRepository(Post);
     const categoryRepository: Repository<Category> = getRepository(Category);
-    const postCategoryRepository: Repository<PostCategory> = getRepository(
-      PostCategory
-    );
+    const postCategoryRepository: Repository<PostCategory> =
+      getRepository(PostCategory);
 
     const checkPost = await postRepository.findOne({
       where: { idx: post_idx },
     });
     // checkPost는 글이 존재하지는지 확인
     if (!checkPost) {
-      console.log("존재하지 않는 글 입니다.");
-      return handleResponse(response, 404, "존재하지 않는 글 입니다.");
+      console.log("존재하지 않는 카테고리 입니다.");
+      return handleResponse(response, 404, "존재하지 않는 카테고리 입니다.");
     }
 
     const postCategory = await postCategoryRepository.find({
       where: { fk_post_idx: post_idx },
     });
+
+    if (!postCategory) {
+      console.log("존재하지 않는 글 입니다.");
+      return handleResponse(response, 404, "존재하지 않는 글 입니다.");
+    }
 
     let category = [];
     for (let i in categories) {

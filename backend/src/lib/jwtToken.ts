@@ -11,8 +11,6 @@ export const createToken = (
   is_github: boolean
 ) => {
   // 토큰 만들기
-  console.log(email, name, profile, is_admin, JWT_SECRET_KEY);
-
   return jwt.sign(
     {
       email,

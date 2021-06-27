@@ -45,7 +45,7 @@ export const modifyPostAsync = createAsyncAction(
     title: string;
     content: string;
     post_idx: number;
-    categories: string;
+    categories: string[] | null;
   },
   AxiosResponse<Response>,
   AxiosError
