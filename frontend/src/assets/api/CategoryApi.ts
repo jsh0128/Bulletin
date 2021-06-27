@@ -4,7 +4,7 @@ import {
   ModifyCategoryPayload,
   DeleteCategoryPayload,
 } from "assets/types/CategoryPayLoadType";
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import customAxios from "lib/CustomAxios";
 import {
   IGetCategoryResponse,

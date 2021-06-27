@@ -6,6 +6,7 @@ import { CustomButton } from "components/common/Basic/Basic";
 import { CommentState } from "store/types/CommentType";
 import CommentItem from "components/common/CommentItem";
 import Update from "util/enums/Update";
+import Link from "next/link";
 
 interface GetPostProps {
   data: PostState;
@@ -66,7 +67,11 @@ const GetPost = ({
       </Center>
       {userData && (
         <Buttons>
-          <CustomButton>글 수정</CustomButton>
+          <CustomButton>
+            <Link href={`/modify/${data?.idx}`}>
+              <a>글 수정</a>
+            </Link>
+          </CustomButton>
           <CustomButton
             onClick={onClickDelete}
             style={{ marginLeft: "0.5rem" }}

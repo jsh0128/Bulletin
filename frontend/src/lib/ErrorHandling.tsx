@@ -332,7 +332,7 @@ const ErrorHandling = () => {
   }, [deletePostErr]);
 
   useEffect(() => {
-    if (getPostErr) {
+    if (getPostErr && getPostErr.response?.status) {
       switch (getPostErr.response?.status) {
         case 403:
           toast.error("존재 하지 않는 유저");

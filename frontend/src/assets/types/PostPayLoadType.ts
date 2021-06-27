@@ -12,7 +12,7 @@ export type ModifyPostPayload = {
   title: string;
   content: string;
   post_idx: number;
-  categories: string;
+  categories: string[] | null;
 };
 export type DeletePostPayload = {
   post_idx: number;

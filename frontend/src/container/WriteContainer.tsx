@@ -17,9 +17,6 @@ const WriteContainer = () => {
   const [content, setContent] = useState<string>("");
   const [categories, setCategories] = useState<string[]>([]);
   const [selectCategory, setSelectCategory] = useState<CategoryState[]>();
-  const { modifyPostData } = useSelector(
-    (state: RootState) => state.postReducer
-  );
   const { getCategoryData, getCategoryErr } = useSelector(
     (state: RootState) => state.CategoryReducer
   );

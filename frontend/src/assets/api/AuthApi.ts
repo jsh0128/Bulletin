@@ -18,8 +18,8 @@ const AuthApi = {
       email,
       password: sha512(pw),
     };
-    const { data }: AxiosResponse<ILoginResponse> = await axios.post(
-      `${SERVER}/auth/signin`,
+    const { data }: AxiosResponse<ILoginResponse> = await customAxios.post(
+      `/auth/signin`,
       body
     );
 
@@ -40,8 +40,8 @@ const AuthApi = {
       profileImg,
       certCode: authCode,
     };
-    const { data }: AxiosResponse<Response> = await axios.post(
-      `${SERVER}/auth/signup`,
+    const { data }: AxiosResponse<Response> = await customAxios.post(
+      `/auth/signup`,
       body
     );
 
@@ -51,8 +51,8 @@ const AuthApi = {
     const body = {
       email,
     };
-    const { data }: AxiosResponse<Response> = await axios.post(
-      `${SERVER}/auth/emailCode`,
+    const { data }: AxiosResponse<Response> = await customAxios.post(
+      `/auth/emailCode`,
       body
     );
 

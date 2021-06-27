@@ -4,16 +4,14 @@ import {
   GetPostPayload,
   ModifyPostPayload,
 } from "assets/types/PostPayLoadType";
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
+import customAxios from "lib/CustomAxios";
 import { IGetPostResponse } from "util/types/PostResponse";
-import { SERVER } from "../../config/config.json";
 
 const PostApi = {
   getPosts: async ({ postIdx }: GetPostPayload) => {
-    const { data }: AxiosResponse<IGetPostResponse> = await axios.get(
-      postIdx
-        ? `${SERVER}/post/getPost?idx=${postIdx}`
-        : `${SERVER}/post/getPost`
+    const { data }: AxiosResponse<IGetPostResponse> = await customAxios.get(
+      postIdx ? `/post/getPost?idx=${postIdx}` : `/post/getPost`
     );
 
     return { res: data?.data };
@@ -32,18 +30,10 @@ const PostApi = {
       categories,
       preview_img,
     };
-    let config = {};
-    if (localStorage.getItem("access_token")) {
-      config = {
-        headers: {
-          token: `${localStorage.getItem("access_token")}`,
-        },
-      };
-    }
-    const { data }: AxiosResponse<any> = await axios.post(
-      `${SERVER}/post/create`,
-      body,
-      config
+
+    const { data }: AxiosResponse<any> = await customAxios.post(
+      `/post/create`,
+      body
     );
 
     return data;
@@ -55,40 +45,23 @@ const PostApi = {
     categories,
   }: ModifyPostPayload) => {
     const body = {
-      title,
-      content,
-      categories,
-      post_idx,
+      title: title,
+      content: content,
+      categories: categories,
+      post_idx: post_idx,
     };
-    let config = {};
-    if (localStorage.getItem("access_token")) {
-      config = {
-        headers: {
-          token: `${localStorage.getItem("access_token")}`,
-        },
-      };
-    }
-    const { data }: AxiosResponse<any> = await axios.post(
-      `${SERVER}/post/modify`,
-      body,
-      config
+    const { data }: AxiosResponse<any> = await customAxios.post(
+      `/post/modify`,
+      body
     );
     return data;
   },
   deletePosts: async ({ post_idx }: DeletePostPayload) => {
     const body = { post_idx };
-    let config = {};
-    if (localStorage.getItem("access_token")) {
-      config = {
-        headers: {
-          token: `${localStorage.getItem("access_token")}`,
-        },
-      };
-    }
-    const { data }: AxiosResponse<any> = await axios.post(
-      `${SERVER}/post/delete`,
-      body,
-      config
+
+    const { data }: AxiosResponse<any> = await customAxios.post(
+      `/post/delete`,
+      body
     );
     return data;
   },

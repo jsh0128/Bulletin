@@ -6,5 +6,6 @@ export const handleResponse = (
   message: string,
   data?: any
 ) => {
+  console.log(message);
   return response.status(status).json({ status, message, data });
 };
