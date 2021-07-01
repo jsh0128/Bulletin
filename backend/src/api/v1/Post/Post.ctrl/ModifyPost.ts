@@ -9,8 +9,6 @@ export default async (request: Request, response: Response) => {
   try {
     const { title, content, post_idx, categories } = request.body;
 
-    console.log(categories);
-
     const postRepository: Repository<Post> = getRepository(Post);
     const categoryRepository: Repository<Category> = getRepository(Category);
     const postCategoryRepository: Repository<PostCategory> =

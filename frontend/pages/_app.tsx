@@ -1,11 +1,12 @@
 import DefaultTemplate from "components/common/DefaultTemplate";
 import { AppContext, AppProps } from "next/app";
-import { Center, GlobalStyled, MaxWidth, theme } from "styles/globals";
+import { Center, GlobalStyled, MaxWidth, theme } from "styles/theme";
 import wrapper from "store/configureStore";
 import withReduxSaga from "next-redux-saga";
 import React from "react";
 import ErrorHandling from "lib/ErrorHandling";
 import "react-toastify/dist/ReactToastify.css";
+import { ThemeProvider } from "styled-components";
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -13,7 +14,9 @@ function App({ Component, pageProps }: AppProps) {
       <Center>
         <DefaultTemplate>
           <MaxWidth>
-            <Component {...pageProps} theme={theme} />
+            <ThemeProvider theme={theme}>
+              <Component {...pageProps} />
+            </ThemeProvider>
           </MaxWidth>
           <GlobalStyled />
         </DefaultTemplate>

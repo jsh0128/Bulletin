@@ -19,11 +19,15 @@ const size = {
   desktop: "1250px",
 };
 
-export const theme = {
+const device = {
   mobile: `@media only screen and (max-width: ${size.mobile})`,
   tablet: `@media only screen and (max-width: ${size.tablet})`,
   smallDesktop: `@media only screen and (max-width: ${size.smallDesktop})`,
   desktop: `@media only screen and (max-width: ${size.desktop})`,
+};
+
+export const theme = {
+  device,
 };
 
 export const Center = styled.div`
