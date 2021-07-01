@@ -10,6 +10,7 @@ import { uploadAsync } from "store/actions/UploadAction";
 import { getCategoryAsync } from "store/actions/CategoryAction";
 import { getInfoAsync } from "store/actions/UserAction";
 import { useRouter } from "next/router";
+import { MarkDownGetImg } from "lib/MarkDownGetImg";
 
 const ModifyContainer = () => {
   const { query } = useRouter();
@@ -21,9 +22,6 @@ const ModifyContainer = () => {
   const [selectCategory, setSelectCategory] = useState<CategoryState[]>();
 
   const { data } = useSelector((state: RootState) => state.postReducer);
-  const { modifyPostData } = useSelector(
-    (state: RootState) => state.postReducer
-  );
   const { getCategoryData, getCategoryErr } = useSelector(
     (state: RootState) => state.CategoryReducer
   );
@@ -33,14 +31,7 @@ const ModifyContainer = () => {
   const [select, setSelect] = useState<boolean>(false);
 
   const getPreviewImg = useCallback(() => {
-    if (!content.includes("](")) {
-      toast.warning("이미지를 등록해주세요");
-      return false;
-    } else {
-      const startIdx = content.indexOf("](") + 2;
-      const lastIdx = content.slice(startIdx, content.length).indexOf(")");
-      return content.slice(startIdx, startIdx + lastIdx);
-    }
+    return MarkDownGetImg(content)
   }, [content]);
 
   const selectedCategory = useCallback(

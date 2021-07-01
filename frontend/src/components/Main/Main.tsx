@@ -93,10 +93,17 @@ const Main = ({
 
 const MainArea = styled.div`
   display: flex;
-  justify-content: space-between;
+
   width: 100%;
   min-height: calc(100vh - 10.5rem);
   margin-top: 1rem;
+  ${({ theme }) => theme.device?.tablet} {
+    flex-direction: column;
+  }
+  ${({ theme }) => theme.device?.mobile} {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 `;
 
 const CustomFooter = styled.footer`
@@ -105,45 +112,52 @@ const CustomFooter = styled.footer`
   align-items: center;
   justify-content: center;
   padding-top: 2rem;
+  margin-bottom: 2rem;
 `;
 
 const ItemsStyled = styled.div`
+  width: 90%;
   display: flex;
-  width: 80%;
   flex-wrap: wrap;
-  /* @media screen and (max-width: 1200px) {
-    width: 90%;
+  align-content: flex-start;
+  ${({ theme }) => theme.device?.tablet} {
+    width: 100%;
+    justify-content: space-around;
   }
-  @media screen and (max-width: 750px) {
-    width: 90%;
-    justify-content: center;
-  } */
 `;
 
 const RightArea = styled.div`
   width: 20%;
-  /* @media screen and (max-width: 1200px) {
-    width: 80%;
-  } */
+  ${({ theme }) => theme.device?.tablet} {
+    width: 100%;
+  }
 `;
 
 const Right = styled.div`
   position: fixed;
-  /* @media screen and (max-width: 1200px) {
+  ${({ theme }) => theme.device?.tablet} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 100%;
     position: relative;
-  } */
+  }
 `;
 
 const SearchArea = styled.div`
   width: 100%;
   margin-top: 3rem;
   display: flex;
-  /* @media screen and (max-width: 1200px) {
+  ${({ theme }) => theme.device?.desktop} {
     align-items: center;
     justify-content: center;
-    margin: 0.5rem 0rem;
-  } */
+  }
+  ${({ theme }) => theme.device?.tablet} {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+  }
 `;
 
 const SearchInput = styled.input`
@@ -153,9 +167,14 @@ const SearchInput = styled.input`
   border-bottom: 1px solid #e2e2e2;
   padding-bottom: 4px;
   font-size: 0.8rem;
-  /* @media screen and (max-width: 1200px) {
-    width: 100%;
-  } */
+  ${({ theme }) => theme.device?.desktop} {
+    width: 8rem;
+  }
+  ${({ theme }) => theme.device?.tablet} {
+    width: 80%;
+    height: 1.5rem;
+    font-size: 1rem;
+  }
   :focus {
     outline: none;
   }

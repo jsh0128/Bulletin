@@ -45,14 +45,14 @@ const Category = ({
   return (
     <>
       <CategoriesStyle is_admin={is_admin}>
-        <div>
+        <CategoryArea>
           {selectedCategory === "" ? (
             <SelectedCategory
               onClick={() => {
                 onClickSelectedAll();
               }}
             >
-              <span>전체보기</span>
+              <CategoryItemSpan>전체보기</CategoryItemSpan>
             </SelectedCategory>
           ) : (
             <CategoryItem
@@ -60,7 +60,7 @@ const Category = ({
                 onClickSelectedAll();
               }}
             >
-              <span>전체보기</span>
+              <CategoryItemSpan>전체보기</CategoryItemSpan>
             </CategoryItem>
           )}
           {category &&
@@ -68,18 +68,18 @@ const Category = ({
               <div key={key}>
                 {item.category === selectedCategory ? (
                   <SelectedCategory>
-                    <span>{item.category}</span>
+                    <CategoryItemSpan>{item.category}</CategoryItemSpan>
                   </SelectedCategory>
                 ) : (
                   <CategoryItem
                     onClick={() => onClickCategoryPost(item.idx, item.category)}
                   >
-                    <span>{item.category}</span>
+                    <CategoryItemSpan>{item.category}</CategoryItemSpan>
                   </CategoryItem>
                 )}
               </div>
             ))}
-        </div>
+        </CategoryArea>
         {is_admin && (
           <UpdateBtn>
             <CustomSpan
@@ -137,6 +137,19 @@ const Category = ({
 };
 export default Category;
 
+const CategoryArea = styled.div`
+  ${({ theme }) => theme.device?.tablet} {
+    width: 100%;
+    display: flex;
+    overflow-x: scroll;
+  }
+`;
+
+const CategoryItemSpan = styled.span`
+  margin: 0 0.5rem;
+  white-space: nowrap;
+`;
+
 const Buttons = styled.div`
   display: flex;
   justify-content: center;
@@ -160,17 +173,21 @@ const CategoriesStyle = styled.div<{ is_admin: boolean }>`
   align-content: flex-end;
   border-right: ${(props) => !props.is_admin && "1px solid black"};
   padding-right: 3rem;
-  display: flex;
-  /* @media screen and (max-width: 1200px) {
-    width: 100%;
-    flex-direction: row;
-    border: none;
-    align-items: center;
-    justify-content: space-between;
+  ${({ theme }) => theme.device?.mobile} {
+    width: 80%;
   }
-  @media screen and (max-width: 1200px) {
-    justify-content: center;
-  } */
+  ${({ theme }) => theme.device?.tablet} {
+    display: flex;
+    border: none;
+    width: 100%;
+    padding: 0;
+  }
+  ${({ theme }) => theme.device?.desktop} {
+    flex-direction: row;
+    width: 100%;
+    padding: 0;
+    border: none;
+  }
 `;
 
 const UpdateBtn = styled.div`
@@ -180,6 +197,9 @@ const UpdateBtn = styled.div`
   margin-left: 3rem;
   justify-content: space-between;
   cursor: pointer;
+  ${({ theme }) => theme.device?.desktop} {
+    display: none;
+  }
 `;
 
 const CustomSpan = styled.span`

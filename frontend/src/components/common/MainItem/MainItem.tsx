@@ -56,13 +56,19 @@ const MainItemStyle = styled.div`
   flex-direction: column;
   padding-bottom: 5px;
   border-radius: 1rem;
-  /* @media screen and (max-width: 1200px) {
+  ${({ theme }) => theme.device?.desktop} {
     width: calc(50% - 2rem);
   }
-  @media screen and (max-width: 765px) {
-    width: 100%;
+  ${({ theme }) => theme.device?.tablet} {
+    width: calc(50% - 2rem);
+    margin: 0.5rem 0.5rem;
+  }
+  ${({ theme }) => theme.device?.mobile} {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    width: 90%;
     margin-left: 0;
-  } */
+  }
 `;
 
 const ContentDiv = styled.div`
@@ -76,6 +82,10 @@ const TitleStyle = styled.span`
   font-weight: 550;
   display: inline-block;
   width: 200px;
+  ${({ theme }) => theme.device?.tablet} {
+    width: 90%;
+    margin-left: 0;
+  }
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

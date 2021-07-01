@@ -44,6 +44,10 @@ const GetPostContainer = () => {
   };
 
   const onClickModifyComment = (idx: number, content: string) => {
+    if (!content) {
+      toast.warning("내용을 입력하세요");
+      return;
+    }
     dispatch(modifyCommentAsync.request({ idx: idx, content: content }));
   };
 

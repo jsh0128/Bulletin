@@ -1,6 +1,6 @@
 import { CommentState } from "store/types/CommentType";
 import styled from "styled-components";
-import { Center } from "styles/globals";
+import { Center } from "styles/theme";
 import { AiOutlineUser } from "react-icons/ai";
 import TimeCounting from "time-counting";
 import Update from "util/enums/Update";
@@ -153,6 +153,7 @@ const CommentChangeBtnArea = styled.div`
   color: #b9b9b9;
   font-size: 0.9rem;
   right: 0;
+  top: 0;
 `;
 
 const CommentChangeBtn = styled.span`
@@ -187,6 +188,7 @@ const ImgArea = styled(Center)`
 
 const Content = styled.div`
   margin-left: 1rem;
+  width: 80%;
 `;
 
 export default CommentItem;
