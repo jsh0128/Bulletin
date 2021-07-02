@@ -136,6 +136,7 @@ const WriteComment = styled.textarea`
   border: none;
   border: 1px solid#DEDEDE;
   border-radius: 3px;
+  resize: none;
 `;
 
 const CommentTitle = styled.h3`
@@ -151,6 +152,9 @@ const Buttons = styled.div`
 
 const Center = styled.div`
   width: 70%;
+  ${({ theme }) => theme.device?.tablet} {
+    width: 90%;
+  }
   /* min-width: 840px; */
 `;
 

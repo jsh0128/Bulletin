@@ -11,16 +11,16 @@ import { ThemeProvider } from "styled-components";
 function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Center>
-        <DefaultTemplate>
-          <MaxWidth>
-            <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
+        <Center>
+          <DefaultTemplate>
+            <MaxWidth>
               <Component {...pageProps} />
-            </ThemeProvider>
-          </MaxWidth>
-          <GlobalStyled />
-        </DefaultTemplate>
-      </Center>
+            </MaxWidth>
+            <GlobalStyled />
+          </DefaultTemplate>
+        </Center>
+      </ThemeProvider>
       <ErrorHandling />
     </>
   );
