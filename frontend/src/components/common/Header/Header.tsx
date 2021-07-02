@@ -163,6 +163,9 @@ const HeaderStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  ${({ theme }) => theme.device?.tablet} {
+    margin-left: 1rem;
+  }
 `;
 
 const LogoStyle = styled.span`
@@ -174,6 +177,10 @@ const LogoStyle = styled.span`
 
 const AuthSpan = styled.span`
   margin-left: 0.5rem;
+  ${({ theme }) => theme.device?.tablet} {
+    margin-right: 0.6rem;
+    margin-left: 0;
+  }
 `;
 
 const RightSpan = styled.div`
