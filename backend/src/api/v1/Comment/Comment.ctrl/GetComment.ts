@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { getRepository, Repository } from "typeorm";
 import { Comment } from "../../../../entity/Comment";
+import Reply from "../../../../entity/Reply";
 import User from "../../../../entity/User";
 import { handleResponse } from "../../../../lib/handleResponse";
 
@@ -9,6 +10,7 @@ export default async (request: Request, response: Response) => {
     const { post_idx } = request.query;
     const commentRepository: Repository<Comment> = getRepository(Comment);
     const userRepository: Repository<User> = getRepository(User);
+    const replyRepository: Repository<Reply> = getRepository(Reply);
 
     if (!post_idx) {
       console.log("post idx가 없습니다.");
@@ -34,6 +36,10 @@ export default async (request: Request, response: Response) => {
       const username = await userRepository.findOne({
         where: { email: findComment[i].fk_user_email },
       });
+      const findReply = await replyRepository.find({
+        where: { fk_comment_idx: findComment[i].idx },
+        order: { created_at: "DESC" },
+      });
       data.push({
         idx: findComment[i].idx,
         content: findComment[i].content,
@@ -41,6 +47,7 @@ export default async (request: Request, response: Response) => {
         user_email: findComment[i].fk_user_email,
         user_name: username.name,
         user_profile_img: username.profile_img,
+        reply: findReply.length ? findReply : null,
       });
     }
     console.log("댓글 조회 성공");
