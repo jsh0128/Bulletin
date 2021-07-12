@@ -20,6 +20,12 @@ export default async (request: AuthRequest, response: Response) => {
       return;
     }
 
+    if (!findComment) {
+      console.log("해당 댓글이 존재하지 않습니다");
+      handleResponse(response, 404, "해당 댓글이 존재하지 않습니다.");
+      return;
+    }
+
     if (findComment.fk_user_email !== user.email) {
       console.log("삭제 불가");
       handleResponse(response, 403, "삭제 불가");
