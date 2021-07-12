@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { createAsyncAction } from "typesafe-actions";
-import { IGetPost, IGetPostResponse } from "util/types/PostResponse";
+import { IGetPost } from "util/types/PostResponse";
 
 export const GET_POST = "post/GET_POST" as const;
 export const GET_POST_SUCCESS = "post/GET_POST_SUCCESS" as const;

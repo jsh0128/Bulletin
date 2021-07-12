@@ -14,6 +14,6 @@ getPost.getInitialProps = async (ctx) => {
   const { store, req } = ctx;
   store.dispatch(getPostAsync.request({ postIdx: ctx.query.idx }));
 
-  return { idx: ctx.query.idx };
+  return;
 };
 export default withRouter(getPost);

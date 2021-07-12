@@ -8,7 +8,6 @@ const ErrorHandling = () => {
     mailRes,
     registerRes,
     loginErr,
-    userData,
     mailSendErr,
     userError,
     registerErr,
@@ -59,10 +58,6 @@ const ErrorHandling = () => {
   useEffect(() => {
     if (mailRes) toast.success("메일 전송 성공");
   }, [mailRes]);
-
-  useEffect(() => {
-    if (userData) toast.success("정보 불러오기 성공");
-  }, [userData]);
 
   useEffect(() => {
     if (registerRes) toast.success("회원가입 생성 성공");
