@@ -33,4 +33,7 @@ export default class Reply {
 
   @Column()
   fk_user_email: string;
+
+  @Column()
+  name: string;
 }
