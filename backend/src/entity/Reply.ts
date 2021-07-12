@@ -37,11 +37,4 @@ export default class Reply {
 
   @Column()
   name: string;
-
-  @ManyToOne(() => Post, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "fk_post_idx" })
-  post: Post;
-
-  @Column()
-  fk_post_idx: number;
 }

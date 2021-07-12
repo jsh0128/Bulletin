@@ -1,20 +1,22 @@
 import { Response } from "express";
 import { getRepository, Repository } from "typeorm";
-import Reply from "../../../entity/Reply";
-import User from "../../../entity/User";
-import { handleResponse } from "../../../lib/handleResponse";
-import AuthRequest from "../../../types/AuthRequest";
+import Reply from "../../../../entity/Reply";
+import User from "../../../../entity/User";
+import { handleResponse } from "../../../../lib/handleResponse";
+import AuthRequest from "../../../../types/AuthRequest";
 
 export default async (request: AuthRequest, response: Response) => {
   try {
-    const { reply_idx } = request.body;
+    const { reply_idx } = request.query;
+    console.log(reply_idx);
     const user: User = request.user;
     const replyRepository: Repository<Reply> = getRepository(Reply);
     const findReply = await replyRepository.findOne({
       where: { idx: reply_idx },
     });
 
-    if (!findReply) {
+    if (!findReply || !reply_idx) {
+      console.log("해당 답글이 존재하지 않습니다.");
       return handleResponse(response, 404, "해당 답글이 존재하지 않습니다.");
     }
 
