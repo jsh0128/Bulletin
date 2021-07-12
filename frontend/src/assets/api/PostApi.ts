@@ -9,7 +9,7 @@ import customAxios from "lib/CustomAxios";
 import { IGetPostResponse } from "util/types/PostResponse";
 
 const PostApi = {
-  getPosts: async (postIdx: GetPostPayload) => {
+  getPosts: async ({ postIdx }: GetPostPayload) => {
     const { data }: AxiosResponse<IGetPostResponse> = await customAxios.get(
       postIdx ? `/post/getPost?idx=${postIdx}` : `/post/getPost`
     );
