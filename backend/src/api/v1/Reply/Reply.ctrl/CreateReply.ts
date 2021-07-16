@@ -20,6 +20,7 @@ export default async (request: AuthRequest, response: Response) => {
     reply.fk_comment_idx = comment_idx;
     reply.fk_user_email = user.email;
     reply.name = user.name;
+    reply.profile_img = user.profile_img;
 
     reply.created_at = new Date();
     await replyRepository.save(reply);

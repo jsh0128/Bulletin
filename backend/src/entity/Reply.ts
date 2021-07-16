@@ -7,7 +7,6 @@ import {
   CreateDateColumn,
 } from "typeorm";
 import { Comment } from "./Comment";
-import { Post } from "./Post";
 import User from "./User";
 
 @Entity("reply")
@@ -37,4 +36,7 @@ export default class Reply {
 
   @Column()
   name: string;
+
+  @Column()
+  profile_img: string;
 }
