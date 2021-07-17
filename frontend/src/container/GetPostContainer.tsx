@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deletePostAsync, getPostAsync } from "store/actions/PostAction";
 import { RootState } from "store/reducers";
 import { PostState } from "store/types/PostType";
-
+import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
 import Router from "next/router";
@@ -68,7 +68,18 @@ const GetPostContainer = () => {
   );
 
   const onClickDeleteReply = useCallback((reply_idx: number) => {
-    dispatch(deleteReplyAsync.request({ reply_idx }));
+    Swal.fire({
+      title: "삭제하시겠습니까?",
+      text: "작성된 답글은 삭제됩니다.",
+      showCancelButton: true,
+      icon: "warning",
+      cancelButtonText: "취소",
+      confirmButtonText: "확인",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteReplyAsync.request({ reply_idx }));
+      }
+    });
   }, []);
 
   const handleReply = (
@@ -94,9 +105,20 @@ const GetPostContainer = () => {
 
   // 포스트 삭제 함수
   const onClickDelete = () => {
-    Router.push("/");
-    dispatch(getPostAsync.request({}));
-    dispatch(deletePostAsync.request({ post_idx: Number(query.idx) }));
+    Swal.fire({
+      title: "글을 삭제하시겠습니까?",
+      text: "작성된 댓글 및 답글은 모두 삭제됩니다.",
+      showCancelButton: true,
+      icon: "warning",
+      cancelButtonText: "취소",
+      confirmButtonText: "확인",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Router.push("/");
+        dispatch(getPostAsync.request({}));
+        dispatch(deletePostAsync.request({ post_idx: Number(query.idx) }));
+      }
+    });
   };
 
   const onClickModifyComment = (idx: number, content: string) => {
@@ -124,7 +146,18 @@ const GetPostContainer = () => {
   }, [comment, commentData]);
 
   const onClickDeleteComment = useCallback((comment_idx: number) => {
-    dispatch(deleteCommentAsync.request({ comment_idx: comment_idx }));
+    Swal.fire({
+      title: "댓글을 삭제하시겠습니까?",
+      text: "작성된 답글은 모두 삭제됩니다.",
+      showCancelButton: true,
+      icon: "warning",
+      cancelButtonText: "취소",
+      confirmButtonText: "확인",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteCommentAsync.request({ comment_idx: comment_idx }));
+      }
+    });
   }, []);
 
   const HandleComment = useCallback(
