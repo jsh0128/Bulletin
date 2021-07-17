@@ -1,8 +1,9 @@
 import { AxiosError } from "axios";
+import { IComment } from "util/types/CommentResponse";
 import { Response } from "util/types/Response";
 
 export interface ICommentState {
-  getCommentData: { data: CommentState[] | null };
+  getCommentData: { data: IComment[] | null };
   getCommentErr: AxiosError | null;
   createCommentData: Response | null;
   createCommentErr: AxiosError | null;

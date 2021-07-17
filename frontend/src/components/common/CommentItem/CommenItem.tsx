@@ -1,4 +1,3 @@
-import { CommentState } from "store/types/CommentType";
 import styled from "styled-components";
 import { Center } from "styles/theme";
 import { AiOutlineUser } from "react-icons/ai";
@@ -8,14 +7,22 @@ import { CustomImg, CustomInput } from "../Basic/Basic";
 import { useState } from "react";
 import { GiCancel } from "react-icons/gi";
 import { BsCapslock } from "react-icons/bs";
+import { IComment } from "util/types/CommentResponse";
+import ReplyItem from "../ReplyItem";
 
 interface CommentItemProps {
-  commentData: CommentState;
+  commentData: IComment;
   userEmail: string;
   HandleComment: (
     type: Update,
     changeName?: string,
     comment_idx?: number
+  ) => void;
+  handleReply: (
+    type: Update,
+    comment_idx?: number,
+    content?: string,
+    reply_idx?: number
   ) => void;
 }
 
@@ -23,93 +30,157 @@ const CommentItem = ({
   commentData,
   userEmail,
   HandleComment,
+  handleReply,
 }: CommentItemProps) => {
   const [onClickModify, setOnClickModify] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
+  const [replyValue, setReplyValue] = useState<string>("");
+  const [onClickReply, setOnClickReply] = useState<boolean>(false);
 
   return (
-    <CommentItemArea>
-      <ImgArea>
-        {commentData.user_profile_img ? (
-          <CustomImg
-            style={{ width: "3rem", height: "3rem", borderRadius: "4px" }}
-            src={commentData.user_profile_img}
-          />
-        ) : (
-          <Img />
-        )}
-      </ImgArea>
-      {!onClickModify ? (
-        <>
-          <Content>
-            <div>
-              <Name>{commentData.user_name}</Name>
-              <CreateAt>
-                {TimeCounting(commentData.created_at, { lang: "ko" })}
-              </CreateAt>
-            </div>
-            {onClickModify && (
-              <input
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-              />
-            )}
-            {!onClickModify && <span>{commentData.content}</span>}
-          </Content>
-          {commentData.user_email === userEmail && (
-            <CommentChangeBtnArea>
-              <CommentChangeBtn
-                onClick={() => {
-                  setOnClickModify(true);
-                  setInputValue(commentData.content);
-                }}
-              >
-                수정
-              </CommentChangeBtn>
-              <CommentChangeBtn
-                onClick={() => {
-                  HandleComment(Update.DELETE, null, commentData.idx);
-                }}
-              >
-                삭제
-              </CommentChangeBtn>
-            </CommentChangeBtnArea>
+    <CommentArea>
+      <CommentItemArea>
+        <ImgArea>
+          {commentData.user_profile_img ? (
+            <CustomImg
+              style={{ width: "3rem", height: "3rem", borderRadius: "4px" }}
+              src={commentData.user_profile_img}
+            />
+          ) : (
+            <Img />
           )}
-        </>
-      ) : (
-        <>
-          <CommentModifyInput
-            value={inputValue}
-            onChange={(e) => {
-              setInputValue(e.target.value);
-            }}
+        </ImgArea>
+        <div style={{ width: "100%" }}>
+          {!onClickModify ? (
+            <>
+              <Content>
+                <div>
+                  <Name>{commentData.user_name}</Name>
+                  <CreateAt>
+                    {TimeCounting(commentData.created_at, { lang: "ko" })}
+                  </CreateAt>
+                </div>
+                {onClickModify && (
+                  <input
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                  />
+                )}
+                {!onClickModify && <span>{commentData.content}</span>}
+                <ReplyBtn
+                  onClick={() => {
+                    setOnClickReply((prev) => !prev);
+                  }}
+                >
+                  <span>답글</span>
+                </ReplyBtn>
+              </Content>
+              {commentData.user_email === userEmail && (
+                <CommentChangeBtnArea>
+                  <CommentChangeBtn
+                    onClick={() => {
+                      setOnClickModify(true);
+                      setInputValue(commentData.content);
+                    }}
+                  >
+                    수정
+                  </CommentChangeBtn>
+                  <CommentChangeBtn
+                    onClick={() => {
+                      HandleComment(Update.DELETE, null, commentData.idx);
+                    }}
+                  >
+                    삭제
+                  </CommentChangeBtn>
+                </CommentChangeBtnArea>
+              )}
+            </>
+          ) : (
+            <>
+              <CommentModifyInput
+                value={inputValue}
+                onChange={(e) => {
+                  setInputValue(e.target.value);
+                }}
+              />
+              <UpdateButtonArea>
+                <CancelIcon
+                  onClick={() => {
+                    setOnClickModify(false);
+                    setInputValue("");
+                  }}
+                />
+                <SendIcon
+                  onClick={() => {
+                    HandleComment(Update.MODIFY, inputValue, commentData.idx);
+                    setInputValue("");
+                    setOnClickModify(false);
+                  }}
+                />
+              </UpdateButtonArea>
+            </>
+          )}
+          {onClickReply && (
+            <div style={{ position: "relative" }}>
+              <CommentModifyInput
+                value={replyValue}
+                onChange={(e) => {
+                  setReplyValue(e.target.value);
+                }}
+              />
+              <UpdateButtonArea>
+                <CancelIcon
+                  onClick={() => {
+                    setOnClickReply(false);
+                    setReplyValue("");
+                  }}
+                />
+                <SendIcon
+                  onClick={() => {
+                    handleReply(
+                      Update.CREATE,
+                      commentData.idx,
+                      replyValue,
+                      null
+                    );
+                    setReplyValue("");
+                    setOnClickReply(false);
+                  }}
+                />
+              </UpdateButtonArea>
+            </div>
+          )}
+        </div>
+      </CommentItemArea>
+      {commentData?.reply &&
+        commentData.reply.map((item, key) => (
+          <ReplyItem
+            key={key}
+            replyData={item}
+            userEmail={userEmail}
+            handleReply={handleReply}
           />
-          <UpdateButtonArea>
-            <CancelIcon
-              onClick={() => {
-                setOnClickModify(false);
-                setInputValue("");
-              }}
-            />
-            <SendIcon
-              onClick={() => {
-                HandleComment(Update.MODIFY, inputValue, commentData.idx);
-                setInputValue("");
-                setOnClickModify(false);
-              }}
-            />
-          </UpdateButtonArea>
-        </>
-      )}
-    </CommentItemArea>
+        ))}
+    </CommentArea>
   );
 };
+
+const ReplyBtn = styled.div`
+  margin-top: 5px;
+  color: #b9b9b9;
+  font-size: 0.85rem;
+  cursor: pointer;
+`;
 
 const CommentItemArea = styled.div`
   position: relative;
   display: flex;
   margin-top: 1rem;
-  align-items: center;
+`;
+
+const CommentArea = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const UpdateButtonArea = styled.div`

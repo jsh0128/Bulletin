@@ -18,6 +18,12 @@ import {
 import { CommentState } from "store/types/CommentType";
 import Update from "util/enums/Update";
 import Loading from "components/common/Loading/Loading";
+import { IComment } from "util/types/CommentResponse";
+import {
+  createReplyAsync,
+  deleteReplyAsync,
+  modifyReplyAsync,
+} from "store/actions/ReplyAction";
 
 const GetPostContainer = () => {
   const { query } = useRouter();
@@ -25,7 +31,7 @@ const GetPostContainer = () => {
 
   const [postData, setPostData] = useState<PostState>();
   const [comment, setComment] = useState<string>("");
-  const [commentData, setCommentData] = useState<CommentState[]>();
+  const [commentData, setCommentData] = useState<IComment[]>();
 
   const { data } = useSelector((state: RootState) => state.postReducer);
   const { userData } = useSelector((state: RootState) => state.userReducer);
@@ -35,6 +41,49 @@ const GetPostContainer = () => {
     createCommentData,
     deleteCommentData,
   } = useSelector((state: RootState) => state.commentReducer);
+
+  const { createReplyData, modifyReplyData, deleteReplyData } = useSelector(
+    (state: RootState) => state.replyReducer
+  );
+
+  const onClickCreateReply = useCallback(
+    (comment_idx: number, content: string) => {
+      dispatch(createReplyAsync.request({ comment_idx, content }));
+    },
+    []
+  );
+
+  const onClickModifyReply = useCallback(
+    (reply_idx: number, content: string) => {
+      dispatch(modifyReplyAsync.request({ reply_idx, content }));
+    },
+    []
+  );
+
+  const onClickDeleteReply = useCallback((reply_idx: number) => {
+    dispatch(deleteReplyAsync.request({ reply_idx }));
+  }, []);
+
+  const handleReply = (
+    type: Update,
+    comment_idx: number,
+    content?: string,
+    reply_idx?: number
+  ) => {
+    switch (type) {
+      case Update.CREATE:
+        onClickCreateReply(comment_idx, content);
+        return;
+      case Update.MODIFY:
+        onClickModifyReply(reply_idx, content);
+        return;
+      case Update.DELETE:
+        onClickDeleteReply(reply_idx);
+        return;
+      default:
+        return;
+    }
+  };
 
   // 포스트 삭제 함수
   const onClickDelete = () => {
@@ -72,13 +121,13 @@ const GetPostContainer = () => {
   }, []);
 
   const HandleComment = useCallback(
-    (type: string, changeName?: string, comment_idx?: number) => {
+    (type: string, content?: string, comment_idx?: number) => {
       switch (type) {
         case Update.CREATE:
           onClickCreateComment();
           return;
         case Update.MODIFY:
-          onClickModifyComment(comment_idx, changeName);
+          onClickModifyComment(comment_idx, content);
           return;
         case Update.DELETE:
           onClickDeleteComment(comment_idx);
@@ -110,11 +159,21 @@ const GetPostContainer = () => {
     if (
       (createCommentData && createCommentData?.status === 200) ||
       (modifyCommentData && modifyCommentData?.status === 200) ||
-      (deleteCommentData && deleteCommentData?.status === 200)
+      (deleteCommentData && deleteCommentData?.status === 200) ||
+      (createReplyData && createReplyData?.status === 200) ||
+      (modifyReplyData && modifyReplyData?.status === 200) ||
+      (deleteReplyData && deleteReplyData?.status === 200)
     ) {
       dispatch(getCommentAsync.request({ post_idx: Number(query.idx) }));
     }
-  }, [createCommentData, modifyCommentData, deleteCommentData]);
+  }, [
+    createCommentData,
+    modifyCommentData,
+    deleteCommentData,
+    createReplyData,
+    modifyReplyData,
+    deleteReplyData,
+  ]);
 
   return (
     <>
@@ -128,6 +187,7 @@ const GetPostContainer = () => {
           comment={comment}
           setComment={setComment}
           HandleComment={HandleComment}
+          handleReply={handleReply}
         />
       ) : (
         <Loading />

@@ -5,6 +5,7 @@ export interface IReply {
   fk_comment_idx: number;
   fk_user_email: string;
   name: string;
+  profile_img: string;
 }
 
 export interface IComment {
@@ -13,6 +14,7 @@ export interface IComment {
   user_email: string;
   user_name: string;
   user_profile_img: string;
+  created_at: string;
   reply: IReply[];
 }
 

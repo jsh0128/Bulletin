@@ -3,23 +3,29 @@ import { PostState } from "store/types/PostType";
 import MDEditor from "@uiw/react-md-editor";
 import styled from "styled-components";
 import { CustomButton } from "components/common/Basic/Basic";
-import { CommentState } from "store/types/CommentType";
 import CommentItem from "components/common/CommentItem";
 import Update from "util/enums/Update";
 import Link from "next/link";
+import { IComment } from "util/types/CommentResponse";
 
 interface GetPostProps {
   data: PostState;
   userData: boolean | null;
   userEmail: string;
   onClickDelete: () => void;
-  commentData: CommentState[];
+  commentData: IComment[];
   comment: string;
   setComment: React.Dispatch<React.SetStateAction<string>>;
   HandleComment: (
     type: Update,
     changeName?: string,
     comment_idx?: number
+  ) => void;
+  handleReply: (
+    type: Update,
+    comment_idx?: number,
+    content?: string,
+    reply_idx?: number
   ) => void;
 }
 
@@ -32,6 +38,7 @@ const GetPost = ({
   setComment,
   HandleComment,
   userEmail,
+  handleReply,
 }: GetPostProps) => {
   return (
     <PostArea userData={userData}>
@@ -61,7 +68,8 @@ const GetPost = ({
                 userEmail={userEmail && userEmail}
                 HandleComment={HandleComment}
                 commentData={item}
-              ></CommentItem>
+                handleReply={handleReply}
+              />
             ))}
         </CommentArea>
       </Center>
