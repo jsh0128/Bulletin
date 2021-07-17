@@ -14,7 +14,7 @@ const ErrorHandling = () => {
     changeInfoErr,
     changeInfoData,
   } = useSelector((state: RootState) => state.userReducer);
-  const { uploadData, uploadDataErr } = useSelector(
+  const { uploadDataErr } = useSelector(
     (state: RootState) => state.UploadReducer
   );
   const {
@@ -46,9 +46,9 @@ const ErrorHandling = () => {
     modifyPostErr,
   } = useSelector((state: RootState) => state.postReducer);
 
-  useEffect(() => {
-    if (uploadData) toast.success("이미지 업로드 성공");
-  }, [uploadData]);
+  const { createReplyErr, deleteReplyErr, modifyReplyErr } = useSelector(
+    (state: RootState) => state.replyReducer
+  );
 
   useEffect(() => {
     if (changeInfoData) toast.success("회원정보 변경 성공");
@@ -115,6 +115,51 @@ const ErrorHandling = () => {
       }
     }
   }, [createPostErr]);
+
+  useEffect(() => {
+    if (createPostErr) {
+      switch (createPostErr.response?.status) {
+        case 403:
+          toast.error("내용이 존재하지 않습니다");
+          break;
+        default:
+          toast.error("서버 오류");
+          break;
+      }
+    }
+  }, [createReplyErr]);
+
+  useEffect(() => {
+    if (createPostErr) {
+      switch (createPostErr.response?.status) {
+        case 403:
+          toast.error("글을 작성한 유저가 아닙니다.");
+          break;
+        case 404:
+          toast.error("해당 답글이 존재하지 않습니다");
+          break;
+        default:
+          toast.error("서버 오류");
+          break;
+      }
+    }
+  }, [deleteReplyErr]);
+
+  useEffect(() => {
+    if (createPostErr) {
+      switch (createPostErr.response?.status) {
+        case 403:
+          toast.error("내용을 입력해 주세요");
+          break;
+        case 404:
+          toast.error("해당 답글이 존재하지 않습니다");
+          break;
+        default:
+          toast.error("서버 오류");
+          break;
+      }
+    }
+  }, [modifyReplyErr]);
 
   useEffect(() => {
     if (loginErr) {

@@ -72,7 +72,7 @@ const CommentItem = ({
                     setOnClickReply((prev) => !prev);
                   }}
                 >
-                  <span>답글</span>
+                  <CommentChangeBtn>답글</CommentChangeBtn>
                 </ReplyBtn>
               </Content>
               {commentData.user_email === userEmail && (
@@ -175,12 +175,13 @@ const ReplyBtn = styled.div`
 const CommentItemArea = styled.div`
   position: relative;
   display: flex;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 `;
 
 const CommentArea = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 1rem;
 `;
 
 const UpdateButtonArea = styled.div`

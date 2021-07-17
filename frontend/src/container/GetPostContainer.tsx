@@ -15,7 +15,6 @@ import {
   getCommentAsync,
   modifyCommentAsync,
 } from "store/actions/CommentActions";
-import { CommentState } from "store/types/CommentType";
 import Update from "util/enums/Update";
 import Loading from "components/common/Loading/Loading";
 import { IComment } from "util/types/CommentResponse";
@@ -48,14 +47,22 @@ const GetPostContainer = () => {
 
   const onClickCreateReply = useCallback(
     (comment_idx: number, content: string) => {
-      dispatch(createReplyAsync.request({ comment_idx, content }));
+      if (!content) {
+        toast.warning("내용을 입력해주세요");
+      } else {
+        dispatch(createReplyAsync.request({ comment_idx, content }));
+      }
     },
     []
   );
 
   const onClickModifyReply = useCallback(
     (reply_idx: number, content: string) => {
-      dispatch(modifyReplyAsync.request({ reply_idx, content }));
+      if (!content) {
+        toast.warning("내용을 입력해주세요");
+      } else {
+        dispatch(modifyReplyAsync.request({ reply_idx, content }));
+      }
     },
     []
   );
@@ -66,7 +73,7 @@ const GetPostContainer = () => {
 
   const handleReply = (
     type: Update,
-    comment_idx: number,
+    comment_idx?: number,
     content?: string,
     reply_idx?: number
   ) => {
