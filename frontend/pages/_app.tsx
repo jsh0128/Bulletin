@@ -27,7 +27,6 @@ function App({ Component, pageProps }: AppProps) {
 }
 
 App.getInitialProps = async ({ Component, ctx }: AppContext): Promise<any> => {
-  const { store } = ctx;
   let pageProps = {};
 
   if (Component.getInitialProps) {

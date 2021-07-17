@@ -1,6 +1,7 @@
 import { createAsyncAction } from "typesafe-actions";
 import { AxiosError } from "axios";
 import { Response } from "util/types/Response";
+import { IGetCommentResponse } from "util/types/CommentResponse";
 
 export const GET_COMMENT = "comment/GET_COMMENT" as const;
 export const GET_COMMENT_SUCCESS = "comment/GET_COMMENT_SUCCESS" as const;
@@ -10,16 +11,7 @@ export const getCommentAsync = createAsyncAction(
   GET_COMMENT,
   GET_COMMENT_SUCCESS,
   GET_COMMENT_FAILURE
-)<
-  { post_idx: number },
-  {
-    content: string;
-    user_email: string;
-    user_name: string;
-    user_profile_img: string;
-  },
-  AxiosError
->();
+)<{ post_idx: number }, IGetCommentResponse, AxiosError>();
 
 export const CREATE_COMMENT = "comment/CREATE_COMMENT" as const;
 export const CREATE_COMMENT_SUCCESS = "comment/CREATE_COMMENT_SUCCESS" as const;

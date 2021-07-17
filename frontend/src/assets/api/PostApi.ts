@@ -16,21 +16,7 @@ const PostApi = {
 
     return { res: data?.data };
   },
-  createPosts: async ({
-    title,
-    content,
-    introduction,
-    categories,
-    preview_img,
-  }: CreatePostPayload) => {
-    const body = {
-      title,
-      content,
-      introduction,
-      categories,
-      preview_img,
-    };
-
+  createPosts: async (body: CreatePostPayload) => {
     const { data }: AxiosResponse<any> = await customAxios.post(
       `/post/create`,
       body
@@ -38,27 +24,14 @@ const PostApi = {
 
     return data;
   },
-  modifyPosts: async ({
-    title,
-    content,
-    post_idx,
-    categories,
-  }: ModifyPostPayload) => {
-    const body = {
-      title: title,
-      content: content,
-      categories: categories,
-      post_idx: post_idx,
-    };
+  modifyPosts: async (body: ModifyPostPayload) => {
     const { data }: AxiosResponse<any> = await customAxios.post(
       `/post/modify`,
       body
     );
     return data;
   },
-  deletePosts: async ({ post_idx }: DeletePostPayload) => {
-    const body = { post_idx };
-
+  deletePosts: async (body: DeletePostPayload) => {
     const { data }: AxiosResponse<any> = await customAxios.post(
       `/post/delete`,
       body

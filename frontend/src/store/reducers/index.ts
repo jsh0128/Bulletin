@@ -12,6 +12,8 @@ import { IHydrateState } from "store/types/HydrateType";
 import { commentReducer } from "store/reducers/CommentReducer";
 import { ICommentState } from "store/types/CommentType";
 import { IUploadState } from "store/types/UploadType";
+import { replyReducer } from "./ReplyReducer";
+import { IReplyState } from "store/types/ReplyType";
 
 const rootReducer = (
   state: IState,
@@ -35,6 +37,7 @@ const rootReducer = (
         commentReducer,
         UploadReducer,
         CategoryReducer,
+        replyReducer,
       });
       return combineReducer(state, action);
     }
@@ -52,4 +55,5 @@ export interface IState {
   commentReducer: ICommentState;
   UploadReducer: IUploadState;
   CategoryReducer: ICategoryReducer;
+  replyReducer: IReplyState;
 }

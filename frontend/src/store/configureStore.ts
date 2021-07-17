@@ -1,68 +1,37 @@
-import { createStore, applyMiddleware, Store, AnyAction } from "redux";
-import createSagaMiddleware, { END } from "redux-saga";
+// import { createStore, applyMiddleware } from "redux";
+// import createSagaMiddleware from "redux-saga";
 
-import rootReducer, { IState } from "./reducers";
+import rootReducer from "./reducers";
 import rootSaga from "./sagas";
 
 import { composeWithDevTools } from "redux-devtools-extension";
-import { createWrapper } from "next-redux-wrapper";
 
-export const configureStore = () => {
+import { applyMiddleware, createStore, Middleware, StoreEnhancer } from "redux";
+import { createWrapper, MakeStore } from "next-redux-wrapper";
+import createSagaMiddleware from "redux-saga";
+
+export const makeStore: MakeStore = () => {
   const sagaMiddleware = createSagaMiddleware();
   const middleware = [sagaMiddleware];
   const enhancer = composeWithDevTools(applyMiddleware(...middleware));
   const store: any = createStore(rootReducer, enhancer);
+
   store.sagaTask = sagaMiddleware.run(rootSaga);
+
   return store;
 };
 
-const wrapper = createWrapper(configureStore);
+export const wrapper = createWrapper(makeStore, { debug: false });
 
-export default wrapper;
-
-// const makeStore = (initialState) => {
+// export const configureStore = () => {
 //   const sagaMiddleware = createSagaMiddleware();
 //   const middleware = [sagaMiddleware];
 //   const enhancer = composeWithDevTools(applyMiddleware(...middleware));
-//   // Make exception for redux dev tools
-//   /* eslint-disable no-underscore-dangle */
-//   /* eslint-disable no-undef */
-//   /* eslint-enable */
-//   const store = createStore(rootReducer, initialState, enhancer) as Test;
-
-//   store.runSaga = () => {
-//     // Avoid running twice
-//     if (store.saga) return;
-//     store.saga = sagaMiddleware.run(rootSaga);
-//   };
-
-//   store.stopSaga = async () => {
-//     // Avoid running twice
-//     if (!store.saga) return;
-//     store.dispatch(END);
-//     await store.saga.done;
-//     store.saga = null;
-//   };
-
-//   store.execSagaTasks = async (isServer, tasks) => {
-//     // run saga
-//     store.runSaga();
-//     // dispatch saga tasks
-//     tasks(store.dispatch);
-//     // Stop running and wait for the tasks to be done
-//     await store.stopSaga();
-//     // Re-run on client side
-//     if (!isServer) {
-//       store.runSaga();
-//     }
-//   };
-
-//   // Initial run
-//   store.runSaga();
-
+//   const store: any = createStore(rootReducer, enhancer);
+//   store.sagaTask = sagaMiddleware.run(rootSaga);
 //   return store;
 // };
 
-// const wrapper = createWrapper(makeStore);
+// const wrapper = createWrapper(configureStore);
 
-// export default wrapper;
+export default wrapper;
