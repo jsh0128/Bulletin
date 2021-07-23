@@ -37,6 +37,6 @@ export default class Reply {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   profile_img: string;
 }
