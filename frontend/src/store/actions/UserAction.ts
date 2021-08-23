@@ -6,15 +6,12 @@ import {
 } from "assets/types/AuthPayLoadTypes";
 import { AxiosError } from "axios";
 import { createAsyncAction } from "typesafe-actions";
-import {
-  IGetInfoResponse,
-  ILoginResponse,
-  Response,
-} from "util/types/Response";
+import { IGetInfoResponse, Response } from "util/types/Response";
 
 export const LOGIN = "user/LOGIN" as const;
 export const LOGIN_SUCCESS = "user/LOGIN_SUCCESS" as const;
 export const LOGIN_FAILURE = "user/LOGIN_FAILURE" as const;
+export const LOGOUT = "user/LOGOUT" as const;
 
 export const loginAsync = createAsyncAction(
   LOGIN,

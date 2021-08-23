@@ -5,9 +5,8 @@ import {
   LoginPayload,
   RegisterPayload,
 } from "assets/types/AuthPayLoadTypes";
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { IGetInfoResponse, ILoginResponse } from "util/types/Response";
-import { SERVER } from "../../config/config.json";
 import { Response } from "util/types/Response";
 import customAxios from "lib/CustomAxios";
 import { sha512 } from "js-sha512";
@@ -47,10 +46,7 @@ const AuthApi = {
 
     return data;
   },
-  certMail: async ({ email }: CertMailPayload) => {
-    const body = {
-      email,
-    };
+  certMail: async (body: CertMailPayload) => {
     const { data }: AxiosResponse<Response> = await customAxios.post(
       `/auth/emailCode`,
       body

@@ -4,6 +4,7 @@ import {
   LOGIN,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
+  LOGOUT,
   REGISTER,
   REGISTER_FAILURE,
   REGISTER_SUCCESS,
@@ -41,6 +42,12 @@ export const userReducer = createReducer<IUserState>(userInitialState, {
     ...state,
     token: null,
     loginErr: null,
+  }),
+  [LOGOUT]: (state, action) => ({
+    ...state,
+    userData: null,
+    userError: null,
+    loginCheck: false,
   }),
   [LOGIN_SUCCESS]: (state, action) => ({
     ...state,

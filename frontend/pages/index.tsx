@@ -1,8 +1,10 @@
 import MainContainer from "container/MainContainer";
-import { getPostAsync, GET_POST_SUCCESS } from "store/actions/PostAction";
+import { getPostAsync } from "store/actions/PostAction";
 import Head from "next/head";
+import { NextPage } from "next";
+import wrapper from "store/configureStore";
 
-const Home = () => {
+const Home: NextPage = () => {
   return (
     <>
       <Head>
@@ -29,10 +31,12 @@ const Home = () => {
   );
 };
 
-Home.getInitialProps = async (ctx) => {
-  const { store } = ctx;
-  store.dispatch(getPostAsync.request({}));
+export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
+  const { dispatch } = ctx.store;
+
+  dispatch(getPostAsync.request({}));
+
   return;
-};
+});
 
 export default Home;
