@@ -15,39 +15,6 @@ import { IUploadState } from "store/types/UploadType";
 import { replyReducer } from "./ReplyReducer";
 import { IReplyState } from "store/types/ReplyType";
 
-const rootReducer = (
-  state: IState,
-  action: AnyAction
-): CombinedState<IState> => {
-  switch (action.type) {
-    case HYDRATE:
-      if (state.HydrateReducer.isRendered) {
-        return { ...state };
-      }
-      return {
-        ...state,
-        ...action.payload,
-        HydrateReducer: { isRendered: true },
-      };
-    default: {
-      const combineReducer = combineReducers({
-        HydrateReducer,
-        userReducer,
-        postReducer,
-        commentReducer,
-        UploadReducer,
-        CategoryReducer,
-        replyReducer,
-      });
-      return combineReducer(state, action);
-    }
-  }
-};
-
-export default rootReducer;
-
-export type RootState = ReturnType<typeof rootReducer>;
-
 export interface IState {
   HydrateReducer: IHydrateState;
   userReducer: IUserState;
@@ -57,3 +24,37 @@ export interface IState {
   CategoryReducer: ICategoryReducer;
   replyReducer: IReplyState;
 }
+
+const combinedReducer = combineReducers({
+  HydrateReducer,
+  userReducer,
+  postReducer,
+  commentReducer,
+  UploadReducer,
+  CategoryReducer,
+  replyReducer,
+});
+
+const rootReducer = (
+  state: IState,
+  action: AnyAction
+): CombinedState<IState> => {
+  switch (action.type) {
+    case HYDRATE:
+      if (state.HydrateReducer.isRendered) {
+        return action.payload;
+      }
+      return {
+        ...state,
+        ...action.payload,
+        HydrateReducer: { isRendered: true },
+      };
+    default: {
+      return combinedReducer(state, action);
+    }
+  }
+};
+
+export default rootReducer;
+
+export type RootState = ReturnType<typeof rootReducer>;

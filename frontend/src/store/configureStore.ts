@@ -10,11 +10,11 @@ import { applyMiddleware, createStore, Middleware, StoreEnhancer } from "redux";
 import { createWrapper, MakeStore } from "next-redux-wrapper";
 import createSagaMiddleware from "redux-saga";
 
-export const makeStore: MakeStore = () => {
+export const makeStore = () => {
   const sagaMiddleware = createSagaMiddleware();
   const middleware = [sagaMiddleware];
   const enhancer = composeWithDevTools(applyMiddleware(...middleware));
-  const store: any = createStore(rootReducer, enhancer);
+  const store = createStore(rootReducer, enhancer);
 
   store.sagaTask = sagaMiddleware.run(rootSaga);
 

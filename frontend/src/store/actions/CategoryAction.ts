@@ -1,6 +1,5 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { createAsyncAction } from "typesafe-actions";
-import { IGetCategoryResponse } from "util/types/CategoryResponse";
 import { IGetPost } from "util/types/PostResponse";
 import { Response } from "util/types/Response";
 
