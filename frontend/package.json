@@ -20,7 +20,7 @@
     "@uiw/react-md-editor": "^3.3.6",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "babel-plugin-styled-components": "^1.12.0",
     "js-sha512": "^0.8.0",
     "next": "^11.1.0",
