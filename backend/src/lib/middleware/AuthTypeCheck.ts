@@ -21,7 +21,7 @@ export const validateAdmin = async (
     request.user = user;
     next();
   } catch (err) {
-    console.log("User Error1   " + err);
+    console.log("User Error   " + err);
     handleResponse(response, 500, "서버 에러입니다");
   }
 };
@@ -35,7 +35,7 @@ export const validateUser = async (
     request.user = user;
     next();
   } catch (err) {
-    console.log("User Error2   " + err);
+    console.log("User Error   " + err);
     handleResponse(response, 500, "서버 에러입니다");
   }
 };
