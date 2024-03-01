@@ -1,9 +1,12 @@
 import { QueryClient } from "@tanstack/query-core";
 import { QueryClientProvider, Hydrate } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { GlobalStyle, theme } from "common/style/GlobalStyle";
+import DefaultTemplate from "components/common/DefaultTemplate";
 import { NextComponentType, NextPageContext } from "next";
 import { AppProps } from "next/dist/pages/_app";
 import React, { useState } from "react";
+import { ThemeProvider } from "styled-components";
 
 type PageProps = {
   [key: string]: unknown;
@@ -29,9 +32,14 @@ const MyApp = ({ pageProps, Component }: AppProps) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <Component {...pageProps} />
-      </Hydrate>
+      <ThemeProvider theme={theme}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <GlobalStyle />
+          <DefaultTemplate>
+            <Component {...pageProps} />
+          </DefaultTemplate>
+        </Hydrate>
+      </ThemeProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>
   );

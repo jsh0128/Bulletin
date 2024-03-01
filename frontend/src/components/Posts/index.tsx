@@ -8,7 +8,13 @@ const Posts = () => {
 
   return (
     <Container>
-      {posts.map((post) => (
+      {posts?.map((post) => (
+        <PostItem key={post.idx} post={post} />
+      ))}
+      {posts?.map((post) => (
+        <PostItem key={post.idx} post={post} />
+      ))}
+      {posts?.map((post) => (
         <PostItem key={post.idx} post={post} />
       ))}
     </Container>
@@ -17,6 +23,16 @@ const Posts = () => {
 
 const Container = styled.div`
   display: grid;
+  gap: 20px;
+  padding: 10px 20px;
+  height: 100%;
+  ${({ theme }) => theme.device.tablet} {
+    grid-template-columns: 1fr 1fr;
+  }
+  ${({ theme }) => theme.device.mobile} {
+    grid-template-columns: 1fr;
+  }
+  grid-template-columns: 1fr 1fr 1fr;
 `;
 
 export default Posts;
