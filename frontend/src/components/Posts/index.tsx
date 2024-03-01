@@ -11,12 +11,6 @@ const Posts = () => {
       {posts?.map((post) => (
         <PostItem key={post.idx} post={post} />
       ))}
-      {posts?.map((post) => (
-        <PostItem key={post.idx} post={post} />
-      ))}
-      {posts?.map((post) => (
-        <PostItem key={post.idx} post={post} />
-      ))}
     </Container>
   );
 };

@@ -11,7 +11,7 @@ interface Props {
 
 const PostItem = ({ post }: Props) => {
   return (
-    <Container href="">
+    <Container href={`/post/${post.idx}`}>
       <article>
         <div className="img_container">
           <Image
