@@ -7,6 +7,7 @@ import { NextComponentType, NextPageContext } from "next";
 import { AppProps } from "next/dist/pages/_app";
 import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
+import { CookiesProvider } from "react-cookie";
 
 type PageProps = {
   [key: string]: unknown;
@@ -31,17 +32,19 @@ const MyApp = ({ pageProps, Component }: AppProps) => {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <GlobalStyle />
-          <DefaultTemplate>
-            <Component {...pageProps} />
-          </DefaultTemplate>
-        </Hydrate>
-      </ThemeProvider>
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+    <CookiesProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <GlobalStyle />
+            <DefaultTemplate>
+              <Component {...pageProps} />
+            </DefaultTemplate>
+          </Hydrate>
+        </ThemeProvider>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </CookiesProvider>
   );
 };
 
