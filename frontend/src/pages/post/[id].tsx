@@ -1,8 +1,11 @@
 import { dehydrate, QueryClient } from "@tanstack/react-query";
+import PostDetail from "components/Posts/PostDetail";
 import PostDetailApi from "components/Posts/PostDetail/api/PostDetailApi";
 import { GetServerSideProps } from "next";
 
-const PostDetailPage = () => {};
+const PostDetailPage = () => {
+  return <PostDetail />;
+};
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = ctx.query;

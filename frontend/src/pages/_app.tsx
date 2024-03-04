@@ -2,7 +2,6 @@ import {
   QueryClientProvider,
   Hydrate,
   QueryClient,
-  dehydrate,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { GlobalStyle, theme } from "common/style/GlobalStyle";
@@ -12,7 +11,6 @@ import { AppProps } from "next/dist/pages/_app";
 import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { CookiesProvider } from "react-cookie";
-import AuthApi from "components/Login/api/AuthApi";
 import { IncomingMessage } from "http";
 
 type PageProps = {
@@ -65,12 +63,6 @@ const MyApp = ({ pageProps, Component }: AppProps) => {
 MyApp.getInitialProps = async ({ Component, ctx }: IGetInitialProps) => {
   let pageProps: PageProps = { isWithoutMui: false };
 
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery(["meInfo"], () =>
-    AuthApi.getMeInfo(ctx.req.cookies.token)
-  );
-
   if (typeof Component.getInitialProps === "function") {
     pageProps = await Component.getInitialProps(ctx);
   }
@@ -81,9 +73,6 @@ MyApp.getInitialProps = async ({ Component, ctx }: IGetInitialProps) => {
 
   return {
     pageProps,
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
   };
 };
 

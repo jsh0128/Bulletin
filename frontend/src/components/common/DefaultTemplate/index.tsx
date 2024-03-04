@@ -1,7 +1,8 @@
 import { Center } from "common/style";
 import { ReactNode } from "react";
 import styled from "styled-components";
-import Header from "../Header";
+import SideBar from "./SideBar";
+import Header from "./Header";
 
 interface Props {
   children: ReactNode;
@@ -12,7 +13,10 @@ const DefaultTemplate = ({ children }: Props) => {
     <>
       <Header />
       <Center>
-        <Container>{children}</Container>
+        <Container>
+          {children}
+          <SideBar />
+        </Container>
       </Center>
     </>
   );
@@ -20,9 +24,10 @@ const DefaultTemplate = ({ children }: Props) => {
 
 const Container = styled.div`
   display: flex;
-  align-items: center;
+  justify-content: space-between;
   max-width: 1200px;
   width: 100%;
+  padding: 10px 0;
 `;
 
 export default DefaultTemplate;

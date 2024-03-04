@@ -1,9 +1,28 @@
+import { useCategoryApi } from "components/common/DefaultTemplate/SideBar/api/useCategoryApi";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { usePostApi } from "./api/usePostApi";
 import PostItem from "./PostItem";
 
 const Posts = () => {
-  const { data: posts } = usePostApi();
+  const selected = useSearchParams().get("category");
+
+  const [categoryIdx, setCategoryIdx] = useState<number>();
+
+  const { data: categories } = useCategoryApi();
+
+  const { data: posts } = usePostApi(categoryIdx);
+
+  useEffect(() => {
+    const selectedCategory = categories?.find(
+      (category) => category.category === selected
+    );
+
+    selectedCategory
+      ? setCategoryIdx(selectedCategory.idx)
+      : setCategoryIdx(undefined);
+  }, [selected]);
 
   return (
     <Container>
