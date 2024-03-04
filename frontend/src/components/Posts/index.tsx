@@ -1,10 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
-import PostApi from "./api/PostApi";
+import { usePostApi } from "./api/usePostApi";
 import PostItem from "./PostItem";
 
 const Posts = () => {
-  const { data: posts } = useQuery(["posts"], PostApi.getPosts);
+  const { data: posts } = usePostApi();
 
   return (
     <Container>

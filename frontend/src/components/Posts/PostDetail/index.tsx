@@ -1,16 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/router";
+import useCustomRouter from "common/hooks/useCustomRouter";
 import styled from "styled-components";
-import PostDetailApi from "./api/PostDetailApi";
+import { usePostDetailApi } from "./api/usePostDetailApi";
 
 const PostDetail = () => {
   const {
     query: { id },
-  } = useRouter();
+  } = useCustomRouter<{ id: string }>();
 
-  const {} = useQuery(["post", id], () =>
-    PostDetailApi.getPostDetail(Number(id))
-  );
+  const {} = usePostDetailApi(id);
 
   return <Container></Container>;
 };

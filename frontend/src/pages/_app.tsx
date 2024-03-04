@@ -1,5 +1,9 @@
-import { QueryClient } from "@tanstack/query-core";
-import { QueryClientProvider, Hydrate } from "@tanstack/react-query";
+import {
+  QueryClientProvider,
+  Hydrate,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { GlobalStyle, theme } from "common/style/GlobalStyle";
 import DefaultTemplate from "components/common/DefaultTemplate";
@@ -8,15 +12,25 @@ import { AppProps } from "next/dist/pages/_app";
 import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { CookiesProvider } from "react-cookie";
+import AuthApi from "components/Login/api/AuthApi";
+import { IncomingMessage } from "http";
 
 type PageProps = {
   [key: string]: unknown;
   isWithoutMui: boolean;
 };
 
+interface ICustomNextPageContext extends NextPageContext {
+  req: IncomingMessage & {
+    cookies: {
+      token: string;
+    };
+  };
+}
+
 interface IGetInitialProps {
   Component: NextComponentType<NextPageContext, PageProps>;
-  ctx: NextPageContext;
+  ctx: ICustomNextPageContext;
 }
 
 const MyApp = ({ pageProps, Component }: AppProps) => {
@@ -51,6 +65,12 @@ const MyApp = ({ pageProps, Component }: AppProps) => {
 MyApp.getInitialProps = async ({ Component, ctx }: IGetInitialProps) => {
   let pageProps: PageProps = { isWithoutMui: false };
 
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(["meInfo"], () =>
+    AuthApi.getMeInfo(ctx.req.cookies.token)
+  );
+
   if (typeof Component.getInitialProps === "function") {
     pageProps = await Component.getInitialProps(ctx);
   }
@@ -59,7 +79,12 @@ MyApp.getInitialProps = async ({ Component, ctx }: IGetInitialProps) => {
     ...pageProps,
   };
 
-  return { pageProps };
+  return {
+    pageProps,
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 };
 
 export default MyApp;

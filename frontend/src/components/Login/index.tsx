@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import qs from "qs";
 import Router from "next/router";
 import styled from "styled-components";
@@ -7,13 +7,17 @@ import AuthApi from "./api/AuthApi";
 import { useCookies } from "react-cookie";
 
 const GithubAuthContainer = () => {
-  const [token, setToken] = useCookies(["token"]);
+  const [_, setToken] = useCookies(["token"]);
 
   const { mutate } = useMutation(AuthApi.getToken, {
     onSuccess: ({ data }) => {
-      setToken("token", data.data);
+      setToken("token", data, {
+        path: "/",
+      });
     },
-    onError: () => {},
+    onError: (err) => {
+      console.log(err);
+    },
   });
 
   useEffect(() => {

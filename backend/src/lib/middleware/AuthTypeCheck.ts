@@ -41,6 +41,7 @@ export const validateUser = async (
 };
 export const validateAuth = async (request: Request) => {
   const access_token = request.headers["authorization"];
+  console.log(request.headers);
   if (!access_token) {
     handleResponse(response, 404, "토큰을 찾을 수 없습니다");
     return;
