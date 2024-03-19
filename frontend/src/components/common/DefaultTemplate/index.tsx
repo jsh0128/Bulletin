@@ -28,6 +28,7 @@ const Container = styled.div`
   max-width: 1200px;
   width: 100%;
   padding: 10px 0;
+  height: 100%;
 `;
 
 export default DefaultTemplate;

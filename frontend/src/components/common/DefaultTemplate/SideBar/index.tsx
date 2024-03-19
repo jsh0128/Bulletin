@@ -8,20 +8,24 @@ const SideBar = () => {
   const { data } = useCategoryApi();
 
   return (
-    <div>
-      <Container>
+    <Container>
+      <div className="category">
         {data?.map((category) => (
           <CategoryItem key={category.idx} {...category} />
         ))}
-      </Container>
-    </div>
+      </div>
+    </Container>
   );
 };
 
 const Container = styled.div`
+  .category {
+    top: 60px;
+    border-left: 1px solid black;
+    padding: 5px;
+    position: sticky;
+  }
   width: 200px;
-  border-left: 1px solid black;
-  padding: 5px;
 `;
 
 export default SideBar;

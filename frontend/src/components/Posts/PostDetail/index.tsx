@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { usePostDetailApi } from "./api/usePostDetailApi";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import Comments from "./Comments";
 
 const PostDetail = () => {
   const {
@@ -19,8 +20,12 @@ const PostDetail = () => {
 
   return (
     <Container>
-      <h1>{title}</h1>
-      <span>{dayjs(created_at).format("YYYY-MM-DD")}</span>
+      <header className="title">
+        <h1>{title}</h1>
+        <span className="title-time">
+          {dayjs(created_at).format("YYYY-MM-DD")}
+        </span>
+      </header>
       <div className="img_container">
         <Image
           alt={`${title}_썸네일`}
@@ -53,6 +58,8 @@ const PostDetail = () => {
           }}
         />
       </article>
+
+      <Comments />
     </Container>
   );
 };
@@ -63,8 +70,18 @@ const Container = styled.div`
   flex-direction: column;
   padding: 10px 20px 0 20px;
 
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &-time {
+      color: #5e5e5e;
+    }
+  }
+
   .img_container {
     overflow: hidden;
+    margin-top: 10px;
     img {
       max-height: 500px;
       width: 100%;
@@ -74,6 +91,9 @@ const Container = styled.div`
   }
   .content {
     width: 100%;
+    p:first-child {
+      margin-top: 0;
+    }
     p {
       margin: 15px 0;
     }

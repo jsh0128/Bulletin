@@ -4,7 +4,7 @@ import Link from "next/link";
 import styled from "styled-components";
 
 const Header = () => {
-  const redirectUrl = "http://localhost:3000/login";
+  const redirectUrl = `${process.env.NEXT_PUBLIC_URL}/login`;
 
   const { data } = useMeInfoApi();
 
