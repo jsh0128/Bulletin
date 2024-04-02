@@ -1,7 +1,5 @@
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useCategoryApi, useCategoryPosts } from "./api/useCategoryApi";
+import { useCategoryApi } from "./api/useCategoryApi";
 import CategoryItem from "./CategoryItem";
 
 const SideBar = () => {

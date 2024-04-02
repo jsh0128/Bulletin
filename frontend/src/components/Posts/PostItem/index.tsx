@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
-import { IPost } from "./types/PostItemType";
+import { IPost } from "../types/PostType";
 
 import dayjs from "dayjs";
 

@@ -3,9 +3,8 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import styled from "styled-components";
 import { usePostDetailApi } from "./api/usePostDetailApi";
-import ReactMarkdown from "react-markdown";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import Comments from "./Comments";
+import Markdown from "components/common/Markdown";
 
 const PostDetail = () => {
   const {
@@ -36,27 +35,7 @@ const PostDetail = () => {
       </div>
 
       <article className="content">
-        <ReactMarkdown
-          children={content}
-          components={{
-            code(props) {
-              const { children, className, node, ...rest } = props;
-              const match = /language-(\w+)/.exec(className || "");
-              return match ? (
-                <SyntaxHighlighter
-                  {...rest}
-                  PreTag="div"
-                  children={String(children).replace(/\n$/, "")}
-                  language={match[1]}
-                />
-              ) : (
-                <code {...rest} className={className}>
-                  {children}
-                </code>
-              );
-            },
-          }}
-        />
+        <Markdown content={content} />
       </article>
 
       <Comments />
@@ -87,18 +66,6 @@ const Container = styled.div`
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-  }
-  .content {
-    width: 100%;
-    p:first-child {
-      margin-top: 0;
-    }
-    p {
-      margin: 15px 0;
-    }
-    img {
-      width: 100%;
     }
   }
 `;

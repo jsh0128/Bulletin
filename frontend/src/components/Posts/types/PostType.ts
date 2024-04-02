@@ -9,3 +9,11 @@ export interface IPost {
   content: string;
   category: string[];
 }
+
+export interface ICreatePost {
+  title: string;
+  content: string;
+  introduction: string;
+  preview_img: string;
+  categories: string[];
+}

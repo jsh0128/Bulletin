@@ -1,6 +1,6 @@
 import axios from "common/lib/axios";
 import { IResponse } from "common/types";
-import { IPost } from "components/Posts/PostItem/types/PostItemType";
+import { IPost } from "components/Posts/types/PostType";
 
 class PostDetailApi {
   getPostDetail = async (idx: number) => {

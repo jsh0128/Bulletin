@@ -1,4 +1,5 @@
 import useCustomRouter from "common/hooks/useCustomRouter";
+import Button from "components/common/Button";
 import { useState } from "react";
 import styled from "styled-components";
 import { usePostComment } from "../api/useCommentApi";
@@ -28,7 +29,7 @@ const CreateComment = () => {
         onChange={(e) => setComment(e.target.value)}
       />
       <div className="btn">
-        <button onClick={onClickCreateBtn}>작성</button>
+        <Button onClick={onClickCreateBtn}>작성</Button>
       </div>
     </Container>
   );
@@ -51,19 +52,6 @@ const Container = styled.div`
   .btn {
     display: flex;
     justify-content: flex-end;
-    button {
-      padding: 5px 10px;
-      border-radius: 2px;
-      border: 1px solid black;
-      background-color: black;
-      color: white;
-      transition: 0.2s;
-      &:hover {
-        background-color: white;
-        color: black;
-        border: 1px solid black;
-      }
-    }
   }
 `;
 
