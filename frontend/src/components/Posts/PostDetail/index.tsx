@@ -3,8 +3,8 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import styled from "styled-components";
 import { usePostDetailApi } from "./api/usePostDetailApi";
-import ReactMarkdown from "react-markdown";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import Comments from "./Comments";
+import Markdown from "components/common/Markdown";
 
 const PostDetail = () => {
   const {
@@ -19,8 +19,12 @@ const PostDetail = () => {
 
   return (
     <Container>
-      <h1>{title}</h1>
-      <span>{dayjs(created_at).format("YYYY-MM-DD")}</span>
+      <header className="title">
+        <h1>{title}</h1>
+        <span className="title-time">
+          {dayjs(created_at).format("YYYY-MM-DD")}
+        </span>
+      </header>
       <div className="img_container">
         <Image
           alt={`${title}_썸네일`}
@@ -31,28 +35,10 @@ const PostDetail = () => {
       </div>
 
       <article className="content">
-        <ReactMarkdown
-          children={content}
-          components={{
-            code(props) {
-              const { children, className, node, ...rest } = props;
-              const match = /language-(\w+)/.exec(className || "");
-              return match ? (
-                <SyntaxHighlighter
-                  {...rest}
-                  PreTag="div"
-                  children={String(children).replace(/\n$/, "")}
-                  language={match[1]}
-                />
-              ) : (
-                <code {...rest} className={className}>
-                  {children}
-                </code>
-              );
-            },
-          }}
-        />
+        <Markdown content={content} />
       </article>
+
+      <Comments />
     </Container>
   );
 };
@@ -63,22 +49,23 @@ const Container = styled.div`
   flex-direction: column;
   padding: 10px 20px 0 20px;
 
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &-time {
+      color: #5e5e5e;
+    }
+  }
+
   .img_container {
     overflow: hidden;
+    margin-top: 10px;
     img {
       max-height: 500px;
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-  }
-  .content {
-    width: 100%;
-    p {
-      margin: 15px 0;
-    }
-    img {
-      width: 100%;
     }
   }
 `;
